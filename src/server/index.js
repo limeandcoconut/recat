@@ -5,7 +5,7 @@ import path from 'path'
 import chalk from 'chalk'
 // import manifestHelpers from 'express-manifest-helpers';
 import manifestHelpers from './middleware/manifest-helpers'
-import bodyParser from 'body-parser'
+// import bodyParser from 'body-parser'
 import {configureStore} from '../shared/store'
 import serverRender from './render'
 import paths from '../../config/paths'
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(cors())
 
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 app.use((req, res, next) => {
     req.store = configureStore()
