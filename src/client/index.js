@@ -1,26 +1,30 @@
 import React from 'react'
 import {hydrate} from 'react-dom'
 import {Provider} from 'react-redux'
-import {ConnectedRouter, routerMiddleware} from 'connected-react-router'
+import {ConnectedRouter} from 'connected-react-router'
 import {configureStore} from '../shared/store'
 import App from '../shared/App'
 import IntlProvider from '../shared/i18n/IntlProvider'
 import createHistory from '../shared/store/history'
 
-const browserHistory = createHistory()
+const history = createHistory()
 
 const store =
     window.store ||
     configureStore({
         initialState: window.__PRELOADED_STATE__,
-        middleware: [routerMiddleware(browserHistory)],
+        history,
     })
 
-console.log(store.getState())
+// console.log(window.location)
+// console.log('history.location')
+// console.log(history.location)
+// console.log(store.getState())
+// console.log(window.__PRELOADED_STATE__.router.location)
 
 hydrate(
     <Provider store={store}>
-        <ConnectedRouter history={browserHistory}>
+        <ConnectedRouter history={history}>
 
             <IntlProvider>
                 <App />
