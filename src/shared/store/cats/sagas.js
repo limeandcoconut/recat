@@ -1,5 +1,4 @@
 import {takeLatest, call, put} from 'redux-saga/effects'
-import axios from 'axios'
 import {succeedCat, failCat} from './actions.js'
 
 /* eslint-disable require-jsdoc */
@@ -22,12 +21,22 @@ function * workerSaga() {
 }
 
 function fetchCat() {
-    return axios({
-        method: 'get',
-        url: 'https://aws.random.cat/meow',
-    }).then((response) => {
+    // return axios({
+    //     method: 'get',
+    //     url: 'https://aws.random.cat/meow',
+    // }).then((response) => {
 
-        return response.data.file
+    //     return response.data.file
+    // })
+
+    return () => (fetch('https://aws.random.cat/meow', {
+        method: 'GET',
     })
+    .then((response) => {
+        return response.json().file
+    })
+    .then((response) => {
+        console.log(response)
+    }))
 }
 

@@ -1,9 +1,11 @@
 import {all} from 'redux-saga/effects'
-import watcherSaga from './cats/sagas.js'
+import catWatcherSaga from './cats/sagas.js'
+import authWatcherSaga from './auth/sagas.js'
 
 /* eslint-disable require-jsdoc */
 export default function * rootSaga() {
     yield all([
-        watcherSaga(),
+        catWatcherSaga(),
+        authWatcherSaga(),
     ])
 }
