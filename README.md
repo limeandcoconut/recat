@@ -2,6 +2,55 @@
 - THIS IS BASED OFF [react-ssr-setup](https://github.com/manuelbieh/react-ssr-setup) by [Manuel Bieh](https://github.com/manuelbieh)
 - COMMITS ARE DIRTY
 
+# TODOS
+
+# Write
+## Pages
+login
+cats
+logout
+
+# Components
+privateroute
+form
+input
+image
+button
+
+
+# Server
+fastify?
+helmet?
+cors?
+state to ssr
+
+
+# Understand
+react helmet
+how server is bundled
+how to start production
+
+
+# Features
+less
+haproxy
+service worker
+compression
+
+
+# V2
+password reset
+
+# Cleanup
+normalize file names
+remove extra files
+changelog
+readme
+license
+swap names
+plop?
+testing?
+
 
 # ⚛ React + Express – SSR Setup
 
