@@ -108,7 +108,6 @@ export default (opts) => {
 
     manifest = null
     Object.assign(options, defaults, opts)
-    console.log(options)
 
     return (req, res, next) => {
         res.locals.getSources = getSources

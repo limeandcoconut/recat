@@ -27,7 +27,10 @@ const serverRenderer = () => (req, res) => {
     // console.log('DUMP', content)
 
     const state = JSON.stringify(req.store.getState())
+    // console.log('state', state)
     console.log('state', state)
+    console.log('state', JSON.parse(state))
+
     // console.log('state', Object.keys(state))
     console.log('req', req.url)
 
