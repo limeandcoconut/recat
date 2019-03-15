@@ -2,7 +2,9 @@
   "name": "react-silver-bullet",
   "version": "2.5.2",
   "author": "Jacob Smith <js@jacobsmith.tech> (https://github.com/limeandcoconut)",
-  "contributors": ["Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)"],
+  "contributors": [
+    "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">=8.11.3",
@@ -31,7 +33,9 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.3.4",
+    "argon2": "^0.21.0",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
     "connected-react-router": "^6.2.2",
     "cors": "^2.8.5",
@@ -40,6 +44,7 @@
     "history": "^4.7.2",
     "i18next": "^14.0.1",
     "immer": "^2.0.0",
+    "pg": "^7.8.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-helmet": "^5.2.0",
@@ -51,6 +56,7 @@
     "redux-saga": "^1.0.2",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "sequelize": "^5.1.0",
     "serve-static": "^1.13.2"
   },
   "devDependencies": {
