@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next';
 import { setLocale } from './store/app/actions';
 import { requestCat } from './store/cats/actions'
 import { ReactComponent as ReactLogo } from './assets/react.svg';
-import Features from './components/Features';
+// import Features from './components/Features';
 import css from './App.module.css';
 // import {Switch, Route} from 'react-router-dom'
 import {NavLink, Switch, Route} from 'react-router-dom'
@@ -14,7 +14,7 @@ import routes from '../shared/routes'
 // import PrivateRoute from './components/PrivateRoute'
 
 
-class App extends React.PureComponent {
+class App extends React.Component {
     setLanguage = (e) => {
         //this.store.dispatch(setLocale(e.target.value))
         this.props.setLocale(e.target.value);
@@ -30,8 +30,8 @@ class App extends React.PureComponent {
                     <NavLink to="/page1">
                         Page 1
                     </NavLink>
-                    <NavLink to="/page2">
-                        Page 2
+                    <NavLink to="/register">
+                        Register
                     </NavLink> 
                 </nav>
 
@@ -62,7 +62,7 @@ class App extends React.PureComponent {
 
                 {catError && <p style={{color: "red"}}>{JSON.stringify(catError)}</p> &&  console.log(catError)}
 
-                <Features />
+                {/* <Features /> */}
 
                 <h2>{t('i18n-example')}</h2>
                 <p>

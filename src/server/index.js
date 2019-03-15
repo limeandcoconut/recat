@@ -8,11 +8,15 @@ import manifestHelpers from './middleware/manifest-helpers'
 import {configureStore} from '../shared/store'
 import serverRender from './render'
 import paths from '../../config/paths'
+import bodyParser from 'body-parser'
 import createHistory from '../shared/store/history'
+
+import {register} from './controllers/register-controller'
 
 require('dotenv').config()
 
 const app = express()
+const auth = express.Router()
 
 // Use Nginx or Apache to serve static assets in production or remove the if() around the following
 // lines to use the express.static middleware to serve assets for production (not recommended!)
@@ -24,6 +28,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(cors())
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded())
+
+app.use('/auth', auth)
 
 app.use((req, res, next) => {
     const history = createHistory({initialEntries: [req.url]})
@@ -62,6 +71,10 @@ app.use((err, req, res, /* next */) => {
                 )
             ),
     })
+})
+
+auth.post('/register', async (req, res) => {
+    res.send(await register(req.body))
 })
 
 app.listen(process.env.PORT || 8500, () => {
