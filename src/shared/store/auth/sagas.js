@@ -18,9 +18,10 @@ function * workerSaga() {
     try {
         // console.log('here', form)
         const {success, error} = yield call(makeRegisterRequest(form))
-        // console.log('client res', {success, error})
+
         if (!success) {
             yield put(failRegistration(error))
+            return
         }
         yield put(succeedRegistration())
     } catch (error) {
