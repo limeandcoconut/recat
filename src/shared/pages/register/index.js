@@ -3,7 +3,7 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 // import { withNamespaces } from 'react-i18next';
 // import { setLocale } from './store/app/actions';
-import {updateRegistration, requestRegistration, toggleLogin} from '../../store/auth/actions'
+import {updateRegistration, requestRegistration, toggleLogin} from '../../store/registration/actions'
 // import {ReactComponent as ReactLogo} from './assets/react.svg'
 import Input from '../../components/input';
 // import css from './App.module.css'
@@ -97,7 +97,7 @@ const mapDispatchToProps = {
     requestRegistration,
 }
 
-const mapStateToProps = ({auth: {registration: {success, requested, error} = {}, form} = {}}) => ({
+const mapStateToProps = ({registration: {success, requested, error, form} = {}}) => ({
     success,
     requested,
     form,

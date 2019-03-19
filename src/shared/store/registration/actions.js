@@ -1,19 +1,20 @@
-export const updateRegistration = (formUpdate) => ({
-    type: 'AUTH/UPDATE_FORM',
+export const updateRegistration = ({name, value}) => ({
+    type: 'REGISTRATION/UPDATE_FORM',
     payload: {
-        formUpdate,
+        name,
+        value,
     },
 })
 
 export const requestRegistration = () => ({
-    type: 'AUTH/REQUEST_REGISTRATION',
+    type: 'REGISTRATION/REQUEST_REGISTRATION',
     payload: {
         requested: true,
     },
 })
 
 export const succeedRegistration = () => ({
-    type: 'AUTH/REGISTRATION_SUCCESS',
+    type: 'REGISTRATION/REGISTRATION_SUCCESS',
     payload: {
         success: true,
         requested: false,
@@ -21,7 +22,7 @@ export const succeedRegistration = () => ({
 })
 
 export const failRegistration = (error) => ({
-    type: 'AUTH/REGISTRATION_FAILURE',
+    type: 'REGISTRATION/REGISTRATION_FAILURE',
     payload: {
         success: false,
         requested: false,
@@ -29,10 +30,10 @@ export const failRegistration = (error) => ({
     },
 })
 
-export const toggleLogin = () => {
-    console.log('foo')
-    return {
-        type: 'AUTH/TOGGLE_LOGIN',
-        payload: {},
-    }
-}
+// export const toggleLogin = () => {
+//     console.log('foo')
+//     return {
+//         type: 'AUTH/TOGGLE_LOGIN',
+//         payload: {},
+//     }
+// }
