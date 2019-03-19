@@ -23,6 +23,8 @@ fastify?
 helmet?
 cors?
 state to ssr
+signed cookies + tls
+actually encrypted cookies
 
 
 # Understand

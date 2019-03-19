@@ -48,9 +48,6 @@ function makeRegisterRequest(form) {
     })
     .then((response) => {
         return response.json()
-    })
-    .then((response) => {
-        console.log(response)
     }))
 }
 

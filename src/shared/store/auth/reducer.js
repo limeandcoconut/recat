@@ -17,7 +17,7 @@ export const initialState = Object.freeze({
 
 export default (state = initialState, action) =>
     produce(state, (draft) => {
-        const {type, payload: {registration = {}, formUpdate: {name, value} = {}} = {}} = action
+        const {type, payload: {requested, success, error, formUpdate: {name, value} = {}} = {}} = action
         // const {auth: {form = {}, registration = {}} = {}} = draft
         // console.log(action)
         switch (type) {
@@ -33,16 +33,16 @@ export default (state = initialState, action) =>
             draft.form[name] = value
             break
         case 'AUTH/REQUEST_REGISTRATION':
-            draft.registration.requested = registration.requested
+            draft.registration.requested = requested
             break
         case 'AUTH/REGISTRATION_SUCCESS':
-            draft.registration.requested = registration.requested
-            draft.registration.success = registration.success
+            draft.registration.requested = requested
+            draft.registration.success = success
             break
         case 'AUTH/REGISTRATION_FAILURE':
-            draft.registration.requested = registration.requested
-            draft.registration.success = registration.success
-            draft.registration.error = registration.error
+            draft.registration.requested = requested
+            draft.registration.success = success
+            draft.registration.error = error
             break
         default:
             // yay
