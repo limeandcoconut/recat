@@ -5,10 +5,10 @@ import {connect} from 'react-redux'
 // import { setLocale } from './store/app/actions';
 import {updateRegistration, requestRegistration} from '../../store/auth/actions'
 // import {ReactComponent as ReactLogo} from './assets/react.svg'
-// import Features from './components/Features';
+import Input from '../input';
 // import css from './App.module.css'
 // import {Switch, Route} from 'react-router-dom'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 // import {renderRoutes} from 'react-router-config'
 // import routes from '../shared/routes'
 // import PrivateRoute from './components/PrivateRoute'
@@ -21,40 +21,30 @@ class Register extends React.Component {
 
     handleChange = (e) => {
         const {name, value} = e.target
+        console.log(this, name, value)
         this.props.updateRegistration({name, value})
     }
 
     render() {
         const {success, requested, form, error} = this.props
+        console.log(form)
+        // const types = {
+
+        // }
 
         return (
             <div /* className={css.wrapper} */>
-                {error &&
-                    <div>{JSON.stringify(error, null, 4)}</div>
-                }
-                {success &&
-                    <div>success</div>
-                }
                 {!requested && !success ? (
                     <div>
-                        <div>
-                            <label>
-                                    username
-                                <input type="text" name="username" value={form.username} onChange={this.handleChange} required/>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                    password
-                                <input type="password" name="password" value={form.password} onChange={this.handleChange} required/>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                    email
-                                <input type="email" name="email" value={form.email} onChange={this.handleChange} required/>
-                            </label>
-                        </div>
+
+                        { ['username', 'password', 'email'].map((name) => (
+                            <Input 
+                                name={name} 
+                                value={form[name]} 
+                                onChange={this.handleChange}  
+                                type={(name === 'email' || name === 'password') ? name : 'text'} 
+                            />)) 
+                        }
 
                         <button
                             onClick={() => {
@@ -88,6 +78,17 @@ class Register extends React.Component {
                 ) : (
                     <div>requested...</div>
                 )}
+
+                {error &&
+                    <div>{JSON.stringify(error, null, 4)}</div>
+                }
+
+                {success &&
+                    <div>
+                        success
+                        <Redirect to={{pathname: "/login"}}/>
+                    </div>
+                }
             </div>
         )
     }
