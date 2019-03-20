@@ -14,7 +14,7 @@ class Header extends React.Component {
         const {t, success: authed} = this.props
         return (
             <nav>
-                <NavLink to="/page1">
+                <NavLink to="/">
                         Home
                 </NavLink>|
                 <Authed>

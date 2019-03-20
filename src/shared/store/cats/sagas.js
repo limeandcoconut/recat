@@ -29,14 +29,24 @@ function fetchCat() {
     //     return response.data.file
     // })
 
-    return () => (fetch('https://aws.random.cat/meow', {
-        method: 'GET',
+    // return fetch('https://aws.random.cat/meow', {
+    //     method: 'GET',
+    // })
+    // .then((response) => {
+    //     return response.json().file
+    // })
+
+    return new Promise(async (resolve) => {
+        const response = await fetch('https://aws.random.cat/meow', {method: 'GET'})
+        const json = await response.json()
+        resolve(json.file)
     })
-    .then((response) => {
-        return response.json().file
-    })
-    .then((response) => {
-        console.log(response)
-    }))
 }
 
+// function fetchCat() {
+//     return async function() {
+//         const response = await fetch('https://aws.random.cat/meow', {method: 'GET'})
+//         const json = await response.json()
+//         return json.file
+//     }
+// }

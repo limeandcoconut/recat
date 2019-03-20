@@ -1,12 +1,12 @@
 export const requestCat = () => ({
     type: 'CATS/REQUEST_CAT',
-    payload: {fetching: true},
+    payload: {requested: true},
 })
 
 export const succeedCat = (src) => ({
     type: 'CATS/FETCH_SUCCESS',
     payload: {
-        fetching: false,
+        requested: false,
         src,
     },
 })
@@ -14,7 +14,7 @@ export const succeedCat = (src) => ({
 export const failCat = (error) => ({
     type: 'CATS/FETCH_FAILURE',
     payload: {
-        fetching: false,
+        requested: false,
         src: null,
         // TODO: Grumpycat
         error: error || 'UNKNOWN ERROR FETCHING CAT',

@@ -3,13 +3,14 @@
 import Page1 from './pages/Page-1'
 import Register from './pages/register'
 import Login from './pages/login'
+import Home from './pages/home'
 // import { NotFound } from './components/NotFound'
 
 export default [
     {
         path: '/',
         exact: true,
-        component: Page1,
+        component: Home,
     },
     {
         path: '/page1',
