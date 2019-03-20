@@ -9,8 +9,12 @@ import { ReactComponent as ReactLogo } from './assets/react.svg';
 import css from './App.module.css';
 // import {Switch, Route} from 'react-router-dom'
 import {NavLink, Switch, Route} from 'react-router-dom'
+import AuthRoute from '../shared/components/authroute'
 // import {renderRoutes} from 'react-router-config'
 import routes from '../shared/routes'
+import Header from '../shared/components/header'
+import Authed from '../shared/components/authed'
+import Anon from '../shared/components/anon'
 // import PrivateRoute from './components/PrivateRoute'
 
 
@@ -26,41 +30,19 @@ class App extends React.Component {
         return (
             <div className={css.wrapper}>
 
-                <nav>
-                    <NavLink to="/page1">
-                        Page 1
-                    </NavLink>
-                    <NavLink to="/register">
-                        Register
-                    </NavLink> 
-                </nav>
+                <Header/>
 
                 <Switch>
-                    { routes.map((route) => <Route key={ route.path } { ...route } />) }
+                    { 
+                        routes.map((route) => {
+                            const Component = route.auth ? AuthRoute : Route
+                            return <Component key={ route.path } { ...route } />
+                        }) 
+                    }
                 </Switch>
 
                 <Helmet defaultTitle="React SSR Starter" titleTemplate="%s – React SSR Starter" />
 
-
-                {catSrc ? (
-                    <div>
-                        <img src={catSrc} className="cat-pic" alt="A pic of the bestest kitty cat evar!" />
-                        <p className="App-intro">Keep clicking for new cats</p>
-                    </div>
-                ) : (
-                    <div>
-                        <ReactLogo className={css.reactLogo} />
-                        <p className="App-intro">Replace the logo with a cat!</p>
-                    </div>
-                )}
-
-                {fetchingCat ? (
-                    <button disabled>Fetching...</button>
-                ) : (
-                    <button onClick={requestCat}>Request a Cat</button>
-                )}
-
-                {catError && <p style={{color: "red"}}>{JSON.stringify(catError)}</p> &&  console.log(catError)}
 
                 {/* <Features /> */}
 
@@ -80,16 +62,16 @@ class App extends React.Component {
 
 const mapDispatchToProps = {
     setLocale,
-    requestCat,
+    // requestCat,
 };
 
-const mapStateToProps = ({cats: {fetching, error, src} = {}}) => ({
-    fetchingCat: fetching, 
-    catError: error,
-    catSrc: src,
-})
+// const mapStateToProps = ({cats: {fetching, error, src} = {}}) => ({
+//     fetchingCat: fetching, 
+//     catError: error,
+//     catSrc: src,
+// })
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(withNamespaces()(App));

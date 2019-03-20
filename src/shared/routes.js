@@ -15,6 +15,7 @@ export default [
         path: '/page1',
         exact: true,
         component: Page1,
+        auth: true,
     },
     {
         path: '/register',
