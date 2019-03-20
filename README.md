@@ -26,6 +26,7 @@ cors?
 state to ssr
 signed cookies + tls
 actually encrypted cookies
+add dummy auth with aws cat endpoint logic
 
 
 # Understand
@@ -39,6 +40,13 @@ less
 haproxy
 service worker
 compression
+
+# Images
+caddy
+convert to webp
+store brotli
+store regular tool
+skip tar
 
 
 # V2
