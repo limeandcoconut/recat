@@ -42,6 +42,9 @@ compression
 
 # V2
 password reset
+rate limit routes
+check speed of encryption
+consider switch to standard redis continer
 
 # Cleanup
 normalize file names
