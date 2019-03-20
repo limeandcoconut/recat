@@ -56,12 +56,7 @@ class Home extends React.Component {
                         <img src={catSrc} className="cat-pic" alt="A pic of the bestest kitty cat evar!" />
                         <p className="App-intro">Keep clicking for new cats</p>
                     </div>
-                // ) : (
-                    // <div>
-                    //     Replace this with a cat
-                    // </div>
                 }
-                {/* {catError && <p style={{color: 'red'}}>{JSON.stringify(catError)}</p> && console.log(catError)} */}
                 {this.formatMessage()}
                 {catRequested ?
                     <button disabled>Fetching...</button> :
@@ -87,6 +82,4 @@ const mapStateToProps = ({auth: {success: authed}, cats: {requested: catRequeste
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-    // null,
-    // {pure: false}
 )(Home)

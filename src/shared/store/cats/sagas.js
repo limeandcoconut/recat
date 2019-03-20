@@ -9,7 +9,6 @@ export default function * watcherSaga() {
 function * workerSaga() {
     try {
         const src = yield call(fetchCat)
-        // const src = response
 
         console.log('src')
         console.log(src)
@@ -21,20 +20,6 @@ function * workerSaga() {
 }
 
 function fetchCat() {
-    // return axios({
-    //     method: 'get',
-    //     url: 'https://aws.random.cat/meow',
-    // }).then((response) => {
-
-    //     return response.data.file
-    // })
-
-    // return fetch('https://aws.random.cat/meow', {
-    //     method: 'GET',
-    // })
-    // .then((response) => {
-    //     return response.json().file
-    // })
 
     return new Promise(async (resolve) => {
         const response = await fetch('https://aws.random.cat/meow', {method: 'GET'})
@@ -42,11 +27,3 @@ function fetchCat() {
         resolve(json.file)
     })
 }
-
-// function fetchCat() {
-//     return async function() {
-//         const response = await fetch('https://aws.random.cat/meow', {method: 'GET'})
-//         const json = await response.json()
-//         return json.file
-//     }
-// }
