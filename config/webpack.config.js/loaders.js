@@ -1,9 +1,9 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const generateSourceMap = process.env.OMIT_SOURCEMAP === 'true' ? false : true;
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true';
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
-const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
+const cssRegex = /\.css$/
+const cssModuleRegex = /\.module\.css$/
 
 const babelLoader = {
     test: /\.(js|jsx|mjs)$/,
@@ -12,7 +12,7 @@ const babelLoader = {
     options: {
         plugins: [
             [
-                //TODO: This. Both parts.
+                // TODO: This. Both parts.
                 require.resolve('babel-plugin-named-asset-import'),
                 {
                     loaderMap: {
@@ -27,12 +27,12 @@ const babelLoader = {
         cacheCompression: process.env.NODE_ENV === 'production',
         compact: process.env.NODE_ENV === 'production',
     },
-};
+}
 
 const cssModuleLoaderClient = {
     test: cssModuleRegex,
     use: [
-        //TODO: This.
+        // TODO: This.
         require.resolve('css-hot-loader'),
         MiniCssExtractPlugin.loader,
         {
@@ -53,7 +53,7 @@ const cssModuleLoaderClient = {
             },
         },
     ],
-};
+}
 
 const cssLoaderClient = {
     test: cssRegex,
@@ -69,7 +69,7 @@ const cssLoaderClient = {
             },
         },
     ],
-};
+}
 
 //TODO: Look into less and what's happening here
 const cssModuleLoaderServer = {
@@ -93,13 +93,13 @@ const cssModuleLoaderServer = {
             },
         },
     ],
-};
+}
 
 const cssLoaderServer = {
     test: cssRegex,
     exclude: cssModuleRegex,
     loader: require.resolve('css-loader'),
-};
+}
 
 //TODO: Look into asset loading
 const urlLoaderClient = {
@@ -109,7 +109,7 @@ const urlLoaderClient = {
         limit: 2048,
         name: 'assets/[name].[hash:8].[ext]',
     },
-};
+}
 
 const urlLoaderServer = {
     ...urlLoaderClient,
@@ -117,7 +117,7 @@ const urlLoaderServer = {
         ...urlLoaderClient.options,
         emitFile: false,
     },
-};
+}
 
 const fileLoaderClient = {
     exclude: [/\.(js|css|mjs|html|ejs|json)$/],
@@ -129,7 +129,7 @@ const fileLoaderClient = {
             },
         },
     ],
-};
+}
 
 const fileLoaderServer = {
     exclude: [/\.(js|css|mjs|html|ejs|json)$/],
@@ -142,7 +142,7 @@ const fileLoaderServer = {
             },
         },
     ],
-};
+}
 
 const client = [
     {
@@ -154,7 +154,7 @@ const client = [
             fileLoaderClient,
         ],
     },
-];
+]
 const server = [
     {
         oneOf: [
@@ -165,9 +165,9 @@ const server = [
             fileLoaderServer,
         ],
     },
-];
+]
 
 module.exports = {
     client,
     server,
-};
+}
