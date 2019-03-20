@@ -51,12 +51,12 @@
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "redis": "^2.8.0",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "sequelize": "^5.1.0",
-    "serve-static": "^1.13.2"
+    "sequelize": "^5.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

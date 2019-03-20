@@ -2,7 +2,7 @@
 // import App from './App'
 import Page1 from './pages/Page-1'
 import Register from './pages/register'
-// import login from './pages/login'
+import Login from './pages/login'
 // import { NotFound } from './components/NotFound'
 
 export default [
@@ -20,6 +20,11 @@ export default [
         path: '/register',
         exact: true,
         component: Register,
+    },
+    {
+        path: '/login',
+        exact: true,
+        component: Login,
     },
     // { path: '*',
     //   component: NotFound

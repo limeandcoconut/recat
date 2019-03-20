@@ -24,7 +24,7 @@ export default (state = initialState, action) =>
         // case 'AUTH/TOGGLE_LOGIN':
         //     draft.showLogin = !draft.showLogin
         //     break
-        case 'REGISTRATION/UPDATE_FORM':
+        case 'LOGIN/UPDATE_FORM':
             // draft.form = {
             //     ...draft.form,
             //     [name]: value,
@@ -32,14 +32,14 @@ export default (state = initialState, action) =>
             // console.log(draft.form)
             draft.form[name] = value
             break
-        case 'REGISTRATION/REQUEST_REGISTRATION':
+        case 'LOGIN/REQUEST_LOGIN':
             draft.requested = requested
             break
-        case 'REGISTRATION/REGISTRATION_SUCCESS':
+        case 'LOGIN/LOGIN_SUCCESS':
             draft.requested = requested
             draft.success = success
             break
-        case 'REGISTRATION/REGISTRATION_FAILURE':
+        case 'LOGIN/LOGIN_FAILURE':
             draft.requested = requested
             draft.success = success
             draft.error = error

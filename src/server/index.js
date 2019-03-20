@@ -11,7 +11,7 @@ import paths from '../../config/paths'
 import bodyParser from 'body-parser'
 import createHistory from '../shared/store/history'
 
-import {register} from './controllers/register-controller'
+import {register, login, checkAuth} from './controllers/auth-controller'
 
 require('dotenv').config()
 
@@ -74,7 +74,32 @@ app.use((err, req, res, /* next */) => {
 })
 
 auth.post('/register', async (req, res) => {
-    res.send(await register(req.body))
+    const {response} = await register(req.body)
+    res.send(response)
+})
+
+auth.post('/login', async (req, res) => {
+    const {response, cookie} = await login(req.body)
+    // console.log(response, cookie)
+    res.set('Set-Cookie', cookie)
+    res.send(response)
+})
+
+auth.post('/check', async (req, res) => {
+    const cookie = req.header('cookie')
+    if (!cookie) {
+        res.send({success: false, error: 'no cookie'})
+        return
+    }
+    let encryptedCookie = cookie.match(/session=(\w+)/)
+    if (!encryptedCookie || !encryptedCookie[1]) {
+        res.send({success: false, error: 'invalid cookie'})
+        return
+    }
+    encryptedCookie = encryptedCookie[1]
+    const {response} = await checkAuth(encryptedCookie)
+
+    res.send(response)
 })
 
 app.listen(process.env.PORT || 8500, () => {
