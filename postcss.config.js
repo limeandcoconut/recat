@@ -4,10 +4,16 @@ const browsers = {
     browsers: ['> 1%', 'last 2 versions'],
 }
 
+// console.log(require('postcss-less'))
+
 module.exports = {
+    ident: 'postcss',
     plugins: [
         // Import from local files, node modules or web_modules.
         // https://github.com/postcss/postcss-import
+        // Import from local files, node modules or web_modules.
+        // https://github.com/postcss/postcss-import
+        // require('postcss-less').parse,
         require('postcss-import')({
             path: [paths.srcShared],
         }),
@@ -29,4 +35,6 @@ module.exports = {
         require('postcss-normalize')(browsers),
     ],
     sourceMap: true,
+    // sourceMap: false,
+    syntax: require.resolve('postcss-less'),
 }

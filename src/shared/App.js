@@ -6,7 +6,7 @@ import { setLocale } from './store/app/actions';
 import { requestCat } from './store/cats/actions'
 import { ReactComponent as ReactLogo } from './assets/react.svg';
 // import Features from './components/Features';
-import css from './App.module.css';
+import styles from './app.module.less';
 // import {Switch, Route} from 'react-router-dom'
 import {NavLink, Switch, Route} from 'react-router-dom'
 import AuthRoute from '../shared/components/authroute'
@@ -28,7 +28,7 @@ class App extends React.Component {
         const { t, fetchingCat, catError, catSrc, requestCat } = this.props; 
 
         return (
-            <div className={css.wrapper}>
+            <div className={styles.wrapper}>
 
                 <Header/>
 

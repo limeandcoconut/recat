@@ -1,9 +1,13 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true';
+const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true'
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
-const cssRegex = /\.css$/
-const cssModuleRegex = /\.module\.css$/
+// const cssRegex = /\.css$/
+// const cssModuleRegex = /\.module\.css$/
+const lessRegex = /\.less$/
+const lessModuleRegex = /\.module\.less$/
+
+const postcssOptions = require('../../postcss.config')
 
 const babelLoader = {
     test: /\.(js|jsx|mjs)$/,
@@ -29,8 +33,51 @@ const babelLoader = {
     },
 }
 
-const cssModuleLoaderClient = {
-    test: cssModuleRegex,
+// const cssModuleLoaderClient = {
+//     test: cssModuleRegex,
+//     use: [
+//         // TODO: This.
+//         require.resolve('css-hot-loader'),
+//         MiniCssExtractPlugin.loader,
+//         {
+//             loader: require.resolve('css-loader'),
+//             options: {
+//                 camelCase: true,
+//                 modules: true,
+//                 importLoaders: 1,
+//                 // Why generate sourcemap here and not on server???
+//                 sourceMap: generateSourceMap,
+//                 // localIdentName: '[name]__[local]--[hash:base64:5]',
+//                 getLocalIdent: getCSSModuleLocalIdent,
+//             },
+//         },
+//         {
+//             loader: require.resolve('postcss-loader'),
+//             options: {
+//                 sourceMap: generateSourceMap,
+//             },
+//         },
+//     ],
+// }
+
+// const cssLoaderClient = {
+//     test: cssRegex,
+//     exclude: cssModuleRegex,
+//     use: [
+//         require.resolve('css-hot-loader'),
+//         MiniCssExtractPlugin.loader,
+//         require.resolve('css-loader'),
+//         {
+//             loader: require.resolve('postcss-loader'),
+//             options: {
+//                 sourceMap: generateSourceMap,
+//             },
+//         },
+//     ],
+// }
+
+const lessModuleLoaderClient = {
+    test: lessModuleRegex,
     use: [
         // TODO: This.
         require.resolve('css-hot-loader'),
@@ -40,68 +87,121 @@ const cssModuleLoaderClient = {
             options: {
                 camelCase: true,
                 modules: true,
-                importLoaders: 1,
+                importLoaders: 2,
+                // Why generate sourcemap here and not on server???
                 sourceMap: generateSourceMap,
                 // localIdentName: '[name]__[local]--[hash:base64:5]',
                 getLocalIdent: getCSSModuleLocalIdent,
             },
         },
         {
+            loader: require.resolve('less-loader'),
+        },
+        {
             loader: require.resolve('postcss-loader'),
             options: {
-                sourceMap: generateSourceMap,
+                // syntax: require.resolve('postcss-less'),
+                // sourceMap: generateSourceMap,
+                // ...postcssOptions,
             },
         },
     ],
 }
 
-const cssLoaderClient = {
-    test: cssRegex,
-    exclude: cssModuleRegex,
+const lessLoaderClient = {
+    test: lessRegex,
+    exclude: lessModuleRegex,
     use: [
         require.resolve('css-hot-loader'),
         MiniCssExtractPlugin.loader,
         require.resolve('css-loader'),
         {
+            loader: require.resolve('less-loader'),
+        },
+        {
             loader: require.resolve('postcss-loader'),
             options: {
-                sourceMap: generateSourceMap,
+                // syntax: require.resolve('postcss-less'),
+                // sourceMap: generateSourceMap,
+                // ...postcssOptions,
             },
         },
     ],
 }
 
-//TODO: Look into less and what's happening here
-const cssModuleLoaderServer = {
-    test: cssModuleRegex,
+// TODO: Look into less and what's happening here
+
+// Why generate sourcemap here and not in previous loader???
+const lessModuleLoaderServer = {
+    test: lessModuleRegex,
     use: [
         {
             loader: require.resolve('css-loader'),
             options: {
-                exportOnlyLocals: true,
                 camelCase: true,
-                importLoaders: 1,
                 modules: true,
+                importLoaders: 2,
                 // localIdentName: '[name]__[local]--[hash:base64:5]',
                 getLocalIdent: getCSSModuleLocalIdent,
+                exportOnlyLocals: true,
             },
+        },
+        {
+            loader: require.resolve('less-loader'),
         },
         {
             loader: require.resolve('postcss-loader'),
             options: {
-                sourceMap: generateSourceMap,
+                // syntax: require.resolve('postcss-less'),
+                // sourceMap: generateSourceMap,
+                // ...postcssOptions,
             },
         },
     ],
 }
 
-const cssLoaderServer = {
-    test: cssRegex,
-    exclude: cssModuleRegex,
-    loader: require.resolve('css-loader'),
+const lessLoaderServer = {
+    test: lessRegex,
+    exclude: lessModuleRegex,
+    use: [
+        require.resolve('css-loader'),
+        {
+            loader: require.resolve('less-loader'),
+        },
+    ],
 }
 
-//TODO: Look into asset loading
+// const cssModuleLoaderServer = {
+//     test: cssModuleRegex,
+//     use: [
+//         {
+//             loader: require.resolve('css-loader'),
+//             options: {
+//                 camelCase: true,
+//                 modules: true,
+//                 importLoaders: 1,
+//                 // localIdentName: '[name]__[local]--[hash:base64:5]',
+//                 getLocalIdent: getCSSModuleLocalIdent,
+//                 exportOnlyLocals: true,
+//             },
+//         },
+//         {
+//             loader: require.resolve('postcss-loader'),
+//             options: {
+//                 // Why generate sourcemap here and not in previous loader???
+//                 sourceMap: generateSourceMap,
+//             },
+//         },
+//     ],
+// }
+
+// const cssLoaderServer = {
+//     test: cssRegex,
+//     exclude: cssModuleRegex,
+//     loader: require.resolve('css-loader'),
+// }
+
+// TODO: Look into asset loading
 const urlLoaderClient = {
     test: /\.(png|jpe?g|gif|svg)$/,
     loader: require.resolve('url-loader'),
@@ -148,8 +248,8 @@ const client = [
     {
         oneOf: [
             babelLoader,
-            cssModuleLoaderClient,
-            cssLoaderClient,
+            lessModuleLoaderClient,
+            lessLoaderClient,
             urlLoaderClient,
             fileLoaderClient,
         ],
@@ -159,8 +259,8 @@ const server = [
     {
         oneOf: [
             babelLoader,
-            cssModuleLoaderServer,
-            cssLoaderServer,
+            lessModuleLoaderServer,
+            lessLoaderServer,
             urlLoaderServer,
             fileLoaderServer,
         ],

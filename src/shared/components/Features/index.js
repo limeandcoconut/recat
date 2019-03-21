@@ -1,16 +1,16 @@
 import * as React from 'react'
 import {withNamespaces} from 'react-i18next'
-import css from './Features.module.css'
+import styles from './features.module.less'
 
 const Features = ({t}) => (
     <>
         <h2>{t('features')}</h2>
-        <ul className={css.wrapper}>
-            <li className={css.hot}>Webpack 4</li>
-            <li className={css.hot}>Babel 7</li>
-            <li className={css.hot}>ESLint 5</li>
-            <li className={css.hot}>Jest 24</li>
-            <li className={css.react}>React 16.x (latest), with Hooks!</li>
+        <ul className={styles.wrapper}>
+            <li className={styles.hot}>Webpack 4</li>
+            <li className={styles.hot}>Babel 7</li>
+            <li className={styles.hot}>ESLint 5</li>
+            <li className={styles.hot}>Jest 24</li>
+            <li className={styles.react}>React 16.x (latest), with Hooks!</li>
             <li>React Router 4</li>
             <li>Redux (+ Thunk)</li>
             <li>Immer</li>
