@@ -3,17 +3,14 @@ const browsers = {
     // browsers: ['last 2 versions', 'ie >= 9', 'Edge <= 15'],
     browsers: ['> 1%', 'last 2 versions'],
 }
-
-// console.log(require('postcss-less'))
+// TODO: colorblind config
 
 module.exports = {
     ident: 'postcss',
     plugins: [
+        // require('postcss-colorblind')(),
         // Import from local files, node modules or web_modules.
         // https://github.com/postcss/postcss-import
-        // Import from local files, node modules or web_modules.
-        // https://github.com/postcss/postcss-import
-        // require('postcss-less').parse,
         require('postcss-import')({
             path: [paths.srcShared],
         }),
@@ -34,7 +31,8 @@ module.exports = {
         // https://github.com/csstools/postcss-normalize
         require('postcss-normalize')(browsers),
     ],
+    // TODO: This doesn't appear to be respected. Check that.
     sourceMap: true,
-    // sourceMap: false,
+
     syntax: require.resolve('postcss-less'),
 }
