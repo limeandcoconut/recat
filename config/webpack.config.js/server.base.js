@@ -1,10 +1,10 @@
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+const path = require('path')
+const nodeExternals = require('webpack-node-externals')
 
-const paths = require('../paths');
-const { server: serverLoaders } = require('./loaders');
-const resolvers = require('./resolvers');
-const plugins = require('./plugins');
+const paths = require('../paths')
+const {server: serverLoaders} = require('./loaders')
+const resolvers = require('./resolvers')
+const plugins = require('./plugins')
 
 module.exports = {
     name: 'server',
@@ -25,7 +25,7 @@ module.exports = {
         publicPath: paths.publicPath,
         // libraryTarget: 'commonjs2',
     },
-    resolve: { ...resolvers },
+    resolve: {...resolvers},
     module: {
         rules: serverLoaders,
     },
@@ -33,4 +33,4 @@ module.exports = {
     stats: {
         colors: true,
     },
-};
+}

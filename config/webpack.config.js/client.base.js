@@ -1,8 +1,8 @@
-const path = require('path');
-const paths = require('../paths');
-const { client: clientLoaders } = require('./loaders');
-const resolvers = require('./resolvers');
-const plugins = require('./plugins');
+const path = require('path')
+const paths = require('../paths')
+const {client: clientLoaders} = require('./loaders')
+const resolvers = require('./resolvers')
+const plugins = require('./plugins')
 
 module.exports = {
     name: 'client',
@@ -19,7 +19,7 @@ module.exports = {
     module: {
         rules: clientLoaders,
     },
-    resolve: { ...resolvers },
+    resolve: {...resolvers},
     plugins: [...plugins.shared, ...plugins.client],
     node: {
         dgram: 'empty',
@@ -53,4 +53,4 @@ module.exports = {
         timings: true,
         version: false,
     },
-};
+}
