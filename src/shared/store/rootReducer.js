@@ -4,6 +4,7 @@ import app from './app/reducer'
 import cats from './cats/reducer'
 import auth from './auth/reducer'
 import login from './login/reducer'
+import logout from './logout/reducer'
 import registration from './registration/reducer'
 
 const createRootReducer = (history) => combineReducers({
@@ -11,6 +12,7 @@ const createRootReducer = (history) => combineReducers({
     cats,
     auth,
     login,
+    logout,
     registration,
     router: connectRouter(history),
 })

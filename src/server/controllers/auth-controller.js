@@ -1,5 +1,5 @@
 import argon2 from 'argon2'
-import {setAsync, getAsync} from '../models/redis'
+import {setAsync, getAsync, delAsync} from '../models/redis'
 // import crypto from 'crypto'
 // import jwt from 'jsonwebtoken'
 // import db from '../models/db.js'
@@ -54,13 +54,6 @@ export async function register(user) {
     return {response: {success: true}}
 
 }
-
-// signed cookies
-
-// gen session id
-// redis table save session ass with user id
-// default redis cli ex
-// redis key value uid
 
 export async function login(user) {
     let {email, password} = user
@@ -126,3 +119,45 @@ export async function checkAuth(encryptedSession) {
 
     return {response: {success: true}}
 }
+
+export async function logout(encryptedSession) {
+
+    let sessionId
+    try {
+        sessionId = decrypt(encryptedSession, encryptionKey)
+    } catch (error) {
+        return {response: {success: false, error: 'internal error'}}
+    }
+
+    // let userId
+    // try {
+    //     userId = await getAsync(sessionId)
+    // } catch (error) {
+    //     return {response: {success: false, error: 'internal error'}}
+    // }
+
+    // if (!userId) {
+    //     // TODO: Should this be success?
+    //     return {response: {success: false, error: 'not authorized'}}
+    // }
+
+    try {
+        await delAsync(sessionId)
+    } catch (error) {
+        // TODO: Logging here?
+        // return {response: {success: false, error: 'internal error'}}
+    }
+
+    // TODO: add prod stuff
+    let domain
+    let secure
+    if (false) {
+        domain = 'Domain=localhost;'
+        secure = 'Secure;'
+    }
+
+    const cookie = `session=; Max-Age=0; HttpOnly; SameSite=strict; ${domain} ${secure}`
+
+    return {response: {success: true}, cookie}
+}
+

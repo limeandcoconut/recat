@@ -29,9 +29,9 @@ class App extends React.Component {
 
         return (
             <div className={styles.layout}>
+            <Header/>
                 <main className={styles.main}>
 
-                <Header/>
 
                 <Switch>
                     { 

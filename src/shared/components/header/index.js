@@ -6,29 +6,30 @@ import {NavLink, Switch, Route} from 'react-router-dom'
 import Authed from '../authed'
 import Anon from '../anon'
 import {connect} from 'react-redux'
-// import css from './input.module.css'
+import styles from './header.module.less'
+import {requestLogout} from '../../store/logout/actions'
 
 class Header extends React.Component {
 
     render() {
         const {t, success: authed} = this.props
         return (
-            <nav>
-                <NavLink to="/">
+            <nav className={styles.header} >
+                <NavLink className={styles.navlink} to="/">
                         Home
-                </NavLink>|
+                </NavLink>
                 <Authed>
-                    <NavLink to="/page1">
-                            page 1
-                    </NavLink>|
+                    <button className={styles.navlink} onClick={this.props.requestLogout}>
+                            Logout
+                    </button>
                 </Authed>
-                <Anon>
-                    <NavLink to="/register">
+                {/* <Anon>
+                    <NavLink className={styles.navlink} to="/register">
                             Register
                     </NavLink>
-                </Anon> |
+                </Anon> | */}
                 <Anon>
-                    <NavLink to="/login">
+                    <NavLink className={styles.navlink} to="/login">
                             Login
                     </NavLink>
                 </Anon>
@@ -49,8 +50,16 @@ class Header extends React.Component {
     }
 }
 
+const mapDispatchToProps = {
+    requestLogout,
+    // requestCat,
+}
+
 const mapStateToProps = ({auth: {success}}) => ({
     success,
 })
 
-export default connect(mapStateToProps)(withNamespaces()(Header))
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withNamespaces()(Header))
