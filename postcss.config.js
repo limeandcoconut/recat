@@ -8,28 +8,27 @@ const browsers = {
 module.exports = {
     ident: 'postcss',
     plugins: [
+        // Rework css to simulate colorblindness.
+        // https://github.com/btholt/postcss-colorblind
         // require('postcss-colorblind')(),
         // Import from local files, node modules or web_modules.
         // https://github.com/postcss/postcss-import
         require('postcss-import')({
             path: [paths.srcShared],
         }),
-        // require('postcss-nested')(),
-        // require('postcss-custom-properties')(),
         // This project tries to fix all of flexbug's issues.
         // https://github.com/philipwalton/flexbugs
         require('postcss-flexbugs-fixes')(),
         require('autoprefixer')(browsers),
-        // require('postcss-custom-properties')(),
-        // Gets image sizes and inlines files.
-        // https://github.com/borodean/postcss-assets
-        // background: resolve('icons/baz.png');
-        require('postcss-assets')({
-            basePath: './assets',
-        }),
         // Customizes normalize.css to your browserslist.
         // https://github.com/csstools/postcss-normalize
         require('postcss-normalize')(browsers),
+        // Report breaking browser compatibility from caniuse
+        // https://github.com/anandthakker/doiuse
+        // require('doiuse')({
+        //     ...browsers,
+        //     onFeatureUsage: ({message}) => console.error(message),
+        // }),
     ],
     // TODO: This doesn't appear to be respected. Check that.
     sourceMap: true,
