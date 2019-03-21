@@ -28,7 +28,8 @@ class App extends React.Component {
         const { t, fetchingCat, catError, catSrc, requestCat } = this.props; 
 
         return (
-            <div className={styles.wrapper}>
+            <div className={styles.layout}>
+                <main className={styles.main}>
 
                 <Header/>
 
@@ -55,6 +56,7 @@ class App extends React.Component {
                         English
                     </button>
                 </p>
+                </main>
             </div>
         );
     }

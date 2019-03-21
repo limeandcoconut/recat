@@ -1,27 +1,36 @@
-// @import './variables.css';
-// @import url('https://fonts.googleapis.com/css?family=Lora:400,700|Titillium+Web:400,700');
 @import './global.less';
 
 
-// :global(body) {
-//     font-family: 'Titillium Web', Arial, Sans-Serif;
-//     font-size: var(--font-size-base);
-// }
+.layout {
+    background-color: @honeydew;
+    display: grid;
+    grid-template: auto / 1fr 10fr 1fr;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+    height: 100vh;
+    perspective: 60em;
+    font-size: .basis(2)[];
+    color: @darcoal;
+    
+    .above(md; {
+        grid-template: auto / 1fr .basis(80)[] 1fr;
+    });
+    
+    .above(lg; {
+        grid-template: auto / 1fr .basis(70)[] 1fr;
+    });
 
-.wrapper {
-    margin: auto;
-    max-width: 100%;
-    width: 768px;
-
-    color: red;
-
-    h1 {
-        // font-size: var(--font-size-h1);
+    @supports not (display:grid) {
+        display: flex;
+        flex-direction: column;
     }
 }
-
-.reactLogo {
-    height: 48px;
-    vertical-align: middle;
-    width: 48px;
+.main {
+    grid-column: 2 / 1;
+    
+    @supports not (display:grid) {
+        width: 90%;
+    }
 }
