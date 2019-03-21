@@ -28,37 +28,37 @@ class App extends React.Component {
         const { t, fetchingCat, catError, catSrc, requestCat } = this.props; 
 
         return (
-            <div className={styles.layout}>
-            <Header/>
-                <main className={styles.main}>
+            // <div className={styles.wrapper} >
+                <div className={styles.layout}>
 
+                    <Header/>
+                    <main className={styles.main}>
+                        <Switch>
+                            { 
+                                routes.map((route) => {
+                                    const Component = route.auth ? AuthRoute : Route
+                                    return <Component key={ route.path } { ...route } />
+                                }) 
+                            }
+                        </Switch>
 
-                <Switch>
-                    { 
-                        routes.map((route) => {
-                            const Component = route.auth ? AuthRoute : Route
-                            return <Component key={ route.path } { ...route } />
-                        }) 
-                    }
-                </Switch>
+                        <Helmet defaultTitle="React SSR Starter" titleTemplate="%s – React SSR Starter" />
 
-                <Helmet defaultTitle="React SSR Starter" titleTemplate="%s – React SSR Starter" />
+                        <div className={styles.i18n} >
+                            <h2>{t('i18n-example')}</h2>
+                            <button value="de_DE" onClick={this.setLanguage}>
+                                Deutsch
+                            </button>
+                            <button value="en_US" onClick={this.setLanguage}>
+                                English
+                            </button>
+                        </div>
 
+                    </main>
 
-                {/* <Features /> */}
-
-                <h2>{t('i18n-example')}</h2>
-                <p>
-                    <button value="de_DE" onClick={this.setLanguage}>
-                        Deutsch
-                    </button>
-                    <button value="en_US" onClick={this.setLanguage}>
-                        English
-                    </button>
-                </p>
-                </main>
-            </div>
-        );
+                </div>
+            // </div>
+        )
     }
 }
 

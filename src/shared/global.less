@@ -13,6 +13,8 @@
 
 html, body {
     height: 100%;
+    height: 100vh;
+    width: 100vw;
     // font-family: arial;
     font-display: swap;
     // .rubik();
@@ -22,6 +24,8 @@ html, body {
     font-size: .basis(3)[];
     margin: 0;
     padding: 0;
+    background: linear-gradient(@magenta, @darcoal);
+
 
 }
 
@@ -29,37 +33,31 @@ h1, h2, h3, h4, h5, h6 {
     .concert()
 }
 
-// button {
-//     border: none;
-//     appearance: none;
-//     outline: none;
-//     // .rubik();
-// }
-
-.link, a {
-    // color: black;
-
-    // &:hover {
-    //     color: @red;
-    // }
-
-    // &:visited {
-    //     color: @dimred;
-
-    //     &:hover {
-    //         color: @red;
-    //     }
-    // }
+:global(.unbutton) {
+    padding: 0;
+    margin: 0;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
+    // background-color: transparent;
+    border: none;
+    border-image: none;
+    border-image-width: 0;
+    font-size: 1em;
+    line-height: inherit;
+    background: none;
 }
 
 
-a {
+a, :global(.link) {
     color: @cerulean;
+    text-decoration: underline;
     
     &:focus, &:hover {
     // a:not(.button):not(.commentPreviewButton):not(.comment-reply-link):focus, a:not(.button):not(.commentPreviewButton):not(.comment-reply-link):hover {
         // background: -webkit-gradient(linear,left top,right top,from(#ff8a00),to(#da1b60));
-        background: linear-gradient(to right,#ff8a00,#da1b60);
+        background: linear-gradient(to right, @goldenrod, @magenta);
+        // background: linear-gradient(to right,#ff8a00,#da1b60);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -67,7 +65,7 @@ a {
         box-decoration-break: clone;
         text-shadow: none;
         text-decoration: underline;
-        -webkit-text-decoration-color: #ccc;
-        text-decoration-color: #ccc;
+        -webkit-text-decoration-color: @ash;
+        text-decoration-color: @ash;
     }
 }

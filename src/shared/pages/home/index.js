@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 // import { setLocale } from './store/app/actions';
 import {requestCat} from '../../store/cats/actions'
 import Input from '../../components/input'
-// import css from './App.module.css'
+import styles from './home.module.less'
 import {withRouter, Redirect, Link} from 'react-router-dom'
 
 class Home extends React.Component {
@@ -20,13 +20,13 @@ class Home extends React.Component {
         }
     }
 
-    fillMessage = (message) => <div>{message}</div>
+    fillMessage = (message) => <div  className={styles.message} >{message}</div>
 
     formatMessage() {
         const {authed, catRequested, catError, catSrc} = this.props
         const fillMessage = this.fillMessage
         if (catSrc) {
-            return null
+            return <br/>
         }
         if (catRequested) {
             return fillMessage('Requested...')
@@ -50,20 +50,25 @@ class Home extends React.Component {
         }
 
         return (
-            <div /* className={css.wrapper} */>
+            // <div /* className={styles.wrapper} */>
+            <>
                 {catSrc &&
-                    <div>
-                        <img src={catSrc} className="cat-pic" alt="A pic of the bestest kitty cat evar!" />
-                        <p className="App-intro">Keep clicking for new cats</p>
+                    <div className={styles.imageContainer} >
+                        <img 
+                            src={catSrc} 
+                            className={styles.image}
+                            alt="A pic of the bestest kitty cat evar!" 
+                        />
                     </div>
+
                 }
                 {this.formatMessage()}
                 {catRequested ?
-                    <button disabled>Fetching...</button> :
-                    <button onClick={this.props.requestCat}>Request a Cat</button>
+                    <button className={styles.button} disabled>Fetching...</button> :
+                    <button className={styles.button} onClick={this.props.requestCat}>Request a Cat</button>
                 }
-
-            </div>
+            </>
+            // </div>
         )
     }
 }

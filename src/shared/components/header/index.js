@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {withNamespaces} from 'react-i18next'
-import {NavLink, Switch, Route} from 'react-router-dom'
+import {NavLink, withRouter} from 'react-router-dom'
 // import AuthLink from '../authlink/index'
 // import GuestLink from '../guestlink'
 import Authed from '../authed'
@@ -19,7 +19,7 @@ class Header extends React.Component {
                         Home
                 </NavLink>
                 <Authed>
-                    <button className={styles.navlink} onClick={this.props.requestLogout}>
+                    <button className={styles.navlink + ' link unbutton'} onClick={this.props.requestLogout}>
                             Logout
                     </button>
                 </Authed>
@@ -29,9 +29,15 @@ class Header extends React.Component {
                     </NavLink>
                 </Anon> | */}
                 <Anon>
-                    <NavLink className={styles.navlink} to="/login">
-                            Login
-                    </NavLink>
+                    { this.props.location.pathname !== '/login' ? (
+                        <NavLink className={styles.navlink} to="/login">
+                                Login
+                        </NavLink>
+                    ) : (
+                        <NavLink className={styles.navlink} to="/register">
+                                Register
+                        </NavLink>
+                    )}
                 </Anon>
 
                 {/* <AuthLink nav="true" to="/page1">
@@ -59,7 +65,7 @@ const mapStateToProps = ({auth: {success}}) => ({
     success,
 })
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withNamespaces()(Header))
+)(withNamespaces()(Header)))

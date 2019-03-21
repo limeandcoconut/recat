@@ -1,40 +1,80 @@
 @import './global.less';
 
+.wrapper {
+    // background: linear-gradient(@goldenrod, @cerulean);
+    // background-position: top left;
+    // background-size: 50% 50%;
+    // background-repeat: no-repeat;
+}
 
 .layout {
-    background-color: @honeydew;
+    // background-color: @turquoise;
+    // background-color: @goldenrod;
+    // background-color: @magenta;
     display: grid;
     grid-template: auto / 1fr 10fr 1fr;
-    align-items: center;
-    align-content: center;
+    // align-items: center;
+    // align-content: center;
     justify-items: center;
     justify-content: center;
     height: 100vh;
     perspective: 60em;
     font-size: .basis(2)[];
-    color: @darcoal;
+    color: @darcoal;    
+
     
-    .above(md; {
-        grid-template: auto / 1fr .basis(80)[] 1fr;
-    });
+    // padding-top: .basis(9)[];
+
+    // background: 
+    //     linear-gradient(@magenta, @magenta) top left,
+    //     linear-gradient(@turquoise, @turquoise) top right,
+    //     linear-gradient(@peach, @peach) bottom right,
+    //     linear-gradient(@royal, @royal) bottom left;
+    // background-size: calc(50% + 1px) calc(50% + 1px);
+    // background-repeat: no-repeat;
     
-    .above(lg; {
-        grid-template: auto / 1fr .basis(70)[] 1fr;
-    });
+    
+    // .above(md; {
+    //     grid-template: auto / 1fr .basis(80)[] 1fr;
+    // });
+    
+    // .above(lg; {
+    //     grid-template: auto / 1fr .basis(70)[] 1fr;
+    // });
 
     @supports not (display:grid) {
         display: flex;
         flex-direction: column;
     }
 }
+
 .main {
+    // position: relative;
+    // top: .basis(9)[];
+    margin-top: .basis(11)[];
+    display: grid;
     grid-column: 2 / 1;
+    grid-template-columns: 3fr 5fr 3fr;
+    grid-template-rows: auto .basis(2)[] auto auto;
+    grid-template-areas: 
+        "...... image ......"
+        "message message message"
+        "buttons buttons buttons"
+        "...... i18n ......";
+    width: 100%;
     // background: resolve('./react.png');
     // background: url('aaaa/react.png');
-    background: url('~assets/react.png');
-    background-repeat: repeat;
-
+    // background: url('~assets/react.png');
+    // background-repeat: repeat;
+    outline: 1px solid @charcoal;
+    
     @supports not (display:grid) {
         width: 90%;
     }
+}
+
+.i18n {
+    outline: 1px solid @charcoal;
+    grid-area: i18n;
+
 }
