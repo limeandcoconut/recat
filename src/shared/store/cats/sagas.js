@@ -22,6 +22,10 @@ function * workerSaga() {
 function fetchCat() {
 
     return new Promise(async (resolve) => {
+        resolve('https://place-hold.it/300x500')
+        return
+        // resolve('https://purr.objects-us-east-1.dream.io/i/008_-_uZCLhu4.gif')
+        // return
         const response = await fetch('https://aws.random.cat/meow', {method: 'GET'})
         const json = await response.json()
         resolve(json.file)

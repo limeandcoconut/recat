@@ -54,13 +54,14 @@
     margin-top: .basis(11)[];
     display: grid;
     grid-column: 2 / 1;
-    grid-template-columns: 3fr 5fr 3fr;
+    grid-template-columns: repeat(12, 1fr);
+    // grid-template-columns: 3fr 5fr 3fr;
     grid-template-rows: auto .basis(2)[] auto auto;
-    grid-template-areas: 
-        "...... image ......"
-        "message message message"
-        "buttons buttons buttons"
-        "...... i18n ......";
+    // grid-template-areas: 
+    //     "...... image ......"
+    //     "message message message"
+    //     "buttons buttons buttons"
+    //     "...... i18n ......";
     width: 100%;
     // background: resolve('./react.png');
     // background: url('aaaa/react.png');
@@ -75,6 +76,9 @@
 
 .i18n {
     outline: 1px solid @charcoal;
-    grid-area: i18n;
+    // grid-area: i18n;
+    grid-row: 4;
+    grid-column-start: 4;
+    grid-column-end: 10;
 
 }

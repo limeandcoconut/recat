@@ -26,7 +26,7 @@ class Home extends React.Component {
         const {authed, catRequested, catError, catSrc} = this.props
         const fillMessage = this.fillMessage
         if (catSrc) {
-            return <br/>
+            return <br  className={styles.messagePlaceholder} />
         }
         if (catRequested) {
             return fillMessage('Requested...')
@@ -63,10 +63,12 @@ class Home extends React.Component {
 
                 }
                 {this.formatMessage()}
-                {catRequested ?
-                    <button className={styles.button} disabled>Fetching...</button> :
-                    <button className={styles.button} onClick={this.props.requestCat}>Request a Cat</button>
-                }
+                <div className={styles.buttonContainer} >
+                    {catRequested ?
+                        <button className={styles.button} disabled>Fetching...</button> :
+                        <button className={styles.button} onClick={this.props.requestCat}>Request a Cat</button>
+                    }
+                </div>
             </>
             // </div>
         )
