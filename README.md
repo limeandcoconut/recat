@@ -55,6 +55,7 @@ password reset
 rate limit routes
 check speed of encryption
 consider switch to standard redis continer
+Fix js-yaml vulnerability
 
 # Cleanup
 normalize file names
