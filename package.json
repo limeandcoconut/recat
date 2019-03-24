@@ -51,6 +51,7 @@
     "postcss-less": "^3.1.4",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-dom-confetti": "^0.1.0",
     "react-helmet": "^5.2.0",
     "react-i18next": "^9.0.10",
     "react-redux": "^6.0.0",

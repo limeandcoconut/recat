@@ -1,0 +1,24 @@
+@import '../../mixins.less';
+
+.beater {
+    background-color: @magenta;
+    height: .basis(4)[];
+    transform: rotate(-45deg);
+    width: .basis(4)[];
+
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        background-color: @magenta;
+        border-radius: 50%;
+        height: .basis(4)[];
+        position: absolute;
+        width: .basis(4)[];
+    }
+    
+    &:before {
+        top: -.basis(3)[];
+        left: 0;
+    }
+}

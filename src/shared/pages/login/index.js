@@ -41,31 +41,11 @@ class Register extends React.Component {
                         }
 
                         <button
-                            onClick={() => {
-
-                                    this.props.updateLogin({
-                                        name: 'username', 
-                                        value:'lime',
-                                    })
-                                    this.props.updateLogin({
-                                        name: 'password', 
-                                        value:'limeLIME1!',
-                                    })
-                                    this.props.updateLogin({
-                                        name: 'email', 
-                                        value:'messagethesmith@gmai.com',
-                                    })
-                                    console.log(form)
-
-                            }}
-                            >
-                            fill
-                            </button>
-                        <button
                             disabled={!form.username && !form.password && !form.email}
                             type="button"
                             onClick={this.props.requestLogin}
-                            >
+                            className={styles.button} 
+                        >
                             Login
                         </button>
                     </>
@@ -85,28 +65,56 @@ class Register extends React.Component {
                         <Link to="/">CATZ</Link>
                     </div>
                 }
-                <button
-                    type="button"
-                    onClick={this.props.requestAuth}
+
+                <div className={styles.tempContainer} >
+                    
+                    <button
+                        onClick={() => {
+
+                                this.props.updateLogin({
+                                    name: 'username', 
+                                    value:'lime',
+                                })
+                                this.props.updateLogin({
+                                    name: 'password', 
+                                    value:'limeLIME1!',
+                                })
+                                this.props.updateLogin({
+                                    name: 'email', 
+                                    value:'messagethesmith@gmai.com',
+                                })
+                                console.log(form)
+
+                        }}
+                        className={styles.tempButton} 
                     >
-                    check auth
-                </button>
-                {console.log(authRequested, authSuccess, authError)}
-                {authRequested && authSuccess === null && 
-                    <div> 
-                        Auth: requested...
-                    </div>
-                }
-                {authError && 
-                    <div> 
-                        {JSON.stringify(authError, null, 4)}
-                    </div>
-                }
-                {authSuccess && 
-                    <div> 
-                        Authed: {String(authSuccess).toUpperCase()}
-                    </div>
-                }
+                        fill
+                    </button>
+                    
+                    <button
+                        type="button"
+                        onClick={this.props.requestAuth}
+                        className={styles.tempButton2} 
+                    >
+                        check auth
+                    </button>
+
+                    {authRequested && authSuccess === null && 
+                        <div> 
+                            Auth: requested...
+                        </div>
+                    }
+                    {authError && 
+                        <div> 
+                            {JSON.stringify(authError, null, 4)}
+                        </div>
+                    }
+                    {authSuccess && 
+                        <div> 
+                            Authed: {String(authSuccess).toUpperCase()}
+                        </div>
+                    }
+                </div>
             </div>
         )
     }

@@ -1,51 +1,60 @@
 @import '@assets/../mixins.less';
 
-.image-container {
-    // grid-area: image;
+.wrapper {
+    width: 100%;
+    height: 100%;
 
+    &-guest {
+        &:extend(.wrapper);
+        background-color: @powder;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        justify-items: center;
+        padding: .basis(2)[];
+        text-align: center;
+        font-size: .basis(3)[];
+        font-weight: bold;
+    }
+}
+
+.cat {
+    font-size: .basis(6)[];
+}
+
+.image-container {
+    position: relative;
     grid-column-start: 4;
     grid-column-end: 10;
-
-    // height: 100%;
     .ratio(4; 5; true);
-    // display: flex;
-    position: relative;
 }
 
 .image {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-    // grid-column: 2/ 1;
     display: block;
-    // justify-content: center;
-    // align-content: center;
-    // width: 100%;
-    // min-height: 40vw;
     position: absolute;
     top: 50%;
+    width: 100%;
+    height: 100%;
     transform: translateY(-50%);
+    object-fit: contain;
 }
 
 .message, .message-placeholder {
-    // grid-area: message;
-    // grid-column: 3 / 8;
+    display: block;
     grid-column-start: 3;
     grid-column-end: 11;
-    // grid-column: 1 / 3;
     grid-row: 2;
-    display: block;
-}
-
-.button-container {
-    // grid-column: 7 / 2;
-    grid-column-start: 6;
-    grid-column-end: 8;
-    grid-row: 3;
 }
 
 .button {
-    // grid-area: buttons;
-    width: 100%;
-    font-size: .basis(2)[];
+    position: relative;
+    left: 50%;
+    width: 60%;
+    transform: translateX(-50%);
+}
+
+.confetti {
+    position: relative;
+    left: 50%;
 }

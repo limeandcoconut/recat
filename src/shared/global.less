@@ -42,11 +42,20 @@ h1, h2, h3, h4, h5, h6 {
 
 button {
     &:extend(:global(.unbutton));
-    background: linear-gradient(-85deg, @seafoam 0%, @turquoise 100%);
+    background: linear-gradient(95deg, @turquoise 0%, @seafoam 100%);
     cursor: pointer;
     border-radius: 4px;
     padding: 5px 8px;
     //TODO: what is user-select?
+    
+    &[disabled] {
+        background: linear-gradient(95deg, @ash 0%, @charcoal 100%);
+        color: @ash;
+
+        &:hover, &:focus {
+            color: fadeout(@ash, 80%);
+        }
+    }
 }
 
 
@@ -54,7 +63,7 @@ a, :global(.link) {
     color: @cerulean;
     text-decoration: underline;
     
-    &:focus, &:hover {
+    &:focus, &:hover, &:global(.active) {
         background: linear-gradient(to right, @goldenrod, @magenta);
         background-clip: text;
         -webkit-text-fill-color: transparent;

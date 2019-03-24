@@ -8,6 +8,22 @@ import Input from '../../components/input'
 import styles from './home.module.less'
 import {withRouter, Redirect, Link} from 'react-router-dom'
 
+import Confetti from 'react-dom-confetti';
+
+const confettiConfig = {
+  angle: "90",
+  spread: "91",
+  startVelocity: "31",
+  elementCount: "26",
+  dragFriction: "0.25",
+  duration: "1010",
+  delay: "4",
+  width: "10px",
+  height: "9px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+};
+// return <Confetti active={ someProp } config={ config }/>
+
 class Home extends React.Component {
     // setLanguage = (e) => {
     //     //this.store.dispatch(setLocale(e.target.value))
@@ -42,16 +58,23 @@ class Home extends React.Component {
 
         if (!authed) {
             return (
-                <div>
-                    This is an app for viewing kitty cats.
-                    Login to participate
+                <div  className={styles.wrapperGuest} >
+                    This is an app for fawning over magnificent kitty cats.
+                    <br/>
+                    <br/>
+                    Login to participate.
+                    <br/>
+                    <br/>
+                    <div className={styles.cat} >    
+                        😻
+                    </div>
                 </div>
             )
         }
 
         return (
             // <div /* className={styles.wrapper} */>
-            <>
+            <div  className={styles.wrapper} >
                 {catSrc &&
                     <div className={styles.imageContainer} >
                         <img 
@@ -63,13 +86,14 @@ class Home extends React.Component {
 
                 }
                 {this.formatMessage()}
+                <Confetti active={catSrc && catRequested} config={confettiConfig}  className={styles.confetti} />
                 <div className={styles.buttonContainer} >
                     {catRequested ?
                         <button className={styles.button} disabled>Fetching...</button> :
                         <button className={styles.button} onClick={this.props.requestCat}>Request a Cat</button>
                     }
                 </div>
-            </>
+            </div>
             // </div>
         )
     }
