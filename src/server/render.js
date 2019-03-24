@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 // TODO: Checkout
 import IntlProvider from '../shared/i18n/IntlProvider'
 import Html from './components/HTML'
-import App from '../shared/App'
+import App from '../shared/app'
 
 // import {push} from 'connected-react-router'
 

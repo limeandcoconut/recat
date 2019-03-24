@@ -3,7 +3,7 @@ import {hydrate} from 'react-dom'
 import {Provider} from 'react-redux'
 import {ConnectedRouter} from 'connected-react-router'
 import {configureStore} from '../shared/store'
-import App from '../shared/App'
+import App from '../shared/app'
 import IntlProvider from '../shared/i18n/IntlProvider'
 import createHistory from '../shared/store/history'
 

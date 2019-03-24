@@ -1,5 +1,5 @@
 // import AppRoot  from './containers/AppRoot'
-// import App from './App'
+// import App from './app'
 import Page1 from './pages/Page-1'
 import Register from './pages/register'
 import Login from './pages/login'
