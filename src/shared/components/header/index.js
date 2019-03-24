@@ -12,9 +12,15 @@ import {requestLogout} from '../../store/logout/actions'
 class Header extends React.Component {
 
     render() {
-        const {t, success: authed} = this.props
+        const {t, success: authed, variant} = this.props
+        let className = styles.header + ' '
+        if (variant === 'a') {
+            className += styles.headerA
+        } else if (variant === 'b') {
+            className += styles.headerB
+        }
         return (
-            <nav className={styles.header} >
+            <nav className={className} >
                 <NavLink className={styles.navlink} to="/">
                         Home
                 </NavLink>

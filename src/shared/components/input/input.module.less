@@ -1,0 +1,74 @@
+@import '../../mixins.less';
+
+@lh: 1.15em;
+@lhplus: calc(@lh + 2px);
+
+.wrapper {
+    display: block;
+    width: 80%;
+    position: relative;
+    font-size: .basis(3)[];
+    line-height: @lh;
+    .nunito();
+    //  Extra 2px seems to help adjust
+    padding-bottom: calc(@lhplus + 10px + .basis(1)[]);
+}
+
+.input {
+    width: 100%;
+    position: absolute;
+    top: @lhplus;
+    left: 0;
+    // font-size: .basis(2)[];
+    font-size: 1em;
+    // background: linear-gradient(-85deg, @seafoam 0%, @turquoise 100%);
+    border-radius: 4px;
+    appearance: none;
+    border: none;
+    border-image: none;
+    border-image-width: 0;
+    // padding: 0;
+    padding: 5px 8px;
+    margin: 0;
+    outline: none;
+    box-shadow: none;
+    .system();
+    
+    &-bg-before, &-bg-after {
+        
+        &:extend(.input);
+        display: block;
+        // content: '';
+        position: absolute;
+        top: @lhplus;
+        // bottom: 0;
+        left: 0;
+        // right: 0;
+        width: 100%;
+        font-size: 1em;
+        // height: 100%;
+        // width: 100px;
+        // height: 200px;
+        opacity: 1;
+        transition: opacity 300ms ease-in;
+        background: linear-gradient(110deg, @turquoise 0%, fadeout(@turquoise, 80%) 45%, transparent 100%);
+    }
+    
+    &-bg-after {
+        background: linear-gradient(110deg, transparent 0%, fadeout(@seafoam, 80%) 65%, @seafoam 100%);
+        opacity: 0;
+        transition: opacity 300ms ease-out;
+    }
+    
+    
+    &-filled, &:focus {
+        // transition: background .4s ease-in;
+        ~.input-bg-after {
+            opacity: 1;
+        }
+
+        ~.input-bg-before {
+            opacity: 0;
+        }
+    }
+}

@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {updateRegistration, requestRegistration, toggleLogin} from '../../store/registration/actions'
 // import {ReactComponent as ReactLogo} from './assets/react.svg'
 import Input from '../../components/input';
-// import css from './App.module.css'
+// import css from './app.module.css'
 // import {Switch, Route} from 'react-router-dom'
 import {withRouter, Redirect, Link} from 'react-router-dom'
 // import {renderRoutes} from 'react-router-config'

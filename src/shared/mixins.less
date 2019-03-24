@@ -9,13 +9,16 @@
 
 /* RGB */
 @lavender: #ffa9e7;
+@powder: #fffdf8;
 // @magenta: #ec0b43;
 @magenta: #da1b60;
 @cerulean: #06aed5;
 @charcoal: #36494e; 
-@turquoise: #2fe6de;
+// @turquoise: #2de6dd;
+@turquoise: #3ed3cf;
+@seafoam: #1fe9ae;
 @goldenrod: #ff8a00;
-
+ 
 @blue: #4960e2;
 @royal: #7a59e2;
 // @a: #79f9e2
@@ -34,9 +37,14 @@
 //     font-family: 'Rubik', 'Courier New', sans-serif;
 //     font-weight: @weight;
 // }
-.concert() {
+// .nunit() {
+//     // font-family: 'Courier New', sans-serif;
+//     font-family: 'Concert One', 'Roboto', 'system', sans-serif;
+//     // font-weight: @weight;
+// }
+.nunito() {
     // font-family: 'Courier New', sans-serif;
-    font-family: 'Concert One', 'Roboto', 'system', sans-serif;
+    font-family: 'Nunito', 'Roboto', 'system', sans-serif;
     // font-weight: @weight;
 }
 
@@ -59,17 +67,26 @@
 };
 
 @diff: .grid-breakpoints[@xl] - .grid-breakpoints[@sm];
+@unitlessDiff: unit(@diff);
 @max-base: 12;
 @min-base: 6;
 @base-diff: @max-base - @min-base;
 // WARNING: Always update the @baseline/@b variables and .basis() in conjunction.
-@b: calc( ((100vw - .grid-breakpoints[@sm]) / unit(@diff)) * @base-diff + .px(@min-base)[]);
+@b: calc( ((100vw - .grid-breakpoints[@sm]) / @unitlessDiff) * @base-diff + .px(@min-base)[]);
 // @baseline: 6px;
 @baseline: @b;
 .basis(@scalar) {
     // @return: calc(@baseline * @scalar);
     // WARNING: Always update the @baseline/@b variables and .basis() in conjunction.
-    @return: calc( (((100vw - .grid-breakpoints[@sm]) / unit(@diff)) * @base-diff + .px(@min-base)[]) * @scalar)
+    @return: calc( (((100vw - .grid-breakpoints[@sm]) / @unitlessDiff) * @base-diff + .px(@min-base)[]) * @scalar)
+}
+
+.interpolate(@min; @max) {
+    @user-diff: unit(@max - @min);
+    // @unitlessMin: unit
+    // @return: calc(@baseline * @scalar);
+    // WARNING: Always update the @baseline/@b variables and .basis() in conjunction.
+    @return: calc( (((100vw - .grid-breakpoints[@sm]) / @unitlessDiff) * @user-diff + @min))
 }
 
 @spacing: {
@@ -221,8 +238,8 @@
     .above(sm; {
         @diff: .grid-breakpoints[@xl] - .grid-breakpoints[@sm];
         @font-diff: @max-fz - @min-fz;
-        // @font-size: calc( ((100vw - .grid-breakpoints[@sm]) / unit(@diff)) * @font-diff + .px(@min-fz)[]);
-        font-size: calc( ((100vw - .grid-breakpoints[@sm]) / unit(@diff)) * @font-diff + .px(@min-fz)[]);
+        // @font-size: calc( ((100vw - .grid-breakpoints[@sm]) / @unitlessDiff) * @font-diff + .px(@min-fz)[]);
+        font-size: calc( ((100vw - .grid-breakpoints[@sm]) / @unitlessDiff) * @font-diff + .px(@min-fz)[]);
     });
 
     .above(xl; {

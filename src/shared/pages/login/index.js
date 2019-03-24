@@ -5,14 +5,9 @@ import {connect} from 'react-redux'
 // import { setLocale } from './store/app/actions';
 import {updateLogin, requestLogin} from '../../store/login/actions'
 import {requestAuth} from '../../store/auth/actions'
-// import {ReactComponent as ReactLogo} from './assets/react.svg'
-import Input from '../../components/input';
-// import css from './App.module.css'
-// import {Switch, Route} from 'react-router-dom'
+import Input from '../../components/input'
+import styles from './login.module.less'
 import {withRouter, Redirect, Link} from 'react-router-dom'
-// import {renderRoutes} from 'react-router-config'
-// import routes from '../shared/routes'
-// import PrivateRoute from './components/PrivateRoute'
 
 class Register extends React.Component {
     // setLanguage = (e) => {
@@ -29,11 +24,10 @@ class Register extends React.Component {
         const {success, requested, form, error, authRequested, authSuccess, authError} = this.props
 
         return (
-            <div /* className={css.wrapper} */>
-                <Link to="/register"> Register </Link>
+            <div className={styles.wrapper}>
 
                 {!requested && !success && (
-                    <div>
+                    <>
 
                         { ['username', 'password', 'email'].map((name) => (
                             <Input 
@@ -41,6 +35,7 @@ class Register extends React.Component {
                                 key={name} 
                                 value={form[name]} 
                                 onChange={this.handleChange}  
+                                className={styles[name]}
                                 type={(name === 'email' || name === 'password') ? name : 'text'} 
                             />)) 
                         }
@@ -73,7 +68,7 @@ class Register extends React.Component {
                             >
                             Login
                         </button>
-                    </div>
+                    </>
                 ) }
                 { requested && success === null && (
                     <div>requested...</div>
