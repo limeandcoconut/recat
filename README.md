@@ -58,6 +58,7 @@ consider switch to standard redis continer
 Fix js-yaml vulnerability
 
 # Cleanup
+check licenses!
 normalize file names
 remove extra files
 changelog
