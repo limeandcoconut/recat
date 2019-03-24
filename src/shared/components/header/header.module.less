@@ -7,17 +7,16 @@
 
     
     &-a {
+        display: flex;
+        flex-direction: row;
+        align-content: flex-end;
+        align-items: flex-end;
+        justify-items: flex-end;
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         z-index: 2;
-        display: flex;
-        flex-direction: row;
-        // justify-content: flex-end;
-        align-content: flex-end;
-        align-items: flex-end;
-        justify-items: flex-end;
 
         .above(md; {
             display: none;
@@ -26,12 +25,12 @@
     }
 
     &-b {
+        display: none;
         position: relative;
         left: -40%;
         width: 140%;
         padding-left: calc(40% + .basis(2)[]);
         transform: skewX(40deg);
-        display: none;
         visibility: hidden;
 
         .above(md; {
@@ -39,10 +38,7 @@
             visibility: visible;
         });
     }
-
-
 }
-
 
 .navlink {
     margin-right: .5em;

@@ -5,13 +5,13 @@
 
 .wrapper {
     display: block;
-    width: 80%;
     position: relative;
-    font-size: .basis(3)[];
-    line-height: @lh;
-    .nunito();
+    width: 80%;
     //  Extra 2px seems to help adjust
     padding-bottom: calc(@lhplus + 10px + .basis(1)[]);
+    .nunito();
+    font-size: .basis(3)[];
+    line-height: @lh;
 }
 
 .input {
@@ -19,39 +19,29 @@
     position: absolute;
     top: @lhplus;
     left: 0;
-    // font-size: .basis(2)[];
+    margin: 0;
+    padding: 5px 8px;
     font-size: 1em;
-    // background: linear-gradient(-85deg, @seafoam 0%, @turquoise 100%);
-    border-radius: 4px;
-    appearance: none;
+    .system();
     border: none;
+    border-radius: 4px;
     border-image: none;
     border-image-width: 0;
-    // padding: 0;
-    padding: 5px 8px;
-    margin: 0;
     outline: none;
     box-shadow: none;
-    .system();
+    appearance: none;
     
     &-bg-before, &-bg-after {
-        
         &:extend(.input);
+        background: linear-gradient(110deg, @turquoise 0%, fadeout(@turquoise, 80%) 45%, transparent 100%);
         display: block;
-        // content: '';
         position: absolute;
         top: @lhplus;
-        // bottom: 0;
         left: 0;
-        // right: 0;
         width: 100%;
         font-size: 1em;
-        // height: 100%;
-        // width: 100px;
-        // height: 200px;
         opacity: 1;
         transition: opacity 300ms ease-in;
-        background: linear-gradient(110deg, @turquoise 0%, fadeout(@turquoise, 80%) 45%, transparent 100%);
     }
     
     &-bg-after {
@@ -62,7 +52,7 @@
     
     
     &-filled, &:focus {
-        // transition: background .4s ease-in;
+
         ~.input-bg-after {
             opacity: 1;
         }
