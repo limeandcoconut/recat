@@ -21,7 +21,7 @@ const confettiConfig = {
     delay: '4',
     width: '10px',
     height: '9px',
-    colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
+    colors: ['#7a59e2', '#06aed5', '#1fe9ae', '#da1b60', '#ff8a00'],
 }
 
 class Home extends React.Component {
