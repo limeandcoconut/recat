@@ -7,10 +7,7 @@ import IntlProvider from '../shared/i18n/IntlProvider'
 import Html from './components/HTML'
 import App from '../shared/app'
 
-// import {push} from 'connected-react-router'
-
 const serverRenderer = () => (req, res) => {
-    // req.store.dispatch(push(req.url))
     const content = renderToString(
         <Provider store={req.store}>
 
@@ -24,15 +21,7 @@ const serverRenderer = () => (req, res) => {
         </Provider>
     )
 
-    // console.log('DUMP', content)
-
     const state = JSON.stringify(req.store.getState())
-    // // console.log('state', state)
-    // console.log('state', state)
-    // console.log('state', JSON.parse(state))
-
-    // // console.log('state', Object.keys(state))
-    // console.log('req', req.url)
 
     return res.send(
         '<!doctype html>' +

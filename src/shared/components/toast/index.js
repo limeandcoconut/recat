@@ -14,10 +14,9 @@ class Toast extends React.Component {
     }
 
     render() {
-        const {display, style, message, hideToast, history} = this.props
+        const {display, style, message, hideToast} = this.props
         const styleClass = styles[style] || ''
         const displayClass = display ? styles.display : ''
-        console.log(history)
         return (
             <div
                 className={`${styles.container} ${displayClass} ${styleClass}`}

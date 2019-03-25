@@ -81,8 +81,6 @@ class Register extends React.Component {
                             name: 'email',
                             value: 'messagethesmith@gmai.com',
                         })
-                        console.log(form)
-
                     }}
                     >
                     fill

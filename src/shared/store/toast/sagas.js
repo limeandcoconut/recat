@@ -10,9 +10,6 @@ function * workerSaga() {
     try {
         const src = yield call(fetchCat)
 
-        console.log('src')
-        console.log(src)
-
         yield put(succeedCat(src))
     } catch (error) {
         yield put(failCat(error))

@@ -16,8 +16,6 @@ class App extends React.Component {
     };
 
     render() {
-        const {t, fetchingCat, catError, catSrc, requestCat} = this.props
-
         return (
             <div className={styles.layout}>
 

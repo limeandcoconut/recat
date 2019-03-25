@@ -30,10 +30,3 @@ export const failLogin = (error) => ({
     },
 })
 
-// export const toggleLogin = () => {
-//     console.log('foo')
-//     return {
-//         type: 'AUTH/TOGGLE_LOGIN',
-//         payload: {},
-//     }
-// }

@@ -80,7 +80,6 @@ auth.post('/register', async (req, res) => {
 
 auth.post('/login', async (req, res) => {
     const {response, cookie} = await login(req.body)
-    // console.log(response, cookie)
     if (cookie) {
         res.set('Set-Cookie', cookie)
     }

@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize')
 const {dbUsername, dbPassword, dbName} = require('../../../keys.js')
 
-// console.log(keys)
-console.log(dbUsername, dbPassword)
-
 const db = new Sequelize({
     dialect: 'postgres',
     database: dbName,

@@ -11,9 +11,6 @@ function * workerSaga() {
     try {
         const src = yield call(fetchCat)
 
-        console.log('src')
-        console.log(src)
-
         yield all([
             put(succeedCat(src)),
             put(hideToast()),

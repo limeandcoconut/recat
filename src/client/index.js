@@ -16,12 +16,6 @@ const store =
         history,
     })
 
-// console.log(window.location)
-// console.log('history.location')
-// console.log(history.location)
-// console.log(store.getState())
-// console.log(window.__PRELOADED_STATE__.router.location)
-
 hydrate(
     <Provider store={store}>
         <ConnectedRouter history={history}>

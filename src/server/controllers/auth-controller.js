@@ -25,7 +25,6 @@ export async function register(user) {
     } else if (!passwordRequirements.test(user.password)) {
         return {response: {success: false, error: 'weak password'}}
     }
-    console.log(user)
 
     const passwordHash = await argon2.hash(user.password)
     try {
@@ -44,9 +43,6 @@ export async function register(user) {
             return {response: {success: false, error: 'internal error'}}
         }
 
-        if (process.env.NODE_ENV === 'development') {
-            console.error(error)
-        }
         return {response: {success: false, error: 'internal error'}}
     }
 

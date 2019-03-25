@@ -81,7 +81,6 @@ class Register extends React.Component {
                                 name: 'email',
                                 value: 'messagethesmith@gmai.com',
                             })
-                            console.log(form)
 
                         }}
                         className={styles.tempButton}
@@ -124,7 +123,10 @@ const mapDispatchToProps = {
     requestAuth,
 }
 
-const mapStateToProps = ({login: {success, requested, form} = {}, auth: {success: authSuccess, requested: authRequested, error: authError} = {}}) => ({
+const mapStateToProps = ({
+    login: {success, requested, form},
+    auth: {success: authSuccess, requested: authRequested, error: authError},
+}) => ({
     success,
     requested,
     form,

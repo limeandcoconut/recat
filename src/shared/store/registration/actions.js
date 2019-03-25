@@ -29,11 +29,3 @@ export const failRegistration = (error) => ({
         error: error || 'UNKNOWN ERROR DURING REGISTRATION',
     },
 })
-
-// export const toggleLogin = () => {
-//     console.log('foo')
-//     return {
-//         type: 'AUTH/TOGGLE_LOGIN',
-//         payload: {},
-//     }
-// }
