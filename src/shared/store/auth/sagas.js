@@ -1,5 +1,6 @@
-import {takeLatest, call, put} from 'redux-saga/effects'
+import {takeLatest, call, put, all} from 'redux-saga/effects'
 import {succeedAuth, failAuth} from './actions.js'
+import {showToast, hideToast} from '../toast/actions'
 
 /* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
@@ -11,12 +12,21 @@ function * workerSaga() {
         const {success, error} = yield call(makeAuthRequest)
 
         if (!success) {
-            yield put(failAuth(error))
+            yield all([
+                put(failAuth(error)),
+                put(showToast({message: error, style: 'error'})),
+            ])
             return
         }
-        yield put(succeedAuth())
+        yield all([
+            put(succeedAuth(error)),
+            put(hideToast()),
+        ])
     } catch (error) {
-        yield put(failAuth(error))
+        yield all([
+            put(failAuth(error)),
+            put(showToast({message: error, style: 'error'})),
+        ])
     }
 }
 

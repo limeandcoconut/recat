@@ -8,7 +8,7 @@ import {requestAuth} from '../../store/auth/actions'
 import Input from '../../components/input'
 import styles from './login.module.less'
 import Beater from '../../components/beater'
-import {Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 class Register extends React.Component {
     // setLanguage = (e) => {
@@ -22,50 +22,45 @@ class Register extends React.Component {
     }
 
     render() {
-        const {success, requested, form, error, authRequested, authSuccess, authError} = this.props
+        const {success, requested, form, authRequested, authSuccess, authError} = this.props
 
         return (
             <div className={styles.wrapper}>
 
-                {!requested && !success && (
-                    <>
+                { ['username', 'password', 'email'].map((name) => (
+                    <Input
+                        name={name}
+                        key={name}
+                        value={form[name]}
+                        disabled={requested}
+                        onChange={this.handleChange}
+                        className={styles[name]}
+                        type={(name === 'email' || name === 'password') ? name : 'text'}
+                    />))
+                }
 
-                        { ['username', 'password', 'email'].map((name) => (
-                            <Input
-                                name={name}
-                                key={name}
-                                value={form[name]}
-                                onChange={this.handleChange}
-                                className={styles[name]}
-                                type={(name === 'email' || name === 'password') ? name : 'text'}
-                            />))
-                        }
+                <button
+                    disabled={
+                        (!form.username && !form.password && !form.email) ||
+                        requested
+                    }
+                    type="button"
+                    onClick={this.props.requestLogin}
+                    className={styles.button}
+                >
+                    Login
+                </button>
 
-                        <button
-                            disabled={!form.username && !form.password && !form.email}
-                            type="button"
-                            onClick={this.props.requestLogin}
-                            className={styles.button}
-                        >
-                            Login
-                        </button>
-                    </>
-                )}
                 {requested && (
                     <div className={styles.requestedOverlay} >
                         <Beater className={styles.beater}/>
                     </div>
                 )}
 
-                {error &&
-                    <div>{JSON.stringify(error, null, 4)}</div>
-                }
-
                 {success &&
                     <div>
                         success
-                        {/* <Redirect to={{pathname: "/register"}}/> */}
-                        <Link to="/">CATZ</Link>
+                        <Redirect to={{pathname: '/'}}/>
                     </div>
                 }
 
@@ -129,11 +124,10 @@ const mapDispatchToProps = {
     requestAuth,
 }
 
-const mapStateToProps = ({login: {success, requested, error, form} = {}, auth: {success: authSuccess, requested: authRequested, error: authError} = {}}) => ({
+const mapStateToProps = ({login: {success, requested, form} = {}, auth: {success: authSuccess, requested: authRequested, error: authError} = {}}) => ({
     success,
     requested,
     form,
-    error,
     authSuccess,
     authRequested,
     authError,

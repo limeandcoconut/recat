@@ -25,6 +25,6 @@ export default (state = initialState, action) =>
             draft.error = error
             break
         default:
-            // yay
+            // Handled by immer. yay :D :3
         }
     })

@@ -1,5 +1,6 @@
-import {takeLatest, call, put} from 'redux-saga/effects'
+import {takeLatest, call, put, all} from 'redux-saga/effects'
 import {succeedCat, failCat} from './actions.js'
+import {showToast, hideToast} from '../toast/actions'
 
 /* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
@@ -13,15 +14,22 @@ function * workerSaga() {
         console.log('src')
         console.log(src)
 
-        yield put(succeedCat(src))
+        yield all([
+            put(succeedCat(src)),
+            put(hideToast()),
+        ])
     } catch (error) {
-        yield put(failCat(error))
+        yield all([
+            put(failCat(error)),
+            put(showToast({message: error, style: 'error'})),
+        ])
     }
 }
 
 function fetchCat() {
 
     return new Promise(async (resolve) => {
+        await new Promise((resolve) => setTimeout(resolve, 2000))
         resolve('https://place-hold.it/300x500')
         return
         // resolve('https://purr.objects-us-east-1.dream.io/i/008_-_uZCLhu4.gif')

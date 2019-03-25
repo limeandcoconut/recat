@@ -40,8 +40,7 @@ class Register extends React.Component {
 
                 <button
                     disabled={
-                        (!form.username && !form.password && !form.email)
-                        ||
+                        (!form.username && !form.password && !form.email) ||
                         requested
                     }
                     type="button"

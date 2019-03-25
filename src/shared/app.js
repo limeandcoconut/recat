@@ -1,30 +1,30 @@
-import * as React from 'react';
-import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
-import { setLocale } from './store/app/actions';
-import styles from './app.module.less';
+import * as React from 'react'
+import Helmet from 'react-helmet'
+import {connect} from 'react-redux'
+import {withNamespaces} from 'react-i18next'
+import {setLocale} from './store/app/actions'
+import styles from './app.module.less'
 import {Switch, Route} from 'react-router-dom'
 import AuthRoute from './components/authroute'
 import routes from './routes'
 import Header from './components/header'
-
+import Toast from './components/toast'
 
 class App extends React.Component {
     setLanguage = (e) => {
-        this.props.setLocale(e.target.value);
+        this.props.setLocale(e.target.value)
     };
 
     render() {
-        const { t, fetchingCat, catError, catSrc, requestCat } = this.props;
+        const {t, fetchingCat, catError, catSrc, requestCat} = this.props
 
         return (
             <div className={styles.layout}>
-            
-                <Header variant='a' />
+
+                <Header variant="a" />
 
                 <div className={styles.rightDivision} >
-                    <Header variant='b' />
+                    <Header variant="b" />
                 </div>
 
                 <main className={styles.main}>
@@ -49,9 +49,14 @@ class App extends React.Component {
                         </button>
                     </div> */}
                 </main>
-
-                <div className={styles.footer}></div>
-
+                {// TODO: referer and stuff
+                }
+                <div className={styles.footer}>
+                    <div>
+                        A thing by <a className={styles.footerLink} href="https://jacobsmith.tech" target="_blank">Jacob Smith</a>
+                    </div>
+                </div>
+                <Toast/>
             </div>
         )
     }
@@ -64,4 +69,4 @@ const mapDispatchToProps = {
 export default connect(
     null,
     mapDispatchToProps
-)(withNamespaces()(App));
+)(withNamespaces()(App))

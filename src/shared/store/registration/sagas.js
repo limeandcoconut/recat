@@ -1,5 +1,6 @@
-import {takeLatest, call, put, select} from 'redux-saga/effects'
+import {takeLatest, call, put, select, all} from 'redux-saga/effects'
 import {succeedRegistration, failRegistration} from './actions.js'
+import {showToast, hideToast} from '../toast/actions'
 
 /* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
@@ -16,12 +17,21 @@ function * workerSaga() {
         const {success, error} = yield call(makeRegisterRequest(form))
 
         if (!success) {
-            yield put(failRegistration(error))
+            yield all([
+                put(failRegistration(error)),
+                put(showToast({message: error, style: 'error'})),
+            ])
             return
         }
-        yield put(succeedRegistration())
+        yield all([
+            put(succeedRegistration(error)),
+            put(hideToast()),
+        ])
     } catch (error) {
-        yield put(failRegistration(error))
+        yield all([
+            put(failRegistration(error)),
+            put(showToast({message: error, style: 'error'})),
+        ])
     }
 }
 

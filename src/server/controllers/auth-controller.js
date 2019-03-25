@@ -14,6 +14,7 @@ import {encryptionKey} from '../../../keys.js'
 export async function register(user) {
     // TODO not a terribly good password strength test
     // TODO Typrography enforcement
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     const passwordRequirements = new RegExp('(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])')
     if (!user.password) {
         return {response: {success: false, error: 'empty password'}}
@@ -32,23 +33,21 @@ export async function register(user) {
             email: user.email,
             passwordHash,
         })
-    } catch (err) {
-        // joi validation
-        if (err instanceof Sequelize.ValidationError) {
-            if (err.errors[0].type === 'unique violation') {
-                return {response: {success: false, error: 'unique validation error'}}
+    } catch (error) {
+        if (error instanceof Sequelize.ValidationError) {
+            if (error.errors[0].type === 'unique violation') {
+                return {response: {success: false, error: 'you\'re already registered'}}
             }
 
-            return {response: {success: false, error: 'validation error'}}
-        } else if (err instanceof Sequelize.ForeignKeyConstraintError) {
-            // At the moment, I don't know how to trigger one of these
-            return {response: {success: false, error: 'foreign key constrain error'}}
+            return {response: {success: false, error: 'unacceptable email'}}
+        } else if (error instanceof Sequelize.ForeignKeyConstraintError) {
+            return {response: {success: false, error: 'internal error'}}
         }
 
         if (process.env.NODE_ENV === 'development') {
-            console.error(err)
+            console.error(error)
         }
-        return {response: {success: false, error: 'Unkown'}}
+        return {response: {success: false, error: 'internal error'}}
     }
 
     return {response: {success: true}}
@@ -129,23 +128,10 @@ export async function logout(encryptedSession) {
         return {response: {success: false, error: 'internal error'}}
     }
 
-    // let userId
-    // try {
-    //     userId = await getAsync(sessionId)
-    // } catch (error) {
-    //     return {response: {success: false, error: 'internal error'}}
-    // }
-
-    // if (!userId) {
-    //     // TODO: Should this be success?
-    //     return {response: {success: false, error: 'not authorized'}}
-    // }
-
     try {
         await delAsync(sessionId)
     } catch (error) {
         // TODO: Logging here?
-        // return {response: {success: false, error: 'internal error'}}
     }
 
     // TODO: add prod stuff

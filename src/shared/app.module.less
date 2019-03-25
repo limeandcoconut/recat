@@ -56,12 +56,32 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: .basis(9)[];
+    // height: .basis(9)[];
     z-index: 1;
+    display: flex;
+        flex-direction: row;
+        align-content: flex-end;
+        align-items: flex-end;
+        justify-items: flex-end;
+        justify-content: flex-end;
+        // position: absolute;
+    padding: .basis(3)[];
+    color: darken(@charcoal, 3%);
+
+    // margin-left: .5em;
+    .nunito();
+    font-size: .basis(3)[];
+    line-height: .basis(4)[];
+    text-decoration: none;
+
     
     .above(md; {
         z-index: 0;
     });
+}
+
+.footer-link {
+    color: inherit;
 }
 
 .i18n {

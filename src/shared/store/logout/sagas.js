@@ -1,6 +1,7 @@
 import {takeLatest, call, put, all} from 'redux-saga/effects'
 import {succeedLogout, failLogout} from './actions.js'
 import {failAuth} from '../auth/actions.js'
+import {showToast, hideToast} from '../toast/actions'
 
 /* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
@@ -19,15 +20,29 @@ function * workerSaga() {
         //     // ])
         //     // return
         // }
-        // TODO: Probs show toast that logout failed here. "Wait for expiry"
-        let promise = success ? succeedLogout() : failLogout(error)
-        promise = put(promise)
+        if (!success) {
+            yield all([
+                put(failLogout(error)),
+                put(failAuth()),
+                put(showToast({message: error, style: 'error'})),
+            ])
+            return
+        }
         yield all([
-            promise,
+            succeedLogout(),
             put(failAuth()),
+            put(hideToast()),
         ])
+        // TODO: Probs show toast that logout failed here. "Wait for expiry"
+        // let promise = success ? succeedLogout() : failLogout(error)
+        // promise = put(promise)
+        // yield all([
+        //     promise,
+        //     put(failAuth()),
+        // ])
     } catch (error) {
         yield all([
+            put(showToast({message: error, style: 'error'})),
             put(failLogout(error)),
             put(failAuth(error)),
         ])

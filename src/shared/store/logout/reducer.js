@@ -1,7 +1,7 @@
 import {produce} from 'immer'
 
 export const initialState = Object.freeze({
-    success: null,
+    success: false,
     requested: false,
     error: null,
 })
@@ -12,6 +12,7 @@ export default (state = initialState, action) =>
         switch (type) {
         case 'LOGOUT/REQUEST_LOGOUT':
             draft.requested = requested
+            draft.error = null
             break
         case 'LOGOUT/LOGOUT_SUCCESS':
             draft.requested = requested
@@ -24,6 +25,6 @@ export default (state = initialState, action) =>
             draft.error = error
             break
         default:
-            // yay
+            // Handled by immer. yay :D :3
         }
     })
