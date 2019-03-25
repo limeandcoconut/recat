@@ -13,7 +13,7 @@
 
 .button {
     width: 60%;
-    margin-top: .basis(1)[];
+    margin-top: .basis(2)[];
 }
 
 .temp-container {
@@ -24,17 +24,15 @@
 }
 
 .requested-overlay {
-    
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    // pointer-events: none;
 
     &:before {
         content: '';
-        background-color: fadeout(@charcoal, 70%);
+        background-color: @dimcoal;
         position: absolute;
         top: 0;
         left: 0;

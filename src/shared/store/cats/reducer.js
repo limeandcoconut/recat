@@ -12,10 +12,12 @@ export default (state = initialState, action) =>
         switch (type) {
         case 'CATS/REQUEST_CAT':
             draft.requested = requested
+            draft.error = null
             break
         case 'CATS/FETCH_SUCCESS':
             draft.requested = requested
             draft.src = src
+            draft.error = null
             break
         case 'CATS/FETCH_FAILURE':
             draft.requested = requested

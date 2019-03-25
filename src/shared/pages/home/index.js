@@ -76,25 +76,21 @@ class Home extends React.Component {
         return (
             <div className={styles.wrapper} >
                 <div className={styles.imageContainer} >
-                    {src &&
+                    {src ?
                         <img
                             src={src}
                             className={styles.image}
                             alt="A pic of the bestest kitty cat evar!"
                         />
+                        :
+                        <div className={styles.imagePlaceholder}></div>
                     }
                     {requested && (
                         <Beater className={styles.beater}/>
                     )}
                 </div>
-                {/* {this.formatMessage()} */}
                 <Confetti active={src && requested} config={confettiConfig} className={styles.confetti} />
-                <div className={styles.buttonContainer} >
-                    {requested
-                        ? <button className={styles.button} disabled>Fetching...</button>
-                        : <button className={styles.button} onClick={this.props.requestCat}>Request a Cat</button>
-                    }
-                </div>
+                <button className={styles.button} onClick={this.props.requestCat} disabled={requested}>Request a Cat</button>
             </div>
         )
     }

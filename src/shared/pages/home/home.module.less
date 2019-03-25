@@ -1,8 +1,11 @@
 @import '@assets/../mixins.less';
 
 .wrapper {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
+
 
     &-guest {
         &:extend(.wrapper);
@@ -25,9 +28,9 @@
 
 .image-container {
     position: relative;
-    grid-column-start: 4;
-    grid-column-end: 10;
-    .ratio(4; 5; true);
+    width: 100%;
+    margin-bottom: .basis(3)[];
+    flex-grow: 1;
 }
 
 .image {
@@ -38,13 +41,13 @@
     height: 100%;
     transform: translateY(-50%);
     object-fit: contain;
-}
 
-.message, .message-placeholder {
-    display: block;
-    grid-column-start: 3;
-    grid-column-end: 11;
-    grid-row: 2;
+    &-placeholder {
+        background-color: @dimcoal;
+        width: 100%;
+        height: 100%;
+        border: 2px solid @powder;
+    }
 }
 
 .button {
