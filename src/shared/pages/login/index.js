@@ -7,7 +7,8 @@ import {updateLogin, requestLogin} from '../../store/login/actions'
 import {requestAuth} from '../../store/auth/actions'
 import Input from '../../components/input'
 import styles from './login.module.less'
-import {withRouter, Redirect, Link} from 'react-router-dom'
+import Beater from '../../components/beater'
+import {Link} from 'react-router-dom'
 
 class Register extends React.Component {
     // setLanguage = (e) => {
@@ -49,9 +50,11 @@ class Register extends React.Component {
                             Login
                         </button>
                     </>
-                ) }
-                { requested && success === null && (
-                    <div>requested...</div>
+                )}
+                {requested && (
+                    <div className={styles.requestedOverlay} >
+                        <Beater className={styles.beater}/>
+                    </div>
                 )}
 
                 {error &&

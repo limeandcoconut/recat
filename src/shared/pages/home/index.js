@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {requestCat} from '../../store/cats/actions'
 import Input from '../../components/input'
 import styles from './home.module.less'
+import Beater from '../../components/beater'
 import {withRouter, Redirect, Link} from 'react-router-dom'
 
 import Confetti from 'react-dom-confetti';
@@ -75,17 +76,19 @@ class Home extends React.Component {
         return (
             // <div /* className={styles.wrapper} */>
             <div  className={styles.wrapper} >
-                {catSrc &&
-                    <div className={styles.imageContainer} >
+                <div className={styles.imageContainer} >
+                    {catSrc &&
                         <img 
                             src={catSrc} 
                             className={styles.image}
                             alt="A pic of the bestest kitty cat evar!" 
                         />
-                    </div>
-
-                }
-                {this.formatMessage()}
+                    }
+                    {catRequested && (
+                        <Beater className={styles.beater}/>
+                    )}
+                </div>
+                {/* {this.formatMessage()} */}
                 <Confetti active={catSrc && catRequested} config={confettiConfig}  className={styles.confetti} />
                 <div className={styles.buttonContainer} >
                     {catRequested ?
