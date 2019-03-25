@@ -91,7 +91,6 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = ({auth: {success: authed}, cats: {requested, error, src}}) => {
-    console.log(authed)
     return ({
         authed,
         requested,

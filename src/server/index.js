@@ -86,15 +86,16 @@ auth.post('/login', async (req, res) => {
     res.send(response)
 })
 
+// TODO: Refine
 auth.post('/check', async (req, res) => {
     const cookie = req.header('cookie')
     if (!cookie) {
-        res.send({success: false, error: 'no cookie'})
+        res.send({success: false, error: 'not authorized'})
         return
     }
     let encryptedCookie = cookie.match(/session=(\w+)/)
     if (!encryptedCookie || !encryptedCookie[1]) {
-        res.send({success: false, error: 'invalid cookie'})
+        res.send({success: false, error: 'not authorized'})
         return
     }
     encryptedCookie = encryptedCookie[1]
@@ -107,12 +108,12 @@ auth.post('/logout', async (req, res) => {
     const cookie = req.header('cookie')
     if (!cookie) {
         // TODO: Should this be success?
-        res.send({success: false, error: 'no cookie'})
+        res.send({success: false, error: 'not authorized'})
         return
     }
     let encryptedCookie = cookie.match(/session=(\w+)/)
     if (!encryptedCookie || !encryptedCookie[1]) {
-        res.send({success: false, error: 'invalid cookie'})
+        res.send({success: false, error: 'not authorized'})
         return
     }
     encryptedCookie = encryptedCookie[1]

@@ -30,7 +30,7 @@ class Register extends React.Component {
     }
 
     render() {
-        const {success, requested, form, error} = this.props
+        const {requested, form} = this.props
 
         return (
             <div className={sharedStyles.wrapper}>
@@ -96,11 +96,10 @@ const mapDispatchToProps = {
     push,
 }
 
-const mapStateToProps = ({registration: {success, requested, error, form} = {}}) => ({
+const mapStateToProps = ({registration: {success, requested, form} = {}}) => ({
     success,
     requested,
     form,
-    error,
 })
 
 export default connect(
