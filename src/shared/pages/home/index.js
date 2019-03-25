@@ -23,7 +23,6 @@ const confettiConfig = {
     height: '9px',
     colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
 }
-// return <Confetti active={ someProp } config={ config }/>
 
 class Home extends React.Component {
     // setLanguage = (e) => {
@@ -32,26 +31,17 @@ class Home extends React.Component {
     // };
 
     componentDidMount() {
+        this.checkIfAuthed()
+    }
+
+    componentDidUpdate() {
+        this.checkIfAuthed()
+    }
+
+    checkIfAuthed() {
         if (!this.props.src && this.props.authed) {
             this.props.requestCat()
         }
-    }
-
-    fillMessage = (message) => <div className={styles.message} >{message}</div>
-
-    formatMessage() {
-        const {authed, requested, error, src} = this.props
-        const fillMessage = this.fillMessage
-        if (src) {
-            return <br className={styles.messagePlaceholder} />
-        }
-        if (requested) {
-            return fillMessage('Requested...')
-        }
-        if (error) {
-            return fillMessage(error)
-        }
-        return fillMessage('Request a kitty cat!')
     }
 
     render() {
@@ -100,14 +90,19 @@ const mapDispatchToProps = {
     requestCat,
 }
 
-const mapStateToProps = ({auth: {success: authed}, cats: {requested, error, src}}) => ({
-    authed,
-    requested,
-    error,
-    src,
-})
+const mapStateToProps = ({auth: {success: authed}, cats: {requested, error, src}}) => {
+    console.log(authed)
+    return ({
+        authed,
+        requested,
+        error,
+        src,
+    })
+}
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
+    null,
+    {pure: false}
 )(Home)
