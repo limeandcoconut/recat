@@ -9,6 +9,6 @@ module.exports = {
     ],
     rules: {
         'indent': [2, 4, {MemberExpression: 0}],
-        'operator-linebreak': ['error', 'after', {overrides: {'?': 'before', ':': 'before'}}],
+        'operator-linebreak': ['error', 'after', {overrides: {'?': 'ignore', ':': 'ignore'}}],
     },
 }

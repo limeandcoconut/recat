@@ -3,7 +3,7 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 // import { withNamespaces } from 'react-i18next';
 import {updateRegistration, requestRegistration, toggleLogin} from '../../store/registration/actions'
-import Input from '../../components/input';
+import Input from '../../components/input'
 import {withRouter, Redirect, Link} from 'react-router-dom'
 import sharedStyles from '../login/login.module.less'
 import styles from './register.module.less'
@@ -27,26 +27,26 @@ class Register extends React.Component {
             <div className={sharedStyles.wrapper}>
 
                 { ['username', 'password', 'email'].map((name) => (
-                    <Input 
-                        name={name} 
-                        key={name} 
-                        value={form[name]} 
+                    <Input
+                        name={name}
+                        key={name}
+                        value={form[name]}
                         disabled={requested}
-                        onChange={this.handleChange}  
-                        className={styles[name]} 
-                        type={(name === 'email' || name === 'password') ? name : 'text'} 
-                        />)) 
-                    }
+                        onChange={this.handleChange}
+                        className={styles[name]}
+                        type={(name === 'email' || name === 'password') ? name : 'text'}
+                    />))
+                }
 
                 <button
                     disabled={
-                        (!form.username && !form.password && !form.email) 
-                        || 
+                        (!form.username && !form.password && !form.email)
+                        ||
                         requested
                     }
                     type="button"
                     onClick={this.props.requestRegistration}
-                    className={sharedStyles.button} 
+                    className={sharedStyles.button}
                 >
                     Register
                 </button>
@@ -64,25 +64,25 @@ class Register extends React.Component {
                 {success &&
                     <div>
                         success
-                        <Redirect to={{pathname: "/login"}}/>
+                        <Redirect to={{pathname: '/login'}}/>
                     </div>
                 }
 
                 <div className={sharedStyles.tempContainer} >
                     <button onClick={() => {
-                            this.props.updateRegistration({
-                                name: 'username', 
-                                value:'lime',
-                            })
-                            this.props.updateRegistration({
-                                name: 'password', 
-                                value:'limeLIME1!',
-                            })
-                            this.props.updateRegistration({
-                                name: 'email', 
-                                value:'messagethesmith@gmai.com',
-                            })
-                            console.log(form)
+                        this.props.updateRegistration({
+                            name: 'username',
+                            value: 'lime',
+                        })
+                        this.props.updateRegistration({
+                            name: 'password',
+                            value: 'limeLIME1!',
+                        })
+                        this.props.updateRegistration({
+                            name: 'email',
+                            value: 'messagethesmith@gmai.com',
+                        })
+                        console.log(form)
 
                     }}
                     >

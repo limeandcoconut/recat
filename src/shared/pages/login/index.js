@@ -31,21 +31,21 @@ class Register extends React.Component {
                     <>
 
                         { ['username', 'password', 'email'].map((name) => (
-                            <Input 
-                                name={name} 
-                                key={name} 
-                                value={form[name]} 
-                                onChange={this.handleChange}  
+                            <Input
+                                name={name}
+                                key={name}
+                                value={form[name]}
+                                onChange={this.handleChange}
                                 className={styles[name]}
-                                type={(name === 'email' || name === 'password') ? name : 'text'} 
-                            />)) 
+                                type={(name === 'email' || name === 'password') ? name : 'text'}
+                            />))
                         }
 
                         <button
                             disabled={!form.username && !form.password && !form.email}
                             type="button"
                             onClick={this.props.requestLogin}
-                            className={styles.button} 
+                            className={styles.button}
                         >
                             Login
                         </button>
@@ -70,50 +70,50 @@ class Register extends React.Component {
                 }
 
                 <div className={styles.tempContainer} >
-                    
+
                     <button
                         onClick={() => {
 
-                                this.props.updateLogin({
-                                    name: 'username', 
-                                    value:'lime',
-                                })
-                                this.props.updateLogin({
-                                    name: 'password', 
-                                    value:'limeLIME1!',
-                                })
-                                this.props.updateLogin({
-                                    name: 'email', 
-                                    value:'messagethesmith@gmai.com',
-                                })
-                                console.log(form)
+                            this.props.updateLogin({
+                                name: 'username',
+                                value: 'lime',
+                            })
+                            this.props.updateLogin({
+                                name: 'password',
+                                value: 'limeLIME1!',
+                            })
+                            this.props.updateLogin({
+                                name: 'email',
+                                value: 'messagethesmith@gmai.com',
+                            })
+                            console.log(form)
 
                         }}
-                        className={styles.tempButton} 
+                        className={styles.tempButton}
                     >
                         fill
                     </button>
-                    
+
                     <button
                         type="button"
                         onClick={this.props.requestAuth}
-                        className={styles.tempButton2} 
+                        className={styles.tempButton2}
                     >
                         check auth
                     </button>
 
-                    {authRequested && authSuccess === null && 
-                        <div> 
+                    {authRequested && authSuccess === null &&
+                        <div>
                             Auth: requested...
                         </div>
                     }
-                    {authError && 
-                        <div> 
+                    {authError &&
+                        <div>
                             {JSON.stringify(authError, null, 4)}
                         </div>
                     }
-                    {authSuccess && 
-                        <div> 
+                    {authSuccess &&
+                        <div>
                             Authed: {String(authSuccess).toUpperCase()}
                         </div>
                     }
