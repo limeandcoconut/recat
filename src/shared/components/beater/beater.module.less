@@ -1,10 +1,15 @@
 @import '../../mixins.less';
 
+.wrapper {
+
+}
+
 .beater {
     background-color: @magenta;
     height: .basis(4)[];
     transform: rotate(-45deg);
     width: .basis(4)[];
+    animation: beat 650ms infinite ease-out alternate;
 
     &:before,
     &:after {
@@ -17,8 +22,31 @@
         width: .basis(4)[];
     }
     
+    &:after {
+        right: .basis(-2)[];
+    }
+    
     &:before {
-        top: -.basis(3)[];
+        top: .basis(-2)[];
         left: 0;
     }
+}
+
+@keyframes beat {
+	0% {
+		transform: rotate(-45deg) scale(0.9);
+		opacity: 0.5;		
+	}
+	10% {
+		transform: rotate(-45deg) scale(0.9);
+		opacity: 0.5;		
+	}
+    90% {
+		transform: rotate(-45deg) scale(1);
+		opacity: 1;	
+	}	
+    100% {
+		transform: rotate(-45deg) scale(1);
+		opacity: 1;	
+	}			
 }
