@@ -21,7 +21,7 @@ class Header extends React.Component {
         }
         return (
             <nav className={className} >
-                <NavLink className={styles.navlink} to="/">
+                <NavLink className={styles.navlink} to="/" exact>
                         Home
                 </NavLink>
                 <Authed>
@@ -30,17 +30,17 @@ class Header extends React.Component {
                     </button>
                 </Authed>
                 {/* <Anon>
-                    <NavLink className={styles.navlink} to="/register">
+                    <NavLink className={styles.navlink} to="/register" exact>
                             Register
                     </NavLink>
                 </Anon> | */}
                 <Anon>
                     { this.props.location.pathname !== '/login' ? (
-                        <NavLink className={styles.navlink} to="/login">
-                                Login
+                        <NavLink className={styles.navlink} to="/login" exact>
+                                login
                         </NavLink>
                     ) : (
-                        <NavLink className={styles.navlink} to="/register">
+                        <NavLink className={styles.navlink} to="/register" exact>
                                 Register
                         </NavLink>
                     )}
@@ -74,4 +74,6 @@ const mapStateToProps = ({auth: {success}}) => ({
 export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
+    null,
+    {pure: false},
 )(withNamespaces()(Header)))
