@@ -2,12 +2,12 @@ import * as React from 'react'
 // import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
 // import { withNamespaces } from 'react-i18next';
-import {updateRegistration, requestRegistration, toggleLogin} from '../../store/registration/actions'
+import {updateRegistration, requestRegistration, resetRegistration} from '../../store/registration/actions'
 import Input from '../../components/input'
-import {withRouter, Redirect, Link} from 'react-router-dom'
 import sharedStyles from '../login/login.module.less'
 import styles from './register.module.less'
 import Beater from '../../components/beater'
+import {push} from 'connected-react-router'
 
 class Register extends React.Component {
     // setLanguage = (e) => {
@@ -18,6 +18,15 @@ class Register extends React.Component {
     handleChange = (e) => {
         const {name, value} = e.target
         this.props.updateRegistration({name, value})
+    }
+
+    shouldComponentUpdate(newProps, /* newState */) {
+        if (newProps.success) {
+            newProps.resetRegistration()
+            newProps.push('/login')
+            return false
+        }
+        return true
     }
 
     render() {
@@ -56,17 +65,6 @@ class Register extends React.Component {
                     </div>
                 )}
 
-                {error &&
-                    <div>{JSON.stringify(error, null, 4)}</div>
-                }
-
-                {success &&
-                    <div>
-                        success
-                        <Redirect to={{pathname: '/login'}}/>
-                    </div>
-                }
-
                 <div className={sharedStyles.tempContainer} >
                     <button onClick={() => {
                         this.props.updateRegistration({
@@ -94,6 +92,8 @@ class Register extends React.Component {
 const mapDispatchToProps = {
     updateRegistration,
     requestRegistration,
+    resetRegistration,
+    push,
 }
 
 const mapStateToProps = ({registration: {success, requested, error, form} = {}}) => ({

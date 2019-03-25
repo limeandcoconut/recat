@@ -29,3 +29,12 @@ export const failRegistration = (error) => ({
         error: error || 'UNKNOWN ERROR DURING REGISTRATION',
     },
 })
+
+export const resetRegistration = () => ({
+    type: 'REGISTRATION/REGISTRATION_RESET',
+    payload: {
+        success: false,
+        requested: false,
+        error: null,
+    },
+})

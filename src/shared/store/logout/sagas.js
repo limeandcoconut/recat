@@ -23,14 +23,14 @@ function * workerSaga() {
         if (!success) {
             yield all([
                 put(failLogout(error)),
-                put(failAuth()),
+                put(failAuth('intentional logout')),
                 put(showToast({message: error, style: 'error'})),
             ])
             return
         }
         yield all([
             succeedLogout(),
-            put(failAuth()),
+            put(failAuth('intentional logout')),
             put(hideToast()),
         ])
         // TODO: Probs show toast that logout failed here. "Wait for expiry"

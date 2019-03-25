@@ -32,6 +32,13 @@ export default (state = initialState, action) =>
             draft.success = success
             draft.error = error
             break
+        case 'REGISTRATION/REGISTRATION_RESET':
+            draft.requested = requested
+            draft.success = success
+            draft.error = error
+            // This is a little site-effecty 🤷‍♀️
+            draft.form = initialState.form
+            break
         default:
             // Handled by immer. yay :D :3
         }

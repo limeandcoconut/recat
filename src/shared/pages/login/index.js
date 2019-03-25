@@ -22,7 +22,7 @@ class Register extends React.Component {
     }
 
     render() {
-        const {success, requested, form, authRequested, authSuccess, authError} = this.props
+        const {requested, form, authRequested, authed, authError} = this.props
 
         return (
             <div className={styles.wrapper}>
@@ -57,9 +57,8 @@ class Register extends React.Component {
                     </div>
                 )}
 
-                {success &&
+                {authed &&
                     <div>
-                        success
                         <Redirect to={{pathname: '/'}}/>
                     </div>
                 }
@@ -96,7 +95,7 @@ class Register extends React.Component {
                         check auth
                     </button>
 
-                    {authRequested && authSuccess === null &&
+                    {authRequested && authed === null &&
                         <div>
                             Auth: requested...
                         </div>
@@ -106,9 +105,9 @@ class Register extends React.Component {
                             {JSON.stringify(authError, null, 4)}
                         </div>
                     }
-                    {authSuccess &&
+                    {authed &&
                         <div>
-                            Authed: {String(authSuccess).toUpperCase()}
+                            Authed: {String(authed).toUpperCase()}
                         </div>
                     }
                 </div>
@@ -125,12 +124,12 @@ const mapDispatchToProps = {
 
 const mapStateToProps = ({
     login: {success, requested, form},
-    auth: {success: authSuccess, requested: authRequested, error: authError},
+    auth: {success: authed, requested: authRequested, error: authError},
 }) => ({
     success,
     requested,
     form,
-    authSuccess,
+    authed,
     authRequested,
     authError,
 })
