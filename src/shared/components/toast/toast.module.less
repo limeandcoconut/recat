@@ -1,0 +1,51 @@
+@import '../../mixins.less';
+
+.container {
+    background-color: @royal;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-between;
+    position: fixed;
+    bottom: .basis(1)[];
+    left: .basis(1)[];
+    width: calc(100% - .basis(2)[]);
+    padding: .basis(2)[];
+    padding-right: .basis(1.5)[];
+    font-size: .basis(3)[];
+    font-weight: bold;
+    box-shadow: 2px 2px 5px @darcoal;
+    transform: translateY(calc(100% + 2.5vw));
+    z-index: 10;
+    
+    &:hover {
+        .x {
+            opacity: 1;
+        }
+    }
+}
+
+.x {
+    display: block;
+    color: fadeout(@darcoal, 80%);
+    opacity: 0;
+    transition: opacity 100ms ease;
+}
+
+.display {
+    animation: show 350ms ease 1 forwards;
+}
+
+.error {
+    background-color: @peach;
+}
+
+@keyframes show {
+    from {
+        transform: translateY(calc(100% + 2.5vw));
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
