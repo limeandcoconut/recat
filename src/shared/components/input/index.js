@@ -8,7 +8,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const {t, name, value, type = 'text', className = ''} = this.props
+        const {t, name, value, type = 'text', className = '', disabled = false, required = true} = this.props
         let defaultValue = this.defaultValue[type]
         defaultValue = typeof defaultValue !== 'undefined' ? defaultValue : ''
         const filled = value === defaultValue ? defaultValue : styles.inputFilled
@@ -16,9 +16,17 @@ class Input extends React.Component {
         return (
             <label className={`${styles.wrapper} ${className}`}>
                 {name}
-                <input type={type} name={name} value={value} className={`${styles.input} ${filled}`} onChange={this.props.onChange} required/>
-                <div className={styles.inputBgBefore}><br/></div>
-                <div className={styles.inputBgAfter}><br/></div>
+                <input 
+                    type={type} 
+                    name={name} 
+                    value={value} 
+                    className={`${styles.input} ${filled}`} 
+                    onChange={this.props.onChange} 
+                    required={required}
+                    disabled={disabled}
+                />
+                <div className={styles.inputBgRaw}><br/></div>
+                <div className={styles.inputBgFocus}><br/></div>
             </label>
         )
     }

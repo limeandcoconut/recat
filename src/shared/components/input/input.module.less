@@ -31,8 +31,26 @@
     outline: none;
     box-shadow: none;
     appearance: none;
+    color: @darcoal;
+    z-index: 1;
+    background: transparent;
+
+    &[disabled] {
+        color: @ash;
+
+        &:hover, &:focus {
+            color: fadeout(@ash, 80%);
+        }
+
+        ~.input-bg-focus {
+            background: linear-gradient(110deg, transparent 0%, fadeout(@ash, 80%) 65%, @ash 100%);        }
+
+        ~.input-bg-raw {
+            background: linear-gradient(110deg, @ash 0%, fadeout(@ash, 80%) 45%, transparent 100%);
+        }
+    }
     
-    &-bg-before, &-bg-after {
+    &-bg-raw, &-bg-focus {
         &:extend(.input);
         background: linear-gradient(110deg, @turquoise 0%, fadeout(@turquoise, 80%) 45%, transparent 100%);
         display: block;
@@ -43,9 +61,10 @@
         font-size: 1em;
         opacity: 1;
         transition: opacity 300ms ease-in;
+        z-index: 0;
     }
     
-    &-bg-after {
+    &-bg-focus {
         background: linear-gradient(110deg, transparent 0%, fadeout(@seafoam, 80%) 65%, @seafoam 100%);
         opacity: 0;
         transition: opacity 300ms ease-out;
@@ -54,11 +73,11 @@
     
     &-filled, &:focus {
 
-        ~.input-bg-after {
+        ~.input-bg-focus {
             opacity: 1;
         }
 
-        ~.input-bg-before {
+        ~.input-bg-raw {
             opacity: 0;
         }
     }

@@ -26,33 +26,34 @@ class Register extends React.Component {
         return (
             <div className={sharedStyles.wrapper}>
 
-                {!requested && !success && (
-                    <>
+                { ['username', 'password', 'email'].map((name) => (
+                    <Input 
+                        name={name} 
+                        key={name} 
+                        value={form[name]} 
+                        disabled={requested}
+                        onChange={this.handleChange}  
+                        className={styles[name]} 
+                        type={(name === 'email' || name === 'password') ? name : 'text'} 
+                        />)) 
+                    }
 
-                        { ['username', 'password', 'email'].map((name) => (
-                            <Input 
-                                name={name} 
-                                key={name} 
-                                value={form[name]} 
-                                onChange={this.handleChange}  
-                                className={styles[name]} 
-                                type={(name === 'email' || name === 'password') ? name : 'text'} 
-                            />)) 
-                        }
+                <button
+                    disabled={
+                        (!form.username && !form.password && !form.email) 
+                        || 
+                        requested
+                    }
+                    type="button"
+                    onClick={this.props.requestRegistration}
+                    className={sharedStyles.button} 
+                >
+                    Register
+                </button>
 
-                        <button
-                            disabled={!form.username && !form.password && !form.email}
-                            type="button"
-                            onClick={this.props.requestRegistration}
-                            className={sharedStyles.button} 
-                        >
-                            Register
-                        </button>
-                    </>
-                )}
-                {true && (
-                    <div className={styles.requested} >
-                        {/* <Beater className=styles/> */}
+                {requested && (
+                    <div className={sharedStyles.requestedOverlay} >
+                        <Beater className={sharedStyles.beater}/>
                     </div>
                 )}
 
