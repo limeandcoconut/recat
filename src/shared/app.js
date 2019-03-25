@@ -3,24 +3,15 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { setLocale } from './store/app/actions';
-import { requestCat } from './store/cats/actions'
-import { ReactComponent as ReactLogo } from './assets/react.svg';
-// import Features from './components/Features';
 import styles from './app.module.less';
-// import {Switch, Route} from 'react-router-dom'
-import {NavLink, Switch, Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import AuthRoute from './components/authroute'
-// import {renderRoutes} from 'react-router-config'
 import routes from './routes'
 import Header from './components/header'
-import Authed from './components/authed'
-import Anon from './components/anon'
-// import PrivateRoute from './components/PrivateRoute'
 
 
 class App extends React.Component {
     setLanguage = (e) => {
-        //this.store.dispatch(setLocale(e.target.value))
         this.props.setLocale(e.target.value);
     };
 
@@ -28,7 +19,6 @@ class App extends React.Component {
         const { t, fetchingCat, catError, catSrc, requestCat } = this.props;
 
         return (
-            // <div className={styles.wrapper} >
             <div className={styles.layout}>
             
                 <Header variant='a' />
@@ -69,14 +59,7 @@ class App extends React.Component {
 
 const mapDispatchToProps = {
     setLocale,
-    // requestCat,
-};
-
-// const mapStateToProps = ({cats: {fetching, error, src} = {}}) => ({
-//     fetchingCat: fetching,
-//     catError: error,
-//     catSrc: src,
-// })
+}
 
 export default connect(
     null,
