@@ -60,7 +60,7 @@ class Home extends React.Component {
         if (!authed) {
             return (
                 <div className={styles.wrapperGuest} >
-                    This is an app for fawning over magnificent kitty cats.
+                    This is an app for fawning over kitty cats.
                     <br/>
                     <br/>
                     Login to participate.
