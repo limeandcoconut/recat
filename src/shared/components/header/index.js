@@ -37,7 +37,7 @@ class Header extends React.Component {
                 <Anon>
                     { this.props.location.pathname !== '/login' ? (
                         <NavLink className={styles.navlink} to="/login" exact>
-                                login
+                                Login
                         </NavLink>
                     ) : (
                         <NavLink className={styles.navlink} to="/register" exact>

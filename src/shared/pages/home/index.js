@@ -45,7 +45,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const {authed, requested, error, src} = this.props
+        const {authed, requested, src} = this.props
 
         if (!authed) {
             return (
@@ -53,7 +53,7 @@ class Home extends React.Component {
                     This is an app for fawning over kitty cats.
                     <br/>
                     <br/>
-                    Login to participate.
+                    Log in to participate.
                     <br/>
                     <br/>
                     <div className={styles.cat} >

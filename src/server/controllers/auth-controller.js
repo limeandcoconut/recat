@@ -14,6 +14,7 @@ import {encryptionKey} from '../../../keys.js'
 export async function register(user) {
     // TODO not a terribly good password strength test
     // TODO Typrography enforcement
+    // TODO: remove this
     await new Promise((resolve) => setTimeout(resolve, 2000))
     const passwordRequirements = new RegExp('(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])')
     if (!user.password) {
