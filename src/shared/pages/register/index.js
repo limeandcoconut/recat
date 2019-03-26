@@ -8,6 +8,7 @@ import sharedStyles from '../login/login.module.less'
 import styles from './register.module.less'
 import Beater from '../../components/beater'
 import {push} from 'connected-react-router'
+import {Redirect} from 'react-router-dom'
 
 class Register extends React.Component {
     // setLanguage = (e) => {
@@ -30,7 +31,7 @@ class Register extends React.Component {
     }
 
     render() {
-        const {requested, form} = this.props
+        const {requested, form, authed} = this.props
 
         return (
             <div className={sharedStyles.wrapper}>
@@ -65,6 +66,12 @@ class Register extends React.Component {
                     </div>
                 )}
 
+                {authed &&
+                    <div>
+                        <Redirect to={{pathname: '/'}}/>
+                    </div>
+                }
+
                 <div className={sharedStyles.tempContainer} >
                     <button onClick={() => {
                         this.props.updateRegistration({
@@ -96,10 +103,11 @@ const mapDispatchToProps = {
     push,
 }
 
-const mapStateToProps = ({registration: {success, requested, form} = {}}) => ({
+const mapStateToProps = ({registration: {success, requested, form}, auth: {success: authed}}) => ({
     success,
     requested,
     form,
+    authed,
 })
 
 export default connect(
