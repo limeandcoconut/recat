@@ -10,6 +10,7 @@ import serverRender from './render'
 import paths from '../../config/paths'
 import bodyParser from 'body-parser'
 import createHistory from '../shared/store/history'
+import {succeedAuth} from '../shared/store/auth/actions'
 
 import {register, login, checkAuth, logout} from './controllers/auth-controller'
 
@@ -34,9 +35,27 @@ app.use(bodyParser.urlencoded())
 
 app.use('/auth', auth)
 
-app.use((req, res, next) => {
+const extractSession = (req) => {
+    const cookie = req.header('cookie')
+    if (!cookie) {
+        return false
+    }
+    let match = cookie.match(/session=(\w+)/)
+    return match && match[1] ? match[1] : false
+}
+
+app.use(async (req, res, next) => {
     const history = createHistory({initialEntries: [req.url]})
     req.store = configureStore({history})
+
+    const encryptedSession = extractSession(req)
+    if (encryptedSession) {
+        const {response: {success}} = await checkAuth(encryptedSession)
+        if (success) {
+            req.store.dispatch(succeedAuth())
+        }
+    }
+
     return next()
 })
 
@@ -88,36 +107,24 @@ auth.post('/login', async (req, res) => {
 
 // TODO: Refine
 auth.post('/check', async (req, res) => {
-    const cookie = req.header('cookie')
-    if (!cookie) {
+    const encryptedSession = extractSession(req)
+    if (!encryptedSession) {
         res.send({success: false, error: 'not authorized'})
         return
     }
-    let encryptedCookie = cookie.match(/session=(\w+)/)
-    if (!encryptedCookie || !encryptedCookie[1]) {
-        res.send({success: false, error: 'not authorized'})
-        return
-    }
-    encryptedCookie = encryptedCookie[1]
-    const {response} = await checkAuth(encryptedCookie)
+    const {response} = await checkAuth(encryptedSession)
 
     res.send(response)
 })
 
 auth.post('/logout', async (req, res) => {
-    const cookie = req.header('cookie')
-    if (!cookie) {
-        // TODO: Should this be success?
-        res.send({success: false, error: 'not authorized'})
+    const encryptedSession = extractSession(req)
+    if (!encryptedSession) {
+        res.send({success: true})
         return
     }
-    let encryptedCookie = cookie.match(/session=(\w+)/)
-    if (!encryptedCookie || !encryptedCookie[1]) {
-        res.send({success: false, error: 'not authorized'})
-        return
-    }
-    encryptedCookie = encryptedCookie[1]
-    const {response, cookie: newCookie} = await logout(encryptedCookie)
+    const {response, cookie: newCookie} = await logout(encryptedSession)
+
     if (newCookie) {
         res.set('Set-Cookie', newCookie)
     }
