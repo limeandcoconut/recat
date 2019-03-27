@@ -28,6 +28,10 @@ signed cookies + tls
 actually encrypted cookies
 add dummy auth with aws cat endpoint logic
 
+SEO
+sitemap for image urls  and auth
+robots
+
 
 # Understand
 react helmet
