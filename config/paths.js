@@ -1,8 +1,8 @@
-const path = require('path');
-const fs = require('fs');
+const path = require('path')
+const fs = require('fs')
 
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
+const appDirectory = fs.realpathSync(process.cwd())
+const resolveApp = (...relativePaths) => path.resolve(appDirectory, ...relativePaths)
 
 const paths = {
     appHtml: resolveApp('config/webpack.config.js/template.html'),
@@ -14,7 +14,7 @@ const paths = {
     srcServer: resolveApp('src/server'),
     srcShared: resolveApp('src/shared'),
     publicPath: '/static/',
-};
+}
 
 paths.resolveModules = [
     paths.srcClient,
@@ -22,6 +22,6 @@ paths.resolveModules = [
     paths.srcShared,
     paths.src,
     'node_modules',
-];
+]
 
-module.exports = paths;
+module.exports = paths
