@@ -1,3 +1,7 @@
+# Project specific
+static/raw*
+static/webp*
+
 
 # Dependency directories
 node_modules/
