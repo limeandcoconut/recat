@@ -45,6 +45,7 @@ haproxy
 service worker
 compression
 fix sourcemaps in less
+exclude dev deps in webpack??? https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies
 
 # Images
 caddy
