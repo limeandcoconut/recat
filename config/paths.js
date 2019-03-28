@@ -1,8 +1,15 @@
 const path = require('path')
 const fs = require('fs')
 
-const appDirectory = fs.realpathSync(process.cwd())
-const resolveApp = (...relativePaths) => path.resolve(appDirectory, ...relativePaths)
+let rootPath = require.resolve('winston').match(/^(.*)node_modules/)
+if (rootPath) {
+    rootPath = rootPath[1]
+} else {
+    rootPath = process.cwd()
+}
+
+const appDirectory = fs.realpathSync(rootPath)
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
 
 const paths = {
     appHtml: resolveApp('config/webpack.config.js/template.html'),
@@ -14,6 +21,9 @@ const paths = {
     srcServer: resolveApp('src/server'),
     srcShared: resolveApp('src/shared'),
     publicPath: '/static/',
+    webpPath: resolveApp('static/webp'),
+    rawImagesPath: resolveApp('static/raw'),
+    logging: resolveApp('src/shared/logging'),
 }
 
 paths.resolveModules = [
