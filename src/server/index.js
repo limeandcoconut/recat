@@ -14,6 +14,7 @@ import {succeedAuth} from '../shared/store/auth/actions'
 
 import {register, login, authenticate, logout} from './controllers/auth-controller'
 import {getOne} from './controllers/img-controller'
+import expressStaticGzip from 'express-static-gzip'
 
 require('dotenv').config()
 
@@ -22,12 +23,18 @@ const auth = express.Router()
 
 // Use Nginx or Apache to serve static assets in production or remove the if() around the following
 // lines to use the express.static middleware to serve assets for production (not recommended!)
-if (process.env.NODE_ENV === 'development') {
-    app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)))
-    app.use('/favicon.ico', (req, res) => {
-        res.send('')
-    })
-}
+// if (process.env.NODE_ENV === 'development') {
+// app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)))
+// Serve compiled resources
+app.use(paths.publicPath, expressStaticGzip(path.join(paths.clientBuild, paths.publicPath), {
+    enableBrotli: true,
+    index: false,
+    orderPreference: ['br'],
+}))
+app.use('/favicon.ico', (req, res) => {
+    res.send('')
+})
+// }
 
 app.use(cors())
 
