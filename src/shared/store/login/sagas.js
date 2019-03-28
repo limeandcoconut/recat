@@ -1,7 +1,8 @@
 import {takeLatest, call, put, select, all} from 'redux-saga/effects'
-import {succeedLogin, failLogin} from './actions.js'
-import {succeedAuth, failAuth} from '../auth/actions.js'
+import {succeedLogin, failLogin} from './actions'
+import {succeedAuth, failAuth} from '../auth/actions'
 import {showToast, hideToast} from '../toast/actions'
+import {requestCat} from '../cats/actions'
 
 /* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
@@ -29,6 +30,7 @@ function * workerSaga() {
             put(succeedLogin()),
             put(succeedAuth()),
             put(hideToast()),
+            put(requestCat()),
         ])
     } catch (error) {
         yield all([

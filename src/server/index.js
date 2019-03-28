@@ -12,7 +12,8 @@ import bodyParser from 'body-parser'
 import createHistory from '../shared/store/history'
 import {succeedAuth} from '../shared/store/auth/actions'
 
-import {register, login, checkAuth, logout} from './controllers/auth-controller'
+import {register, login, authenticate, logout} from './controllers/auth-controller'
+import {getOne} from './controllers/img-controller'
 
 require('dotenv').config()
 
@@ -50,7 +51,7 @@ app.use(async (req, res, next) => {
 
     const encryptedSession = extractSession(req)
     if (encryptedSession) {
-        const {response: {success}} = await checkAuth(encryptedSession)
+        const {response: {success}} = await authenticate(encryptedSession)
         if (success) {
             req.store.dispatch(succeedAuth())
         }
@@ -105,6 +106,25 @@ auth.post('/login', async (req, res) => {
     res.send(response)
 })
 
+// TODO: Consider returning a list of images and keeping a few on client side.
+auth.get('/images/next', async (req, res) => {
+    const encryptedSession = extractSession(req)
+    if (!encryptedSession) {
+        res.send({success: false, error: 'not authorized'})
+        return
+    }
+    const {response: {success}, userId} = await authenticate(encryptedSession)
+
+    if (!success) {
+        res.send({success: false, error: 'not authorized'})
+        return
+    }
+    // The user is authed, attach image queue to response
+    const image = await getOne(userId)
+
+    res.sendFile(image)
+})
+
 // TODO: Refine
 auth.post('/check', async (req, res) => {
     const encryptedSession = extractSession(req)
@@ -112,7 +132,7 @@ auth.post('/check', async (req, res) => {
         res.send({success: false, error: 'not authorized'})
         return
     }
-    const {response} = await checkAuth(encryptedSession)
+    const {response} = await authenticate(encryptedSession)
 
     res.send(response)
 })

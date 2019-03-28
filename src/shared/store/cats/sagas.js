@@ -9,10 +9,18 @@ export default function * watcherSaga() {
 
 function * workerSaga() {
     try {
-        const src = yield call(fetchCat)
+        const {error, image} = yield call(fetchCat)
+
+        if (!image) {
+            yield all([
+                put(failCat(error)),
+                put(showToast({message: error, style: 'error'})),
+            ])
+            return
+        }
 
         yield all([
-            put(succeedCat(src)),
+            put(succeedCat(image)),
             put(hideToast()),
         ])
     } catch (error) {
@@ -26,13 +34,14 @@ function * workerSaga() {
 function fetchCat() {
 
     return new Promise(async (resolve) => {
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-        resolve('https://place-hold.it/300x500')
-        return
-        // resolve('https://purr.objects-us-east-1.dream.io/i/008_-_uZCLhu4.gif')
-        // return
-        const response = await fetch('https://aws.random.cat/meow', {method: 'GET'})
-        const json = await response.json()
-        resolve(json.file)
+        const response = await fetch('http://localhost:8500/auth/images/next', {method: 'GET'})
+        const contentType = response.headers.get('content-type')
+        if (contentType && contentType.includes('application/json')) {
+            const json = await response.json()
+            resolve(json)
+            return
+        }
+        const blob = await response.blob()
+        resolve({image: URL.createObjectURL(blob)})
     })
 }

@@ -57,15 +57,17 @@ export async function register(user) {
 
 }
 
+// TODO: check anything brian worked on for let/const
+
 /**
  * @function login
  * @param  {Object} user Keys: email and password.
  * @return {Object} An object containing a response: success flag, and an error, and a cookie to set the session if successful.
  */
 export async function login(user) {
-    let {email, password} = user
+    const {email, password} = user
 
-    let existingUser = await User.findOne({
+    const existingUser = await User.findOne({
         where: {
             email,
         },
@@ -75,7 +77,9 @@ export async function login(user) {
         return {response: {success: false, error: 'invalid username or password'}}
     }
 
-    let isValidPassword = await argon2.verify(existingUser.passwordHash, password)
+    const {passwordHash, id: userId} = existingUser
+
+    const isValidPassword = await argon2.verify(passwordHash, password)
 
     if (!isValidPassword) {
         return {response: {success: false, error: 'invalid username or password'}}
@@ -85,7 +89,7 @@ export async function login(user) {
     const maxAge = 60 * 60
 
     try {
-        await setAsync(sessionId, existingUser.id, 'EX', maxAge)
+        await setAsync(sessionId, userId, 'EX', maxAge)
     } catch (error) {
         return {response: {success: false, error: 'internal error'}}
     }
@@ -102,15 +106,15 @@ export async function login(user) {
 
     const cookie = `session=${encryptedSession}; Max-Age=${maxAge};${domain} ${secure} HttpOnly; SameSite=strict; Path=/`
 
-    return {response: {success: true}, cookie}
+    return {response: {success: true}, cookie, userId}
 }
 
 /**
- * @function checkAuth
+ * @function authenticate
  * @param  {String} encryptedSession The encrypted session.
  * @return {Object} An object containing a response: success flag, and an error if unsuccessful.
  */
-export async function checkAuth(encryptedSession) {
+export async function authenticate(encryptedSession) {
     let sessionId
     try {
         sessionId = decrypt(encryptedSession, encryptionKey)
@@ -129,7 +133,7 @@ export async function checkAuth(encryptedSession) {
         return {response: {success: false, error: 'not authorized'}}
     }
 
-    return {response: {success: true}}
+    return {response: {success: true}, userId}
 }
 
 /**

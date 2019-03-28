@@ -2,13 +2,13 @@ import {produce} from 'immer'
 
 export const initialState = Object.freeze({
     requested: false,
-    src: null,
+    image: null,
     error: null,
 })
 
 export default (state = initialState, action) =>
     produce(state, (draft) => {
-        const {type, payload: {src, requested, error} = {}} = action
+        const {type, payload: {image, requested, error} = {}} = action
         switch (type) {
         case 'CATS/REQUEST_CAT':
             draft.requested = requested
@@ -16,12 +16,12 @@ export default (state = initialState, action) =>
             break
         case 'CATS/FETCH_SUCCESS':
             draft.requested = requested
-            draft.src = src
+            draft.image = image
             draft.error = null
             break
         case 'CATS/FETCH_FAILURE':
             draft.requested = requested
-            draft.src = src
+            draft.image = image
             draft.error = error
             break
         default:

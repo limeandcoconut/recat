@@ -39,13 +39,13 @@ class Home extends React.Component {
     }
 
     checkIfAuthed() {
-        if (!this.props.src && this.props.authed) {
+        if (!this.props.image && this.props.authed && !this.props.requested && !this.props.error) {
             this.props.requestCat()
         }
     }
 
     render() {
-        const {authed, requested, src} = this.props
+        const {authed, requested, image} = this.props
 
         if (!authed) {
             return (
@@ -66,9 +66,9 @@ class Home extends React.Component {
         return (
             <div className={styles.wrapper} >
                 <div className={styles.imageContainer} >
-                    {src ?
+                    {image && image.length ?
                         <img
-                            src={src}
+                            src={image}
                             className={styles.image}
                             alt="A pic of the bestest kitty cat evar!"
                         />
@@ -79,7 +79,7 @@ class Home extends React.Component {
                         <Beater className={styles.beater}/>
                     )}
                 </div>
-                <Confetti active={src && requested} config={confettiConfig} className={styles.confetti} />
+                <Confetti active={image && image.length && requested} config={confettiConfig} className={styles.confetti} />
                 <button className={styles.button} onClick={this.props.requestCat} disabled={requested}>Request a Cat</button>
             </div>
         )
@@ -90,12 +90,12 @@ const mapDispatchToProps = {
     requestCat,
 }
 
-const mapStateToProps = ({auth: {success: authed}, cats: {requested, error, src}}) => {
+const mapStateToProps = ({auth: {success: authed}, cats: {requested, error, image}}) => {
     return ({
         authed,
         requested,
         error,
-        src,
+        image,
     })
 }
 
