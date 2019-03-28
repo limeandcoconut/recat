@@ -1,7 +1,7 @@
-const baseConfig = require('./client.base');
-const webpack = require('webpack');
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
-const generateSourceMap = process.env.OMIT_SOURCEMAP === 'true' ? false : true;
+const baseConfig = require('./client.base')
+const webpack = require('webpack')
+const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
+const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true'
 
 const config = {
     ...baseConfig,
@@ -15,6 +15,6 @@ const config = {
     performance: {
         hints: false,
     },
-};
+}
 
-module.exports = config;
+module.exports = config
