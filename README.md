@@ -54,6 +54,8 @@ store brotli
 store regular tool
 skip tar
 
+favicon
+
 
 # V2
 password reset
