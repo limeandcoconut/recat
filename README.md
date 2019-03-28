@@ -71,7 +71,8 @@ license
 swap names
 plop?
 testing?
-remove error while submitting!!
+remove error toast while submitting form!!
+normalize error and err
 
 # Fonts
 rubik *
