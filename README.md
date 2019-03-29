@@ -56,6 +56,9 @@ skip tar
 
 favicon
 
+iltopb webps
+
+mkdir images dirs
 
 # V2
 password reset
