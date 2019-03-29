@@ -23,7 +23,7 @@
     "lint:css": "stylelint ./src/**/*.css",
     "test": "node scripts/test.js --env=jsdom",
     "test:update": "yarn-or-npm test --updateSnapshot",
-    "logs:query": "node src/shared/logging/query.js",
+    "logs:all": "node src/shared/logging/query.js",
     "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js"
   },
   "moduleRoots": [

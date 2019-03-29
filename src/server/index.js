@@ -13,13 +13,15 @@ import createHistory from '../shared/store/history'
 import {succeedAuth} from '../shared/store/auth/actions'
 
 import {register, login, authenticate, logout} from './controllers/auth-controller'
-import {getOne} from './controllers/img-controller'
+import {getOne, swapForWebp} from './controllers/img-controller'
 import expressStaticGzip from 'express-static-gzip'
 
 require('dotenv').config()
 
 const app = express()
 const auth = express.Router()
+
+const BROTLI = 'br'
 
 // Use Nginx or Apache to serve static assets in production or remove the if() around the following
 // lines to use the express.static middleware to serve assets for production (not recommended!)
@@ -126,9 +128,20 @@ auth.get('/images/next', async (req, res) => {
         res.send({success: false, error: 'not authorized'})
         return
     }
-    // The user is authed, attach image queue to response
-    const image = await getOne(userId)
+    // The user is authed get an image
+    let image = await getOne(userId)
 
+    // If they don't accept brotli switch for an uncompressed webp and send
+    const acceptEncoding = req.headers['accept-encoding']
+    if (!acceptEncoding.includes(BROTLI)) {
+        image = swapForWebp(image)
+        res.sendFile(image)
+        return
+    }
+
+    // Set proper headers
+    res.setHeader('Vary', 'Accept-Encoding')
+    res.setHeader('Content-Encoding', BROTLI)
     res.sendFile(image)
 })
 

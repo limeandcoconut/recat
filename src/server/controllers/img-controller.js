@@ -1,8 +1,7 @@
 import {rpopAsync, lrangeAsync, rpushAsync} from '../models/redis'
 import fs from 'fs'
 import chalk from 'chalk'
-/* eslint-disable require-jsdoc */
-import {webpPath, rawImagesPath} from '.././../../config/paths'
+import paths from '.././../../config/paths'
 import logger from '../../shared/logging/logger'
 import webp from 'webp-converter'
 import path from 'path'
@@ -10,31 +9,41 @@ import url from 'url'
 import http from 'http'
 import https from 'https'
 import filenamify from 'filenamify'
+import {createBrotliCompress} from 'zlib'
+
+/* eslint-disable require-jsdoc */
 
 // TODO: Consider moving this magic number to a config somplace. Doesn't seem right for config/env.js 🤷‍♀️
 const requiredImags = 5
 // TODO: Maybe config for this
 const apiUrl = 'http://aws.random.cat/meow'
-const WEBP_EXTENSION = '.webp'
+
 const isHttps = (url) => /^https/.test(url)
 const chooseProtocol = (url) => isHttps(url) ? https : http
 const apiProtocol = chooseProtocol(apiUrl)
 
+const WEBP_EXTENSION = '.webp'
+const BROTLI_EXTENSION = '.br'
+
+const brotliDirLength = paths.brotliImages.length
+export const swapForWebp = (brotliPath) => paths.webpImages + brotliPath.slice(brotliDirLength, -3)
+
 function getImagesQueueFromDisk() {
-    const images = fs.readdirSync(webpPath, {encoding: 'utf8'})
+    const images = fs.readdirSync(paths.brotliImages, {encoding: 'utf8'})
 
     if (!images || images.length < requiredImags) {
-        throw new Error(`Not enough images in ${webpPath}. Please seed with at least ${requiredImags} images.`)
+        throw new Error(`Not enough images in ${paths.brotliImages}. Please seed with at least ${requiredImags} images.`)
     }
 
     const imagesCount = images.length
 
     const queue = new Array(requiredImags).fill().map(() => {
         const randomIndex = Math.floor(Math.random() * imagesCount)
-        return path.join(webpPath, images[randomIndex])
+        return path.join(paths.brotliImages, images[randomIndex])
     })
 
     return queue
+
 }
 
 async function getImagesQueue(userId) {
@@ -53,20 +62,25 @@ async function getImagesQueue(userId) {
 }
 
 export async function getOne(userId) {
-    const images = await getImagesQueue(userId)
-    // Redis has atomicity and concurrency but not parallelism so this shouldn't be an issue
-    rpopAsync(userId)
-
     // Start the async process to get a new image
     requestNewImageFromAPI(userId)
 
+    // Get images a to show
+    const images = await getImagesQueue(userId)
+
+    // Redis has atomicity and concurrency but not parallelism so this shouldn't be an issue
+    rpopAsync(userId)
+
     // Pop the next one from memory and return it
+    // This will always be brotli compressed, we're optimistic 😄
     return images.pop()
 }
 
 // TODO: consider resizing images
 async function requestNewImageFromAPI(userId) {
     // Attempt to get an image url. If we don't just quit.
+    // Lets assume that they're using some super secret special sauce that justifies not choosing local files
+    // randomly every time. Supposed to use the endpoint right? Cool, this sounds like an absurdly fun, contrived flow.
     let imageUrl
     try {
         imageUrl = await getUrlFromAPI()
@@ -75,6 +89,7 @@ async function requestNewImageFromAPI(userId) {
         return false
     }
 
+    // Got a URL
     // Sanitize filename for all filesystems
     const pathname = url.parse(imageUrl).pathname
     const rawName = filenamify(pathname)
@@ -82,54 +97,80 @@ async function requestNewImageFromAPI(userId) {
     // Generate webp filename.
     const parsedRawName = path.parse(rawName)
     const webpName = parsedRawName.name + WEBP_EXTENSION
-    const webpFullPath = path.join(webpPath, webpName)
+    const webpPath = path.join(paths.webpImages, webpName)
+    const brolitName = webpName + BROTLI_EXTENSION
+    const brotliPath = path.join(paths.brotliImages, brolitName)
 
-    // If there isn't yet a local webp version, get one
-    if (fs.existsSync(webpFullPath)) {
-        rpushAsync(userId, webpFullPath)
-        return webpFullPath
+    // If there is already a brotli version push it
+    if (fs.existsSync(brotliPath)) {
+        rpushAsync(userId, brotliPath)
+        return brotliPath
     }
 
-    // If the url is already for a webp, download it to the webp dir
-    if (parsedRawName.ext === WEBP_EXTENSION) {
-        try {
-            // TODO: This is a little side-effecty but there's nothing to return, It uses the webpFullPath
-            await downloadImage(imageUrl, webpFullPath)
-        } catch (error) {
-            logger.warn('Webp download failed.', {webpFullPath}, error)
-            return false
-        }
-        logger.debug('Webp downloaded!')
-        rpushAsync(userId, webpFullPath)
-        return webpFullPath
+    // If there is a local webp version compress and push it
+    if (fs.existsSync(webpPath)) {
+        return await compressAndStore(webpPath, brotliPath, userId)
     }
 
-    // Evidently the url is not for a webp.
-    // If there isn't yet a local raw version, get one.
-    const rawFullPath = path.join(rawImagesPath, rawName)
-    if (!fs.existsSync(rawFullPath)) {
+    // At this point there isn't a local brotli or webp.
+    // If the url is for a webp download it
+    // Or if the url is for a raw image and we don't have it - download it
+    const urlIsWebp = parsedRawName.ext === WEBP_EXTENSION
+    const rawPath = path.join(paths.rawImages, rawName)
+
+    if (urlIsWebp || !fs.existsSync(rawPath)) {
+        const savePath = urlIsWebp ? webpPath : rawPath
         try {
-            // TODO: This is still a little side-effecty 🤷‍♀️
-            await downloadImage(imageUrl, rawFullPath)
+            // TODO: This is a little side-effecty but it uses the savePath provided so there's nothing to return
+            await downloadImage(imageUrl, savePath)
         } catch (error) {
-            logger.warn('Raw download failed.', {rawFullPath}, error)
+            logger.warn('Download failed.', {savePath}, error)
             return false
         }
     }
 
-    // Convert the raw image to webp
+    // Got an image of some sort
+    // If the image we have is raw convert it to webp
+    if (!urlIsWebp) {
+        try {
+            await convertImage(rawPath, webpPath, parsedRawName.ext)
+            logger.debug('Convert succeeded!')
+            // TODO: Think about rm-ing the raw file. Maybe make a cron for it 🤷‍♀️
+            // TODO: If ya do, diff the raw and webp dirs first
+        } catch (error) {
+            logger.warn('Convert failed.', {rawPath}, error)
+            return false
+        }
+    }
+
+    // Got a webp
+    return await compressAndStore(webpPath, brotliPath, userId)
+}
+
+function compress(webpPath, brotliPath) {
+    return new Promise((resolve, reject) => {
+
+        const input = fs.createReadStream(webpPath)
+        const output = fs.createWriteStream(brotliPath)
+
+        output.on('finish', resolve)
+        output.on('error', (error) => reject(error))
+
+        const compressor = createBrotliCompress()
+        input.pipe(compressor).pipe(output)
+    })
+}
+
+async function compressAndStore(webpPath, brotliPath, userId) {
     try {
-        await convertImage(rawFullPath, webpFullPath, parsedRawName.ext)
+        // TODO: Still a little side-effecty 🤷‍♀️
+        await compress(webpPath, brotliPath)
+        rpushAsync(userId, brotliPath)
+        return brotliPath
     } catch (error) {
-        logger.warn('Convert failed.', {rawFullPath}, error)
+        logger.warn('Brotli compress failed.', error)
         return false
     }
-
-    // TODO: Think about rm-ing the raw file. Maybe make a cron for it 🤷‍♀️
-
-    logger.debug('Convert succeeded!')
-    rpushAsync(userId, webpFullPath)
-    return webpFullPath
 }
 
 function getUrlFromAPI() {
@@ -178,19 +219,19 @@ async function downloadImage(imageUrl, fullPath) {
     })
 }
 
-function convertImage(rawFullPath, webpFullPath, extname) {
+function convertImage(rawPath, webpPath, extname) {
     return new Promise((resolve, reject) => {
 
         const method = extname === '.gif' ? 'gwebp' : 'cwebp'
 
-        webp[method](rawFullPath, webpFullPath, '-q 90', (status, error) => {
+        webp[method](rawPath, webpPath, '-q 90', (status, error) => {
             if (error) {
                 reject(error)
                 return
             }
 
             if (status === '100') {
-                resolve(webpFullPath)
+                resolve(webpPath)
                 return
             }
             reject(`Unknown error. Status: ${status}`)
