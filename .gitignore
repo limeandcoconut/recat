@@ -1,7 +1,7 @@
 # Project specific
-static/raw*
-static/webp*
-static/brotli*
+images/raw*
+images/webp*
+images/brotli*
 
 
 # Dependency directories
