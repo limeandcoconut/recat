@@ -31,6 +31,7 @@ const paths = {
     srcServer: resolveApp('src/server'),
     srcShared: resolveApp('src/shared'),
     publicPath: '/static/',
+    publicAssetPath: '/static/assets',
     webpImages: resolveApp('static/webp'),
     rawImages: resolveApp('static/raw'),
     brotliImages: resolveApp('static/brotli'),
