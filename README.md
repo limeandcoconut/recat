@@ -6,9 +6,6 @@
 
 # Write
 ## Pages
-login
-cats
-logout
 
 # Components
 privateroute
@@ -32,12 +29,18 @@ SEO
 sitemap for image urls  and auth
 robots
 
+ga
+
+webp and br bg
 
 # Understand
 react helmet
 how server is bundled
 how to start production
 
+nginx only file serve no vhost
+
+x-poweredby express
 
 # Features
 less
@@ -57,6 +60,11 @@ skip tar
 favicon
 
 iltopb webps
+
+deploy sh
+base64 images into init
+
+haproxy for https
 
 mkdir images dirs
 
