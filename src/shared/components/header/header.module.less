@@ -5,6 +5,10 @@
     display: block;
     padding: .basis(3)[];
 
+    .above(md; {
+        padding: .basis(2)[];
+    });
+
     
     &-a {
         display: flex;
@@ -30,12 +34,20 @@
         left: -40%;
         width: 140%;
         padding-left: calc(40% + .basis(2)[]);
-        transform: skewX(40deg);
+        transform: skewX(25deg);
         visibility: hidden;
-
+        
         .above(md; {
             display: block;
             visibility: visible;
+        });
+
+        .above(1000px, {
+            transform: skewX(35deg);
+        });
+        
+        .above(lg; {
+            transform: skewX(40deg);
         });
     }
 }
@@ -46,4 +58,8 @@
     font-size: .basis(4)[];
     line-height: 1em;
     text-decoration: none;
+    
+    .above(md; {
+        font-size: .basis(3)[];
+    });
 }

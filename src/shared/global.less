@@ -26,6 +26,26 @@ h1, h2, h3, h4, h5, h6 {
     .nunito()
 }
 
+:global(.hidden-md) {
+    display: initial;
+    visibility: visible;
+    
+    .above(md; {
+        display: none;
+        visibility: hidden;
+    });
+}
+
+:global(.visible-md) {
+    display: none;
+    visibility: hidden;
+
+    .above(md; {
+        display: initial;
+        visibility: visible;
+    });
+}
+
 :global(.unbutton) {
     background: none;
     margin: 0;

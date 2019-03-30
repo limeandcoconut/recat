@@ -9,11 +9,12 @@
     overflow: hidden;
     font-size: .basis(2)[];
     color: @darcoal;
-        
+    
     .above(md; {
-            background: 
-                linear-gradient(fadeout(@turquoise, 40%), fadeout(@magenta, 30%)),
-                url('~assets/cat-bg-1.jpg') center 30%;
+        background: 
+            linear-gradient(fadeout(@turquoise, 40%), fadeout(@magenta, 30%)),
+            url('~assets/cat-bg.jpg') center 30%;
+        background-size: cover;
     });
 }
 
@@ -31,6 +32,14 @@
     transform: skewX(-25deg);
     
     .above(md; {
+        transform: skewX(-25deg);
+    });
+
+    .above(1000px, {
+        transform: skewX(-35deg);
+    });
+
+    .above(lg; {
         transform: skewX(-40deg);
     });
 }
@@ -39,43 +48,49 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: .interpolate(80%, 60%)[];
-    height: 60%;
+    width: .interpolate(80vmin, 60vmin)[];
+    height: 80vmin;
     z-index: 1;
     transform: translate(-50%, -50%);
     
+    .above(sm; {
+        height: .interpolate(70vmin, 60vmin)[];
+    });
+
     .above(md; {
-        height: 50vw;
-        min-height: .basis(50)[];
     });
 }
 
 .footer {
     background-color: @charcoal;
+    background-color: @coal;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+    align-items: flex-end;
+    justify-items: flex-end;
+    justify-content: flex-end;
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
-    // height: .basis(9)[];
-    z-index: 1;
-    display: flex;
-        flex-direction: row;
-        align-content: flex-end;
-        align-items: flex-end;
-        justify-items: flex-end;
-        justify-content: flex-end;
-        // position: absolute;
     padding: .basis(3)[];
     color: darken(@charcoal, 3%);
+    z-index: 1;
 
-    // margin-left: .5em;
     .nunito();
     font-size: .basis(3)[];
     line-height: .basis(4)[];
-    text-decoration: none;
-
+    text-decoration: none;    
     
     .above(md; {
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-items: flex-start;
+        justify-content: flex-start;
+        padding: .basis(2)[];
+        font-size: .basis(3)[];
+        line-height: 1em;
         z-index: 0;
     });
 }
