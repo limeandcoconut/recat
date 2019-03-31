@@ -2,7 +2,7 @@
 images/raw*
 images/webp*
 images/brotli*
-
+sitemap.xml
 
 # Dependency directories
 node_modules/
