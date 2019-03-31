@@ -42,12 +42,13 @@ function * workerSaga() {
 }
 
 function makeLoginRequest(form) {
-    return () => (fetch('http://localhost:8500/auth/login', {
+    return () => (fetch('https://recat.jacobsmith.tech/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(form),
+        // credentials: 'include',
     })
     .then((response) => {
         return response.json()

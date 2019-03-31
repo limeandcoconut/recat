@@ -50,7 +50,7 @@ function * workerSaga() {
 }
 
 function makeLogoutRequest() {
-    return fetch('http://localhost:8500/auth/logout', {
+    return fetch('https://recat.jacobsmith.tech/auth/logout', {
         method: 'POST',
     })
     .then((response) => {

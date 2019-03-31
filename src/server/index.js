@@ -26,20 +26,18 @@ const BROTLI = 'br'
 // The caching service worker must be loaded from / to be allowed to cache everything necessary
 app.use('/service-worker.js', express.static(path.join(paths.clientBuild, paths.publicPath, '/service-worker.js')))
 
-// Use Nginx or Apache to serve static assets in production or remove the if() around the following
-// lines to use the express.static middleware to serve assets for production (not recommended!)
-// if (process.env.NODE_ENV === 'development') {
+// Use Nginx or Apache to serve static assets in production
+if (process.env.NODE_ENV === 'development') {
 // app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)))
-// Serve compiled resources
-app.use(paths.publicPath, expressStaticGzip(path.join(paths.clientBuild, paths.publicPath), {
-    enableBrotli: true,
-    index: false,
-    orderPreference: ['br'],
-}))
-app.use('/favicon.ico', (req, res) => {
-    res.send('')
-})
-// }
+    app.use(paths.publicPath, expressStaticGzip(path.join(paths.clientBuild, paths.publicPath), {
+        enableBrotli: true,
+        index: false,
+        orderPreference: ['br'],
+    }))
+    app.use('/favicon.ico', (req, res) => {
+        res.send('')
+    })
+}
 
 app.use(cors())
 

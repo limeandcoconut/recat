@@ -18,3 +18,23 @@ services:
             - 6379:6379
         volumes:
             - ./redis_data:/data
+    nginx: 
+      image: nginx:latest
+      container_name: nginx
+      volumes:
+        - ./config/nginx.conf:/etc/nginx/nginx.conf
+        - ./error.log:/etc/nginx/error_log.log
+        - ./build/client/static:/etc/nginx/html/static
+      ports:
+        - 8502:80
+    haproxy:
+      image: haproxy
+      container_name: haproxy-proxy
+      restart: unless-stopped
+    #   network_mode: "host" # DO NOT USE ON MAC!    Required when running on Linux hosts.
+      ports:
+          - 443:443
+          - 80:80
+      volumes:
+          - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+          - ./certs:/etc/ssl/

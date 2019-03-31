@@ -34,7 +34,7 @@ function * workerSaga() {
 function fetchCat() {
 
     return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:8500/auth/images/next', {method: 'GET'})
+        const response = await fetch('https://recat.jacobsmith.tech/auth/images/next', {method: 'GET'})
         const contentType = response.headers.get('content-type')
         if (contentType && contentType.includes('application/json')) {
             const json = await response.json()
