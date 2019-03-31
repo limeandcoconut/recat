@@ -2,12 +2,12 @@ const webpack = require('webpack')
 const nodemon = require('nodemon')
 const rimraf = require('rimraf')
 const express = require('express')
-// const path = require('path');
+const chalk = require('chalk')
 const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'development')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const paths = require('../config/paths')
-const {logMessage, compilerPromise} = require('./utils')
+const {compilerPromise} = require('./utils')
 
 const app = express()
 
@@ -85,15 +85,15 @@ const start = async () => {
         }
 
         if (error) {
-            logMessage(error, 'error')
+            console.log(chalk.red(error))
         }
 
         if (stats.hasErrors()) {
             const info = stats.toJson()
             const errors = info.errors[0].split('\n')
-            logMessage(errors[0], 'error')
-            logMessage(errors[1], 'error')
-            logMessage(errors[2], 'error')
+            console.log(chalk.red(errors[0]))
+            console.log(chalk.red(errors[1]))
+            console.log(chalk.red(errors[2]))
         }
     })
 
@@ -103,7 +103,7 @@ const start = async () => {
         await serverPromise
         await clientPromise
     } catch (error) {
-        logMessage(error, 'error')
+        console.log(chalk.red(error))
     }
 
     const script = nodemon({
@@ -112,7 +112,7 @@ const start = async () => {
     })
 
     script.on('restart', () => {
-        logMessage('Server side app has been restarted.', 'warning')
+        console.log(chalk.yellow('Server side app has been restarted.'))
     })
 
     script.on('quit', () => {
@@ -121,7 +121,7 @@ const start = async () => {
     })
 
     script.on('error', () => {
-        logMessage('An error occured. Exiting', 'error')
+        console.log(chalk.red('An error occured. Exiting'))
         process.exit(1)
     })
 }
