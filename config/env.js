@@ -5,9 +5,7 @@ const paths = require('./paths')
 delete require.cache[require.resolve('./paths')]
 
 if (!process.env.NODE_ENV) {
-    throw new Error(
-        'The process.env.NODE_ENV environment variable is required but was not specified.'
-    )
+    throw new TypeError('The process.env.NODE_ENV environment variable is required but was not specified.')
 }
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
@@ -34,12 +32,11 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 .join(path.delimiter)
 
 module.exports = () => {
-    // define env vars you want to use in your client app here.
-    // CAREFUL: don't use any secrets like api keys or database passwords as they are exposed publicly!
+    // Define env vars you want to use in your CLIENT app here.
     const raw = {
         PORT: process.env.PORT || 8500,
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        HOST: process.env.HOST || 'http://localhost',
+        NODE_ENV: process.env.NODE_ENV,
+        HOST: process.env.HOST,
     }
 
     // Stringify all values so we can feed into Webpack DefinePlugin

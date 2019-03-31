@@ -1,8 +1,6 @@
 import createMemoryHistory from 'history/createMemoryHistory'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-// import { createBrowserHistory, createMemoryHistory } from 'history';
-
 export const createUniversalHistory = ({initialEntries = []} = {}) => {
     if (__BROWSER__) {
         const history = window.browserHistory || createBrowserHistory({initialEntries})
@@ -15,22 +13,3 @@ export const createUniversalHistory = ({initialEntries = []} = {}) => {
 }
 
 export default createUniversalHistory
-// import createMemoryHistory from 'history/createMemoryHistory'
-// import createBrowserHistory from 'history/createBrowserHistory'
-
-// // import { createBrowserHistory, createMemoryHistory } from 'history';
-
-// export const createUniversalHistory = (req = {url: '/'}) => {
-//     if (__BROWSER__) {
-//         const history = window.browserHistory || createBrowserHistory()
-//         if (process.env.NODE_ENV === 'development' && !window.browserHistory) {
-//             window.browserHistory = history
-//         }
-//         return history
-//     }
-//     return createMemoryHistory({
-//         initialEntries: [req.url],
-//     })
-// }
-
-// export default createUniversalHistory

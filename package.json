@@ -14,19 +14,12 @@
     "analyze": "yarn-or-npm build:with-stats && yarn-or-npm start:analyzer",
     "build": "cross-env NODE_ENV=production node scripts/build.js",
     "build:with-stats": "cross-env NODE_ENV=production webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
-    "link-react": "yarn-or-npm link react react-dom",
-    "lint": "concurrently \"yarn-or-npm lint:js\" \"yarn-or-npm lint:css\"",
-    "lint:js": "eslint ./src",
-    "plop": "plop",
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "start:analyzer": "webpack-bundle-analyzer build/client/static/bundle-stats.json",
-    "lint:css": "stylelint ./src/**/*.css",
-    "test": "node scripts/test.js --env=jsdom",
-    "test:update": "yarn-or-npm test --updateSnapshot",
+    "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js",
     "logs:all": "node src/shared/logging/query.js",
     "init:db": "node config/initdb.js",
-    "init:clean": "rm ./images/webp/1.webp ./images/brotli/1.webp.br ./images/webp/2.webp ./images/brotli/2.webp.br ./images/webp/3.webp ./images/brotli/3.webp.br ./images/webp/4.webp ./images/brotli/4.webp.br ./images/webp/5.webp ./images/brotli/5.webp.br",
-    "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js"
+    "init:clean": "rm ./images/webp/1.webp ./images/brotli/1.webp.br ./images/webp/2.webp ./images/brotli/2.webp.br ./images/webp/3.webp ./images/brotli/3.webp.br ./images/webp/4.webp ./images/brotli/4.webp.br ./images/webp/5.webp ./images/brotli/5.webp.br"
   },
   "moduleRoots": [
     "src/client",

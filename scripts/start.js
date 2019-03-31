@@ -18,6 +18,7 @@ const WEBPACK_PORT =
 const DEVSERVER_HOST = process.env.DEVSERVER_HOST || 'http://localhost'
 
 const start = async () => {
+    // TODO: Promise.all() ?
     rimraf.sync(paths.clientBuild)
     rimraf.sync(paths.serverBuild)
 
@@ -56,7 +57,6 @@ const start = async () => {
         stats: clientConfig.stats,
     }
 
-    // TODO: Understand this better
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*')
         return next()

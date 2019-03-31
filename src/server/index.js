@@ -18,6 +18,9 @@ import expressStaticGzip from 'express-static-gzip'
 
 require('dotenv').config()
 
+process.env.HOST = process.env.HOST || 'http://localhost'
+process.env.PORT = process.env.PORT || 8500
+
 const app = express()
 const auth = express.Router()
 
@@ -172,12 +175,11 @@ auth.post('/logout', async (req, res) => {
     res.send(response)
 })
 
-app.listen(process.env.PORT || 8500, () => {
+app.listen(process.env.PORT, () => {
     console.log(
         `[${new Date().toISOString()}]`,
         chalk.blue(
-            `App is running: 🌎 ${process.env.HOST || 'http://localhost'}:${process.env.PORT ||
-            8500}`
+            `App is running: 🌎 ${process.env.HOST}:${process.env.PORT}`
         )
     )
 })

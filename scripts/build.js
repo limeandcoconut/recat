@@ -1,13 +1,16 @@
 const webpack = require('webpack')
 const rimraf = require('rimraf')
 
+// Ensure this is set before webpack.config.js requires env.js downstream
+process.env.HOST = process.env.HOST || 'http://localhost'
+const HOST = process.env.HOST
+
 const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'production')
 const paths = require('../config/paths')
 const {logMessage, compilerPromise, sleep} = require('./utils')
+const chalk = require('chalk')
 
 const {choosePort} = require('react-dev-utils/WebpackDevServerUtils')
-
-const HOST = process.env.HOST || 'http://localhost'
 
 const generateStaticHTML = async () => {
     const nodemon = require('nodemon')
@@ -15,8 +18,10 @@ const generateStaticHTML = async () => {
     const puppeteer = require('puppeteer')
     const PORT = await choosePort('localhost', 8505)
 
+    // Server will use this process.env, Client side has had it wepbackDefined in
     process.env.PORT = PORT
 
+    console.log(chalk.blue(`Puppeteer generating static HTML from: ${HOST}:${PORT}`))
     const script = nodemon({
         script: `${paths.serverBuild}/server.js`,
         ignore: ['*'],
