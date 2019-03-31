@@ -1,6 +1,8 @@
 const webpack = require('webpack')
 const nodemon = require('nodemon')
 const rimraf = require('rimraf')
+const promisify = require('util.promisify')
+const rimrafAsync = promisify(rimraf).bind(rimraf)
 const express = require('express')
 const chalk = require('chalk')
 const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'development')
@@ -18,9 +20,11 @@ const WEBPACK_PORT =
 const DEVSERVER_HOST = process.env.DEVSERVER_HOST || 'http://localhost'
 
 const start = async () => {
-    // TODO: Promise.all() ?
-    rimraf.sync(paths.clientBuild)
-    rimraf.sync(paths.serverBuild)
+    // Akin to Promise.all()
+    const rimrafClientPromse = rimrafAsync(paths.clientBuild)
+    const rimrafServerPromse = rimrafAsync(paths.serverBuild)
+    await rimrafClientPromse
+    await rimrafServerPromse
 
     const [clientConfig, serverConfig] = webpackConfig
     clientConfig.entry.bundle = [
@@ -97,8 +101,7 @@ const start = async () => {
         }
     })
 
-    // wait until client and server is compiled
-    // TODO: will this multithread as Promise.all would?
+    // Wait until client and server is compiled
     try {
         await serverPromise
         await clientPromise

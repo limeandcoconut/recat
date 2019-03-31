@@ -1,5 +1,7 @@
 const webpack = require('webpack')
 const rimraf = require('rimraf')
+const promisify = require('util.promisify')
+const rimrafAsync = promisify(rimraf).bind(rimraf)
 const chalk = require('chalk')
 
 // Ensure this is set before webpack.config.js requires env.js downstream
@@ -57,8 +59,11 @@ if (process.env.GEN_HTML) {
 }
 
 const build = async () => {
-    rimraf.sync(paths.clientBuild)
-    rimraf.sync(paths.serverBuild)
+    // Akin to Promise.all()
+    const rimrafClientPromse = rimrafAsync(paths.clientBuild)
+    const rimrafServerPromse = rimrafAsync(paths.serverBuild)
+    await rimrafClientPromse
+    await rimrafServerPromse
 
     const [clientConfig, serverConfig] = webpackConfig
     const multiCompiler = webpack([clientConfig, serverConfig])
@@ -87,6 +92,7 @@ const build = async () => {
     try {
         await serverPromise
         await clientPromise
+
         console.log(chalk.magenta('\nCompilation done!'))
         if (process.env.GEN_HTML) {
             await generateStaticHTML()
