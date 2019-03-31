@@ -36,9 +36,7 @@ if (process.env.NODE_ENV === 'development') {
     if (!window.store) {
         window.store = store
     }
-}
-
-if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+} else if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/service-worker.js')
         .then(function(registration) {
