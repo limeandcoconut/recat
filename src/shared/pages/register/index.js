@@ -84,7 +84,7 @@ class Register extends React.Component {
                         })
                         this.props.updateRegistration({
                             name: 'email',
-                            value: 'messagethesmith@gmai.com',
+                            value: 'messagethesmith@gmail.com',
                         })
                     }}
                     >
