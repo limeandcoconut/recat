@@ -17,6 +17,8 @@ replace divs with fragments
 
 
 # Server
+Consider changing process.env definition on client...
+Consider adding a define for process.env.PRODUCTION_FLAG so we're not doing string testing all the time DEVELOPMENT_FLAG too
 fastify?
 helmet?
 cors?
