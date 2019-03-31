@@ -8,7 +8,7 @@ import Sequelize from 'sequelize'
 import User from '../models/user.js'
 import {encrypt, decrypt, randomId} from '../../shared/utils.js'
 // import Player from '../models/player.js'
-import {encryptionKey} from '../../../keys.js'
+import {encryptionKey} from '../../../config/keys.js'
 /* eslint-disable require-jsdoc */
 
 /**

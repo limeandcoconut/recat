@@ -24,6 +24,8 @@
     "test": "node scripts/test.js --env=jsdom",
     "test:update": "yarn-or-npm test --updateSnapshot",
     "logs:all": "node src/shared/logging/query.js",
+    "init:db": "node config/initdb.js",
+    "init:clean": "rm ./images/webp/1.webp ./images/brotli/1.webp.br ./images/webp/2.webp ./images/brotli/2.webp.br ./images/webp/3.webp ./images/brotli/3.webp.br ./images/webp/4.webp ./images/brotli/4.webp.br ./images/webp/5.webp ./images/brotli/5.webp.br",
     "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js"
   },
   "moduleRoots": [

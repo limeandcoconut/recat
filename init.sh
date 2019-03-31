@@ -14,23 +14,28 @@ module.exports = {
     dbPassword,
     dbName,
     encryptionKey,
-}" > keys.js
+}" > ./config/keys.js
 
 echo "POSTGRES_PASSWORD=passpasspass
 POSTGRES_USER=useruser    
-POSTGRES_DB=db" > db.env
+POSTGRES_DB=db" > ./config/db.env
 
 # Read input into YN and allow for arrow key editing
 read -e -p "Seed images? [Y/n] " YN
 
 echo "
 Change:
-    db.env
-    keys.js
+    config/db.env
+    config/keys.js
+
+After creating docker containers initialize db with:
+    node config/initdb.js
+    - or -
+    npm run init:db
 "
 
 # Exit if no seeding required
-if [[ $YN != "y" && $YN != "Y" ]]; then 
+if [[ $YN != "y" && $YN != "Y" && $YN != "" ]]; then 
     return 1 2> /dev/null || exit 1
 fi
 
@@ -54,6 +59,8 @@ fi
 
 echo "Images have been seeded. To clean up, run:
     $cleancommand
+    - or -
+    npm run init:clean
     
 The command has been copied to your clipboard.
 "

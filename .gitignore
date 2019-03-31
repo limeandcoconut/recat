@@ -108,4 +108,5 @@ bower_components
 # Db stuff
 db.env
 db_data
+pg_data
 dump.rdb

@@ -1,5 +1,5 @@
-const db = require('./models/db')
-require('./models/user')
+const db = require('../src/server/models/db')
+require('../src/server/models/user')
 
 /**
  * Initialize the database by creating tables which match all models
