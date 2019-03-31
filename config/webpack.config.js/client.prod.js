@@ -4,6 +4,9 @@ const BrotliPlugin = require('brotli-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const path = require('path')
 const paths = require('../paths')
+const SitemapPlugin = require('sitemap-webpack-plugin').default // 😬
+const RobotstxtPlugin = require('robotstxt-webpack-plugin')
+const {productionHost} = require('../keys')
 
 const config = {
     ...baseConfig,
@@ -45,17 +48,36 @@ const config = {
             // Disable any other scripts you don't want cached here as well
             staticFileGlobsIgnorePatterns: [/google-analytics.com/],
         }),
+        new SitemapPlugin(productionHost, [
+            {
+                path: '/',
+                priority: 1,
+            },
+            {
+                path: '/login',
+                priority: 0.8,
+            },
+            {
+                path: '/register',
+                priority: 0.8,
+            },
+        ], {
+            lastMod: true,
+            skipGzip: true,
+        }),
+        new RobotstxtPlugin({
+            policy: [
+                {
+                    userAgent: '*',
+                    allow: '/',
+                },
+            ],
+            sitemap: path.join(productionHost, paths.publicPath, 'sitemap.xml'),
+            host: productionHost,
+        }),
         ...baseConfig.plugins,
     ],
 }
-
-console.log([
-    path.join(paths.publicPath, '/**.css'),
-    path.join(paths.publicPath, '/img/**.*'),
-    path.join(paths.publicPath, '/**.js'),
-    // path.join(paths.publicAssetPath, '/**.woff*'),
-    path.join(paths.publicAssetPath, '/**'),
-])
 
 config.output.filename = 'bundle.[hash:8].js'
 

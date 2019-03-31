@@ -19,6 +19,5 @@ const clientOnly = () => process.argv.includes('--client-only')
 module.exports = {
     clientOnly,
     compilerPromise,
-    // logMessage,
     sleep,
 }
