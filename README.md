@@ -4,93 +4,78 @@
 
 # TODOS
 
-# Write
+## Write
 ## Pages
 
-# Components
-privateroute
-form
-input
-image
-button
+## Components
 replace divs with fragments
 
-
-# Server
-Consider changing process.env definition on client...
-Consider adding a define for process.env.PRODUCTION_FLAG so we're not doing string testing all the time DEVELOPMENT_FLAG too
-fastify?
+## Server
 helmet?
 cors?
-state to ssr
-signed cookies + tls
-actually encrypted cookies
-add dummy auth with aws cat endpoint logic
 
-SEO
-sitemap for image urls  and auth
+## SEO
+sitemap for image urls and auth
 robots
-
 ga
+favicon
+react helmet
+font preloading
+add sitemap and robots to Pages
+noindex nofolow favs
+noref link to js
+i18n
 
+## Perf
 webp and br bg
 
-# Understand
-react helmet
-how server is bundled
-how to start production
+## Understand
 
-nginx only file serve no vhost
+## Features
+favorite
+disallow favorites
+pwa 
 
-x-poweredby express
 
-# Features
-less
-haproxy
-service worker
-compression
-fix sourcemaps in less
-exclude dev deps in webpack??? https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies
+## Images
 
-# Images
-caddy
-convert to webp
-store brotli
-store regular tool
-skip tar
 
-favicon
-
-iltopb webps
-
-deploy sh
-base64 images into init
-
-haproxy for https
-
-mkdir images dirs
-
-# V2
-password reset
-rate limit routes
-check speed of encryption
-consider switch to standard redis continer
-Fix js-yaml vulnerability
-
-# Cleanup
-check licenses!
-normalize file names
+## Cleanup
 remove extra files
+normalize file names
 changelog
 readme
-license
-swap names
-plop?
-testing?
-remove error toast while submitting form!!
+package.json
+every file
+jsdoc
 normalize error and err
+normalize req/res
+x-poweredby express
+check licenses!
+deps
+safari test
+molile test 
+brian review
+user testing
 
-# Fonts
+## Later
+config production url and port
+fastify?
+fix sourcemaps in less
+exclude dev deps in webpack??? https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies
+Consider changing process.env definition on client...
+Consider adding a define for process.env.PRODUCTION_FLAG so we're not doing string testing all the time DEVELOPMENT_FLAG too
+
+## V2
+add webpack sitemap
+deploy sh
+testing 🤷‍♀️
+password reset
+rate limit routes
+consider switch to standard redis continer
+
+
+## Fonts
 rubik *
 concert one *
 lato
