@@ -32,7 +32,7 @@ function * workerSaga() {
 
 // TODO: Switch all sagas to async await
 function makeAuthRequest() {
-    return fetch('https://recat.jacobsmith.tech/auth/check', {
+    return fetch(`/auth/check`, {
         method: 'POST',
     })
     .then((response) => {

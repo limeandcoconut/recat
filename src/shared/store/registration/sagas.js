@@ -36,7 +36,7 @@ function * workerSaga() {
 }
 
 function makeRegisterRequest(form) {
-    return () => (fetch('https://recat.jacobsmith.tech/auth/register', {
+    return () => (fetch(`/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ function * workerSaga() {
 }
 
 function makeLoginRequest(form) {
-    return () => (fetch('https://recat.jacobsmith.tech/auth/login', {
+    return () => (fetch(`/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
