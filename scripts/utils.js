@@ -1,11 +1,3 @@
-// const chalk = require('chalk')
-// const logger = require('../src/shared/logging/logger')
-
-// const logMessage = (message, level = 'info') => {
-//     const color = level === 'error' ? 'red' : level === 'warning' ? 'yellow' : 'white'
-//     console.log(`[${new Date().toISOString()}]`, chalk[color](message))
-// }
-
 const compilerPromise = (name, compiler) => {
     return new Promise((resolve, reject) => {
         compiler.hooks.compile.tap(name, () => {
