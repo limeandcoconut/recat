@@ -1,6 +1,5 @@
 // import AppRoot  from './containers/AppRoot'
 // import App from './app'
-import Page1 from './pages/Page-1'
 import Register from './pages/register'
 import Login from './pages/login'
 import Home from './pages/home'
@@ -11,12 +10,6 @@ export default [
         path: '/',
         exact: true,
         component: Home,
-    },
-    {
-        path: '/page1',
-        exact: true,
-        component: Page1,
-        auth: true,
     },
     {
         path: '/register',
