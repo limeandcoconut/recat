@@ -59,6 +59,8 @@ const config = {
         ], {
             lastMod: true,
             skipGzip: true,
+            // This is a total rubbish hack but it's uh workun guud for now.
+            fileName: '../sitemap.xml',
         }),
         new RobotstxtPlugin({
             policy: [
@@ -69,6 +71,8 @@ const config = {
             ],
             sitemap: path.join(productionHost, paths.publicPath, 'sitemap.xml'),
             host: productionHost,
+            // This is a total rubbish hack but it's uh workun guud for now.
+            filePath: '../robots.txt',
         }),
         ...baseConfig.plugins,
     ],
