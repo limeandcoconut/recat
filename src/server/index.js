@@ -77,7 +77,7 @@ const manifestPath = path.join(paths.clientBuild, paths.publicPath)
 
 app.use(
     manifestHelpers({
-        manifestPath: path.join(manifestPath, '/manifest.json'),
+        manifestPath: path.join(manifestPath, '/asset-manifest.json'),
     })
 )
 

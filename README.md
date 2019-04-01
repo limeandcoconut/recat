@@ -7,6 +7,14 @@
 ## Write
 ## Pages
 
+## readme
+add twitter and favicon check to readme
+lighthouse
+config
+keys
+hap
+
+
 ## Components
 replace divs with fragments
 

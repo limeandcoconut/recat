@@ -27,7 +27,7 @@ const client = [
             process.env.NODE_ENV === 'development' ? '[id].css' : '[id].[contenthash].css',
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new ManifestPlugin({fileName: 'manifest.json'}),
+    new ManifestPlugin({fileName: 'asset-manifest.json'}),
 ]
 
 const server = [

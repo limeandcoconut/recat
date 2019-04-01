@@ -7,6 +7,7 @@ const compilerPromise = (name, compiler) => {
             if (!stats.hasErrors()) {
                 return resolve()
             }
+            console.log(stats.compilation.errors)
             return reject(`Failed to compile ${name}`)
         })
     })

@@ -15,6 +15,7 @@ const paths = {
     srcClient: resolveApp('src/client'),
     srcServer: resolveApp('src/server'),
     srcShared: resolveApp('src/shared'),
+    sharedMeta: resolveApp('src/shared/assets/meta'),
     publicPath: '/static/',
     publicAssetPath: '/static/assets',
     webpImages: resolveApp('images/webp'),

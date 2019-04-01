@@ -1,14 +1,12 @@
 import * as React from 'react'
-// import Helmet from 'react-helmet'
+import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
 // import { withNamespaces } from 'react-i18next';
 // import { setLocale } from './store/app/actions';
 import {requestCat} from '../../store/cats/actions'
-import Input from '../../components/input'
 import styles from './home.module.less'
 import Beater from '../../components/beater'
-import {withRouter, Redirect, Link} from 'react-router-dom'
-
+import {productionHost} from '../../../../config/config.js'
 import Confetti from 'react-dom-confetti'
 
 const confettiConfig = {
@@ -47,9 +45,14 @@ class Home extends React.Component {
     render() {
         const {authed, requested, image} = this.props
 
+        const helmet = <Helmet>
+            <link rel="canonical" href={productionHost} />
+        </Helmet>
+
         if (!authed) {
             return (
                 <div className={styles.wrapperGuest} >
+                    {helmet}
                     This is an app for fawning over kitty cats.
                     <br/>
                     <br/>
@@ -65,6 +68,7 @@ class Home extends React.Component {
 
         return (
             <div className={styles.wrapper} >
+                {helmet}
                 <div className={styles.imageContainer} >
                     {image && image.length ?
                         <img

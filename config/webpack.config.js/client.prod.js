@@ -6,7 +6,10 @@ const path = require('path')
 const paths = require('../paths')
 const SitemapPlugin = require('sitemap-webpack-plugin').default // 😬
 const RobotstxtPlugin = require('robotstxt-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 const {productionHost} = require('../config.js')
+const siteMeta = require('../meta')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const config = {
     ...baseConfig,
@@ -69,11 +72,41 @@ const config = {
                     allow: '/',
                 },
             ],
-            sitemap: path.join(productionHost, paths.publicPath, 'sitemap.xml'),
+            sitemap: path.join(productionHost, 'sitemap.xml'),
             host: productionHost,
             // This is a total rubbish hack but it's uh workun guud for now.
             filePath: '../robots.txt',
         }),
+        /* eslint-disable camelcase */
+        // These paths are joined here so that
+        // path, paths, and subsequently fs are not included on client where this is use
+        new WebpackPwaManifest({
+            name: siteMeta.name,
+            short_name: siteMeta.short_name,
+            description: siteMeta.description,
+            background_color: siteMeta.color,
+            theme_color: siteMeta.color,
+            // crossorigin: 'use-credentials', // can be null, use-credentials or anonymous
+            icons: siteMeta.manifestIcons.map(({src, ...rest}) => {
+                return {
+                    src: path.join(paths.sharedMeta, src),
+                    ...rest,
+                }
+            }),
+            filename: 'manifest.json',
+            display: siteMeta.display,
+            start_url: siteMeta.start_url,
+            inject: false,
+            fingerprints: false,
+            ios: false,
+            includeDirectory: false,
+        }),
+        new CopyPlugin(siteMeta.copyMeta.map(({from, to}) => {
+            return {
+                from: path.join(paths.sharedMeta, from),
+                to,
+            }
+        })),
         ...baseConfig.plugins,
     ],
 }

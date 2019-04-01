@@ -9,6 +9,7 @@ import Input from '../../components/input'
 import styles from './login.module.less'
 import Beater from '../../components/beater'
 import {Redirect} from 'react-router-dom'
+import Helmet from 'react-helmet'
 
 class Register extends React.Component {
     // setLanguage = (e) => {
@@ -26,6 +27,9 @@ class Register extends React.Component {
 
         return (
             <div className={styles.wrapper}>
+                <Helmet>
+                    <title>Log in</title>
+                </Helmet>
 
                 { ['username', 'password', 'email'].map((name) => (
                     <Input

@@ -4,11 +4,14 @@ import {connect} from 'react-redux'
 import {withNamespaces} from 'react-i18next'
 import {setLocale} from './store/app/actions'
 import styles from './app.module.less'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, withRouter} from 'react-router-dom'
 import AuthRoute from './components/authroute'
 import routes from './routes'
 import Header from './components/header'
 import Toast from './components/toast'
+import {productionHost} from '../../config/config.js'
+import siteMeta from '../../config/meta'
+import path from 'path'
 
 class App extends React.Component {
     setLanguage = (e) => {
@@ -16,6 +19,8 @@ class App extends React.Component {
     };
 
     render() {
+        const {location} = this.props
+        const baseUrl = path.join(productionHost, location.pathname)
         return (
             <div className={styles.layout}>
 
@@ -35,7 +40,43 @@ class App extends React.Component {
                         }
                     </Switch>
 
-                    <Helmet defaultTitle="React SSR Starter" titleTemplate="%s – React SSR Starter" />
+                    <base href={baseUrl} />
+                    <Helmet
+                        titleTemplate={`%s | ${siteMeta.title.default}`}
+                        defaultTitle={siteMeta.title.default}
+                    >
+
+                        <meta name="description" content={siteMeta.description} />
+
+                        <meta property="og:title" content={siteMeta.title.default} />
+                        <meta property="og:description" content={siteMeta.og.description} />
+                        <meta property="og:image" content={siteMeta.og.image.src} />
+                        <meta property="og:image:width" content={siteMeta.og.imageWidth} />
+                        <meta property="og:image:height" content={siteMeta.og.imageHeight} />
+                        <meta property="og:url" content={baseUrl} />
+                        <meta property="og:type" content={siteMeta.og.type} />
+
+                        <meta property="twitter:image" content={siteMeta.twitter.image.src} />
+                        <meta property="twitter:image:alt" content={siteMeta.twitter.image.alt} />
+                        <meta name="twitter:card" content={siteMeta.twitter.card} />
+                        <meta name="twitter:creator" content={siteMeta.twitter.creator} />
+
+                        <meta name="theme-color" content={siteMeta.color} id="theme_color" />
+                        <meta name="msapplication-TileColor" content={siteMeta.color} />
+                        <meta name="msapplication-TileImage" content={siteMeta.favicons.ms} />
+
+                        <link rel="manifest" href={siteMeta.manifest} />
+                        <link rel="shortcut icon" href={siteMeta.favicons.default} />
+                        <link rel="icon" type="image/png" sizes="32x32" href={siteMeta.favicons.x32} />
+                        <link rel="icon" type="image/png" sizes="16x16" href={siteMeta.favicons.x16} />
+                        <link rel="apple-touch-icon" sizes="180x180" href={siteMeta.favicons.apple} />
+                        <link rel="mask-icon" href={siteMeta.favicons.safariMask} color={siteMeta.color} />
+
+                        {/* crossOrigin="non-boolean-value" seems to be necessary for Helmet. I'm NOT crazy about this 😒 */}
+                        <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="crossOrigin" />
+                        <link rel="preload" href="https://fonts.gstatic.com/s/nunito/v10/XRXV3I6Li01BKofINeaBTMnFcQ.woff2" as="font" type="font/woff2" crossOrigin="crossOrigin" />
+
+                    </Helmet>
 
                     {/* <div className={styles.i18n} >
                         <h2>{t('i18n-example')}</h2>
@@ -64,7 +105,7 @@ const mapDispatchToProps = {
     setLocale,
 }
 
-export default connect(
+export default withRouter(connect(
     null,
     mapDispatchToProps
-)(withNamespaces()(App))
+)(withNamespaces()(App)))

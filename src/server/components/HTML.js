@@ -1,9 +1,9 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
-import Helmet from 'react-helmet';
-
+import React from 'react'
+import Helmet from 'react-helmet'
 
 export default class HTML extends React.Component {
+    // TODO: remove
     static defaultProps = {
         css: [],
         scripts: [],
@@ -11,8 +11,8 @@ export default class HTML extends React.Component {
     };
 
     render() {
-        const head = Helmet.renderStatic();
-        const { children, scripts, css, state } = this.props;
+        const head = Helmet.renderStatic()
+        const {children, scripts, css, state} = this.props
         return (
             <html lang="">
                 <head>
@@ -22,9 +22,10 @@ export default class HTML extends React.Component {
                     {head.title.toComponent()}
                     {head.meta.toComponent()}
                     {head.link.toComponent()}
-                    {head.script.toComponent()}
+                    {/* {head.script.toComponent()} */}
+                    {/* {head.style.toComponent()} */}
                     {css.map((href) => {
-                        return <link key={href} rel="stylesheet" href={href} />;
+                        return <link key={href} rel="stylesheet" href={href} />
                     })}
                     <script
                         dangerouslySetInnerHTML={{
@@ -33,12 +34,12 @@ export default class HTML extends React.Component {
                     />
                 </head>
                 <body>
-                    <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+                    <div id="app" dangerouslySetInnerHTML={{__html: children}} />
                     {scripts.map((src) => {
-                        return <script key={src} src={src} />;
+                        return <script key={src} src={src} />
                     })}
                 </body>
             </html>
-        );
+        )
     }
 }
