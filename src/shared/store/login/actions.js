@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga'
+
 export const updateLogin = ({name, value}) => ({
     type: 'LOGIN/UPDATE_FORM',
     payload: {
@@ -13,13 +15,19 @@ export const requestLogin = () => ({
     },
 })
 
-export const succeedLogin = () => ({
-    type: 'LOGIN/LOGIN_SUCCESS',
-    payload: {
-        success: true,
-        requested: false,
-    },
-})
+export const succeedLogin = () => {
+    ReactGA.event({
+        category: 'User',
+        action: 'Login',
+    })
+    return {
+        type: 'LOGIN/LOGIN_SUCCESS',
+        payload: {
+            success: true,
+            requested: false,
+        },
+    }
+}
 
 export const failLogin = (error) => ({
     type: 'LOGIN/LOGIN_FAILURE',

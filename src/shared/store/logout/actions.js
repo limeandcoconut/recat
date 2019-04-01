@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga'
+
 export const requestLogout = () => ({
     type: 'LOGOUT/REQUEST_LOGOUT',
     payload: {
@@ -5,13 +7,19 @@ export const requestLogout = () => ({
     },
 })
 
-export const succeedLogout = () => ({
-    type: 'LOGOUT/LOGOUT_SUCCESS',
-    payload: {
-        success: true,
-        requested: false,
-    },
-})
+export const succeedLogout = () => {
+    ReactGA.event({
+        category: 'User',
+        action: 'Logout',
+    })
+    return {
+        type: 'LOGOUT/LOGOUT_SUCCESS',
+        payload: {
+            success: true,
+            requested: false,
+        },
+    }
+}
 
 export const failLogout = (error) => ({
     type: 'LOGOUT/LOGOUT_FAILURE',

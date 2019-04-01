@@ -15,9 +15,7 @@ helmet?
 cors?
 
 ## SEO
-sitemap for image urls and auth
-robots
-ga
+
 favicon
 react helmet
 font preloading
@@ -57,14 +55,17 @@ safari test
 molile test 
 brian review
 user testing
+Change ga id in keys
 
 ## Later
+look at using the writeFilesToDisk flag instead of write-files-plugin
 config production url and port
 fastify?
 fix sourcemaps in less
 exclude dev deps in webpack??? https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies
 Consider changing process.env definition on client...
 Consider adding a define for process.env.PRODUCTION_FLAG so we're not doing string testing all the time DEVELOPMENT_FLAG too
+add build notifier plugin
 
 ## V2
 add webpack sitemap

@@ -6,6 +6,8 @@ import {configureStore} from '../shared/store'
 import App from '../shared/app'
 import IntlProvider from '../shared/i18n/IntlProvider'
 import createHistory from '../shared/store/history'
+import ReactGA from 'react-ga'
+import {gaDevID, gaProductionID} from '../../config/config.js'
 
 const history = createHistory()
 
@@ -27,6 +29,10 @@ hydrate(
     </Provider>,
     document.getElementById('app')
 )
+
+const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
+ReactGA.initialize(gaId)
+history.listen((location) => ReactGA.pageview(location.pathname))
 
 if (process.env.NODE_ENV === 'development') {
     if (module.hot) {

@@ -6,7 +6,7 @@ const path = require('path')
 const paths = require('../paths')
 const SitemapPlugin = require('sitemap-webpack-plugin').default // 😬
 const RobotstxtPlugin = require('robotstxt-webpack-plugin')
-const {productionHost} = require('../keys')
+const {productionHost} = require('../config.js')
 
 const config = {
     ...baseConfig,
