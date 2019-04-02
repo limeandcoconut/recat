@@ -13,7 +13,7 @@ import createHistory from '../shared/store/history'
 import {succeedAuth} from '../shared/store/auth/actions'
 
 import {register, login, authenticate, logout} from './controllers/auth-controller'
-import {getOne, swapForWebp} from './controllers/img-controller'
+import {getOne, swapForWebp, swapForRaw} from './controllers/img-controller'
 import expressStaticGzip from 'express-static-gzip'
 
 require('dotenv').config()
@@ -134,6 +134,20 @@ auth.get('/images/next', async (req, res) => {
     }
     // The user is authed get an image
     let image = await getOne(userId)
+
+    // Could use Condent-Disposition. I want to send the filename here but don't want the browser
+    // misinterpreting it and loading it inline or as an attachment.
+    // Thought about something like Content-Dispositin: invalid; filename=foo;
+    // This works for now. I'll take PRs on the subject.
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+    res.setHeader('file-name', path.basename(image))
+
+    // If the client has detected that the browser wont accept webp return a raw image. You don't get brotli.
+    if (req.headers.accept !== 'image/webp') {
+        image = swapForRaw(image)
+        res.sendfile(image)
+        return
+    }
 
     // If they don't accept brotli switch for an uncompressed webp and send
     const acceptEncoding = req.headers['accept-encoding']

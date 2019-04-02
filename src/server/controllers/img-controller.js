@@ -27,6 +27,7 @@ const BROTLI_EXTENSION = '.br'
 
 const brotliDirLength = paths.brotliImages.length
 export const swapForWebp = (brotliPath) => paths.webpImages + brotliPath.slice(brotliDirLength, -3)
+export const swapForRaw = (brotliPath) => paths.rawImages + brotliPath.slice(brotliDirLength, -8)
 
 function getImagesQueueFromDisk() {
     const images = fs.readdirSync(paths.brotliImages, {encoding: 'utf8'})
@@ -96,7 +97,8 @@ async function requestNewImageFromAPI(userId) {
 
     // Generate webp filename.
     const parsedRawName = path.parse(rawName)
-    const webpName = parsedRawName.name + WEBP_EXTENSION
+    const webpName = parsedRawName.base + WEBP_EXTENSION
+    console.log(webpName)
     const webpPath = path.join(paths.webpImages, webpName)
     const brolitName = webpName + BROTLI_EXTENSION
     const brotliPath = path.join(paths.brotliImages, brolitName)

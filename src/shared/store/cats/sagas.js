@@ -1,4 +1,4 @@
-import {takeLatest, call, put, all} from 'redux-saga/effects'
+import {takeLatest, call, put, all, select} from 'redux-saga/effects'
 import {succeedCat, failCat} from './actions.js'
 import {showToast, hideToast} from '../toast/actions'
 
@@ -7,9 +7,14 @@ export default function * watcherSaga() {
     yield takeLatest('CATS/REQUEST_CAT', workerSaga)
 }
 
+const webpSupport = (state) => {
+    return state.webp.supported
+}
+
 function * workerSaga() {
     try {
-        const {error, image} = yield call(fetchCat)
+        const supported = yield select(webpSupport)
+        const {error, image} = yield call(fetchCat(supported))
 
         if (!image) {
             yield all([
@@ -31,10 +36,16 @@ function * workerSaga() {
     }
 }
 
-function fetchCat() {
-
-    return new Promise(async (resolve) => {
-        const response = await fetch(`/auth/images/next`, {method: 'GET'})
+function fetchCat(supported) {
+    console.log('supported')
+    console.log(supported)
+    return () => new Promise(async (resolve) => {
+        const response = await fetch(`/auth/images/next`, {
+            method: 'GET',
+            headers: {
+                Accept: supported ? 'image/webp' : 'image/png',
+            },
+        })
         const contentType = response.headers.get('content-type')
         if (contentType && contentType.includes('application/json')) {
             const json = await response.json()

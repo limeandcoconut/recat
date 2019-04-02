@@ -8,6 +8,8 @@ import IntlProvider from '../shared/i18n/IntlProvider'
 import createHistory from '../shared/store/history'
 import ReactGA from 'react-ga'
 import {gaDevID, gaProductionID} from '../../config/config.js'
+import {supportsWebp} from '../shared/utils'
+import {setSupport} from '../shared/store/webp/actions'
 
 const history = createHistory()
 
@@ -33,6 +35,13 @@ hydrate(
 const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
 ReactGA.initialize(gaId)
 history.listen((location) => ReactGA.pageview(location.pathname))
+
+const checkWebp = async () => {
+    const isSupported = await supportsWebp()
+    store.dispatch(setSupport(isSupported))
+}
+
+checkWebp()
 
 if (process.env.NODE_ENV === 'development') {
     if (module.hot) {
