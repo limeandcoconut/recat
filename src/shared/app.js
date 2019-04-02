@@ -40,7 +40,6 @@ class App extends React.Component {
                         }
                     </Switch>
 
-                    <base href={baseUrl} />
                     <Helmet
                         titleTemplate={`%s | ${siteMeta.title.default}`}
                         defaultTitle={siteMeta.title.default}
