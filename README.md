@@ -14,7 +14,6 @@ config
 keys
 hap
 
-
 ## Components
 replace divs with fragments
 
@@ -24,29 +23,23 @@ cors?
 
 ## SEO
 
-favicon
-react helmet
-font preloading
-add sitemap and robots to Pages
 noindex nofolow favs
 noref link to js
 i18n
 
 ## Perf
-webp and br bg
 
 ## Understand
 
 ## Features
 favorite
 disallow favorites
-pwa 
-
 
 ## Images
 
-
 ## Cleanup
+add raw files to init.sh
+dont rm raw
 remove extra files
 normalize file names
 changelog

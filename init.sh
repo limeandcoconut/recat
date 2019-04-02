@@ -27,6 +27,8 @@ echo "
 Change:
     config/db.env
     config/keys.js
+    config/config.js
+    config/meta
 
 After creating docker containers initialize db with:
     node config/initdb.js
