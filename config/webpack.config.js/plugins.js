@@ -3,10 +3,18 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const env = require('../env')()
 
-const shared = []
+const shared = [
+    new WebpackBuildNotifierPlugin({
+        title: 'Webpack Build',
+        suppressSuccess: true,
+    }),
+    new FriendlyErrorsWebpackPlugin(),
+]
 
 const client = [
     // TODO: add client side only mode

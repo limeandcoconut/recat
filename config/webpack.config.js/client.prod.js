@@ -10,6 +10,9 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 const {productionHost} = require('../config.js')
 const siteMeta = require('../meta')
 const CopyPlugin = require('copy-webpack-plugin')
+// const FileManagerPlugin = require('filemanager-webpack-plugin')
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 
 const config = {
     ...baseConfig,
@@ -17,6 +20,24 @@ const config = {
     // TODO: learn more about sourcemaps
     devtool: generateSourceMap ? 'source-map' : false,
     plugins: [
+        new DuplicatePackageCheckerPlugin({
+            // Also show module that is requiring each duplicate package (default: false)
+            verbose: true,
+            // Emit errors instead of warnings (default: false)
+            // emitError: true,
+        }),
+        new ImageminWebpWebpackPlugin({
+            config: [{
+                test: /\.(jpe?g|png)/,
+                options: {
+                    quality: 90,
+                },
+            }],
+            overrideExtension: false,
+            detailedLogs: true,
+            // strict: true
+        }),
+        // TODO: Get images doing .jpg -> .webp.br
         new BrotliPlugin({
             asset: '[path].br[query]',
             test: /\.js$|\.css$/,
@@ -107,6 +128,57 @@ const config = {
                 to,
             }
         })),
+        // new FileManagerPlugin({
+        //     onEnd: {
+        //       copy: [
+        //         ...siteMeta.copyMeta.map(({from, to}) => {
+        //             return {
+        //                 source: path.join(paths.sharedMeta, from),
+        //                 destination: to,
+        //             }
+        //         }),
+        //         // { source: '/path/from', destination: '/path/to' },
+        //         // { source: '/path/**/*.js', destination: '/path' },
+        //         // { source: '/path/fromfile.txt', destination: '/path/tofile.txt' },
+        //         // { source: '/path/**/*.{html,js}', destination: '/path/to' },
+        //         // { source: '/path/{file1,file2}.js', destination: '/path/to' },
+        //         // { source: '/path/file-[hash].js', destination: '/path/to' }
+        //       ],
+        //       move: [
+        //         { source: '/path/from', destination: '/path/to' },
+        //         { source: '/path/fromfile.txt', destination: '/path/tofile.txt' }
+        //       ],
+        //       delete: [
+        //        '/path/to/file.txt',
+        //        '/path/to/directory/'
+        //       ],
+        //       mkdir: [
+        //        '/path/to/directory/',
+        //        '/another/directory/'
+        //       ],
+        //       archive: [
+        //         { source: '/path/from', destination: '/path/to.zip' },
+        //         { source: '/path/**/*.js', destination: '/path/to.zip' },
+        //         { source: '/path/fromfile.txt', destination: '/path/to.zip' },
+        //         { source: '/path/fromfile.txt', destination: '/path/to.zip', format: 'tar' },
+        //         {
+        //            source: '/path/fromfile.txt',
+        //            destination: '/path/to.tar.gz',
+        //            format: 'tar',
+        //            options: {
+        //              gzip: true,
+        //              gzipOptions: {
+        //               level: 1
+        //              },
+        //              globOptions: {
+        //               nomount: true
+        //              }
+        //            }
+        //          }
+
+        //       ]
+        //     }
+        //   })
         ...baseConfig.plugins,
     ],
 }
