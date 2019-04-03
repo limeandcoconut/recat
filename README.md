@@ -26,6 +26,10 @@ cors?
 noindex nofolow favs
 noref link to js
 i18n
+structured data
+semantic tags
+microdata
+
 
 ## Perf
 
