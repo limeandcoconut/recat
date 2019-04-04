@@ -71,7 +71,7 @@ auth.get('/images/next', async (request, response) => {
     }
     // The user is authed get an image
     // Optomiztically select images from brotli compressed webps on disk
-    let image = await getOne(userId)
+    const image = await getOne(userId)
 
     // Could use Condent-Disposition. I want to send the filename here but don't want the browser
     // misinterpreting it and loading it inline or as an attachment.
@@ -97,7 +97,7 @@ auth.put('/images/favorite', async (request, response) => {
 
     // Attempt to set the save the favorite
     // The controller does validation and sanitization
-    let {response: jsonResponse} = await setFavorite(request.body.id, userId)
+    const {response: jsonResponse} = await setFavorite(request.body.id, userId)
     if (!jsonResponse.success) {
         response.send(jsonResponse)
         return
@@ -117,7 +117,7 @@ auth.get('/images/favorite', async (request, response) => {
     }
     // Pull from db
     // TODO: ensure anything returned like this can be sent to client and document in readme
-    let {response: jsonResponse, favorite} = await getFavorite(userId)
+    const {response: jsonResponse, favorite} = await getFavorite(userId)
     console.log(jsonResponse, favorite)
     if (!jsonResponse.success) {
         response.send(jsonResponse)

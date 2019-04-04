@@ -1,7 +1,6 @@
-
 import promisify from 'util.promisify'
 import redis from 'redis'
-let client = redis.createClient()
+const client = redis.createClient()
 
 // String type values
 const setAsync = promisify(client.set).bind(client)

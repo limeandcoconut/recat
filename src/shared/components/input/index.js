@@ -16,12 +16,12 @@ class Input extends React.Component {
         return (
             <label className={`${styles.wrapper} ${className}`}>
                 {name}
-                <input 
-                    type={type} 
-                    name={name} 
-                    value={value} 
-                    className={`${styles.input} ${filled}`} 
-                    onChange={this.props.onChange} 
+                <input
+                    type={type}
+                    name={name}
+                    value={value}
+                    className={`${styles.input} ${filled}`}
+                    onChange={this.props.onChange}
                     required={required}
                     disabled={disabled}
                 />

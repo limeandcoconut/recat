@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 class HeartButton extends React.Component {
 
     render() {
-        let {favorite, requested, className, active, onClick} = this.props
+        const {favorite, requested, className, active, onClick} = this.props
         if (!favorite) {
             return null
         }
