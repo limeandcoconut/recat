@@ -29,11 +29,10 @@ class Home extends React.Component {
         super(props)
         this.saveFavorite = this.saveFavorite.bind(this)
         this.toggleSource = this.toggleSource.bind(this)
-        // this.src = this.props.image
+        this.getNewCat = this.getNewCat.bind(this)
         this.state = {
             useFavorite: false,
         }
-        // console.log({src: this.src})
     }
     // setLanguage = (e) => {
     //     //this.store.dispatch(setLocale(e.target.value))
@@ -45,9 +44,6 @@ class Home extends React.Component {
     }
 
     componentDidUpdate() {
-        // this.setState({
-        //     src: this.props.image,
-        // })
         this.checkIfAuthed()
     }
 
@@ -67,6 +63,13 @@ class Home extends React.Component {
         this.setState({
             useFavorite: !this.state.useFavorite,
         })
+    }
+
+    getNewCat() {
+        this.props.requestCat()
+        if (this.state.useFavorite) {
+            this.toggleSource()
+        }
     }
 
     render() {
@@ -131,7 +134,7 @@ class Home extends React.Component {
                     )}
                 </div>
                 <Confetti active={image && image.length && requested} config={confettiConfig} className={styles.confetti} />
-                <button className={styles.button} onClick={this.props.requestCat} disabled={requested}>Request a Cat</button>
+                <button className={styles.button} onClick={this.getNewCat} disabled={requested}>Request a Cat</button>
             </div>
         )
     }
