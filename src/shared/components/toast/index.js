@@ -17,7 +17,13 @@ class Toast extends React.Component {
         let {display, style, message, hideToast} = this.props
         const styleClass = styles[style] || ''
         const displayClass = display ? styles.display : ''
-        message = typeof message === 'string' ? message : 'something went wrong'
+        const defaultMessage = 'something went wrong'
+        if (typeof message !== 'string') {
+            if (process.env.NODE_ENV === 'development') {
+                console.log(message)
+            }
+            message = defaultMessage
+        }
         return (
             <div
                 className={`${styles.container} ${displayClass} ${styleClass}`}
