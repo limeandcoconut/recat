@@ -37,7 +37,6 @@
     "chalk": "^2.4.2",
     "connected-react-router": "^6.2.2",
     "copy-webpack-plugin": "^5.0.2",
-    "cors": "^2.8.5",
     "doiuse": "^4.2.0",
     "dont-sniff-mimetype": "^1.0.0",
     "dotenv": "^6.2.0",
