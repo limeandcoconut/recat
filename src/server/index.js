@@ -21,6 +21,7 @@ import {sleep} from '../../scripts/utils'
 import featurePolicy from 'feature-policy'
 import frameguard from 'frameguard'
 import hsts from 'hsts'
+import csp from 'helmet-csp'
 import ieNoOpen from 'ienoopen'
 import noSniff from 'dont-sniff-mimetype'
 import xssFilter from 'x-xss-protection'
@@ -56,6 +57,21 @@ app.use(featurePolicy({
         geolocation: [...contentNone],
         microphone: [...contentNone],
         payment: [...contentNone],
+    },
+}))
+
+const contentSelf = ['\'self\'', 'recat.jacobsmith.tech', 'blob:']
+const contentAnalytics = ['*.google-analytics.com', 'google-analytics.com']
+const contentFonts = ['*.fonts.gstatic.com', 'fonts.gstatic.com']
+//  helmet-csp
+app.use(csp({
+    directives: {
+        defaultSrc: contentSelf.concat(contentAnalytics),
+        fontSrc: contentSelf.concat(contentFonts),
+        prefetchSrc: contentSelf.concat(contentFonts),
+        // TODO: Add a report uri.
+        // reportUri
+        scriptSrc: contentSelf.concat(contentAnalytics),
     },
 }))
 
