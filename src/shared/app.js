@@ -63,8 +63,9 @@ class App extends React.Component {
                         <meta name="theme-color" content={siteMeta.color} id="theme_color" />
                         <meta name="msapplication-TileColor" content={siteMeta.color} />
                         <meta name="msapplication-TileImage" content={siteMeta.favicons.ms} />
-
-                        <link rel="manifest" href={siteMeta.manifest} />
+                        {process.env.NODE_ENV === 'production' &&
+                            <link rel="manifest" href={siteMeta.manifest} />
+                        }
                         <link rel="shortcut icon" href={siteMeta.favicons.default} />
                         <link rel="icon" type="image/png" sizes="32x32" href={siteMeta.favicons.x32} />
                         <link rel="icon" type="image/png" sizes="16x16" href={siteMeta.favicons.x16} />
