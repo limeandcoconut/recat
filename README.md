@@ -42,6 +42,7 @@ disallow favorites
 ## Images
 
 ## Cleanup
+fix 404
 add raw files to init.sh
 dont rm raw
 remove extra files
@@ -61,6 +62,7 @@ molile test
 brian review
 user testing
 Change ga id in keys
+turn on hsts
 
 ## Later
 look at using the writeFilesToDisk flag instead of write-files-plugin
@@ -71,6 +73,7 @@ exclude dev deps in webpack??? https://til.hashrocket.com/posts/ivze1rk2ey-speed
 Consider changing process.env definition on client...
 Consider adding a define for process.env.PRODUCTION_FLAG so we're not doing string testing all the time DEVELOPMENT_FLAG too
 add build notifier plugin
+add a working CSP [1?](https://medium.com/@nrshahri/csp-cra-324dd83fe5ff)
 
 ## V2
 add webpack sitemap

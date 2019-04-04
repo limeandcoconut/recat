@@ -18,6 +18,13 @@ import expressStaticGzip from 'express-static-gzip'
 import {getFavorite, setFavorite} from './controllers/favorite-controller'
 import {sleep} from '../../scripts/utils'
 
+import featurePolicy from 'feature-policy'
+import frameguard from 'frameguard'
+import hsts from 'hsts'
+import ieNoOpen from 'ienoopen'
+import noSniff from 'dont-sniff-mimetype'
+import xssFilter from 'x-xss-protection'
+
 require('dotenv').config()
 
 process.env.HOST = process.env.HOST || 'http://localhost'
@@ -28,12 +35,8 @@ const auth = express.Router()
 
 const BROTLI = 'br'
 
-// The caching service worker must be loaded from / to be allowed to cache everything necessary
-// app.use('/service-worker.js', express.static(path.join(paths.clientBuild, paths.publicPath, '/service-worker.js')))
-
 // Use Nginx to serve static assets in production
 if (process.env.NODE_ENV === 'development') {
-// app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)))
     app.use(paths.publicPath, expressStaticGzip(path.join(paths.clientBuild, paths.publicPath), {
         enableBrotli: true,
         index: false,
@@ -45,6 +48,74 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(cors())
+
+// const contentSelf = ['\'self\'', '*recat.jacobsmith.tech*', '*localhost*', '*']
+
+// //  helmet-csp
+// app.use(csp({
+//     directives: {
+//         defaultSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // scriptSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // fontSrc: contentSelf.concat(['*.fonts.gstatic0.com', 'fonts.gstatic.com']),
+//         // prefetchSrc: contentSelf.concat(['*.fonts.gstatic0.com', 'fonts.gstatic.com']),
+//         connectSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         imgSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // styleSrc: contentSelf.concat('*.fonts.gstatic.com'),
+//         // TODO: Add a report uri.
+//         // reportUri
+
+//         scriptSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         styleSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // imgSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // connectSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         fontSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         objectSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         mediaSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         frameSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // reportUri: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         childSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         formAction: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // frameAncestors: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//         // pluginTypes: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
+//     },
+// }))
+
+const contentNone = ['\'none\'']
+// feature-policy
+app.use(featurePolicy({
+    features: {
+        vibrate: [...contentNone],
+        camera: [...contentNone],
+        geolocation: [...contentNone],
+        microphone: [...contentNone],
+        payment: [...contentNone],
+    },
+}))
+
+// frameguard
+app.use(frameguard({action: 'deny'}))
+
+app.disable('x-powered-by')
+
+// hsts
+// Sets "Strict-Transport-Security: max-age=5184000; includeSubDomains".
+// const sixtyDaysInSeconds = 5184000
+// app.use(hsts({
+//   maxAge: sixtyDaysInSeconds
+// }))
+
+// ienoopen
+// Sets "X-Download-Options: noopen".
+app.use(ieNoOpen())
+
+// dont-sniff-mimetype
+app.use(noSniff())
+
+// x-xss-protection
+// Sets "X-XSS-Protection: 1; mode=block".
+app.use(xssFilter())
+// TODO: Add reporting
+// app.use(xssFilter({ reportUri: '/report-xss-violation' }))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
