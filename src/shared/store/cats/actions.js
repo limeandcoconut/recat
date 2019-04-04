@@ -2,10 +2,12 @@ import ReactGA from 'react-ga'
 
 export const requestCat = () => ({
     type: 'CATS/REQUEST_CAT',
-    payload: {requested: true},
+    payload: {
+        requested: true,
+    },
 })
 
-export const succeedCat = (image) => {
+export const succeedCat = (image, id) => {
     ReactGA.event({
         category: 'Cat',
         action: 'View',
@@ -15,6 +17,7 @@ export const succeedCat = (image) => {
         payload: {
             requested: false,
             image,
+            id,
         },
     }
 }
@@ -24,6 +27,7 @@ export const failCat = (error) => ({
     payload: {
         requested: false,
         image: null,
+        id: null,
         // TODO: Grumpycat
         error: error || 'UNKNOWN ERROR FETCHING CAT',
     },

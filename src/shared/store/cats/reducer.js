@@ -8,7 +8,7 @@ export const initialState = Object.freeze({
 
 export default (state = initialState, action) =>
     produce(state, (draft) => {
-        const {type, payload: {image, requested, error} = {}} = action
+        const {type, payload: {image, requested, error, id} = {}} = action
         switch (type) {
         case 'CATS/REQUEST_CAT':
             draft.requested = requested
@@ -18,11 +18,13 @@ export default (state = initialState, action) =>
             draft.requested = requested
             draft.image = image
             draft.error = null
+            draft.id = id
             break
         case 'CATS/FETCH_FAILURE':
             draft.requested = requested
             draft.image = image
             draft.error = error
+            draft.id = id
             break
         default:
             // Handled by immer. yay :D :3

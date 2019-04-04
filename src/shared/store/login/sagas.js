@@ -2,6 +2,7 @@ import {takeLatest, call, put, select, all} from 'redux-saga/effects'
 import {succeedLogin, failLogin} from './actions'
 import {succeedAuth, failAuth} from '../auth/actions'
 import {showToast, hideToast} from '../toast/actions'
+import {requestFavorite} from '../favorite/actions'
 import {requestCat} from '../cats/actions'
 
 /* eslint-disable require-jsdoc */
@@ -30,6 +31,7 @@ function * workerSaga() {
             put(succeedLogin()),
             put(succeedAuth()),
             put(hideToast()),
+            put(requestFavorite()),
             put(requestCat()),
         ])
     } catch (error) {

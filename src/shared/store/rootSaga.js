@@ -4,6 +4,8 @@ import registrationWatcherSaga from './registration/sagas.js'
 import loginWatcherSaga from './login/sagas.js'
 import authWatcherSaga from './auth/sagas.js'
 import logoutWatcherSaga from './logout/sagas.js'
+import favoriteSagas from './favorite/sagas.js'
+const {watcherPutSaga: favoriteWatcherPutSaga, watcherGetSaga: favoriteWatcherGetSaga} = favoriteSagas
 
 /* eslint-disable require-jsdoc */
 export default function * rootSaga() {
@@ -13,5 +15,7 @@ export default function * rootSaga() {
         loginWatcherSaga(),
         authWatcherSaga(),
         logoutWatcherSaga(),
+        favoriteWatcherPutSaga(),
+        favoriteWatcherGetSaga(),
     ])
 }
