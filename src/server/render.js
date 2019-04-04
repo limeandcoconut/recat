@@ -8,10 +8,11 @@ import Html from './components/HTML'
 import App from '../shared/app'
 
 const serverRenderer = () => (req, res) => {
+    const staticContext = {}
     const content = renderToString(
         <Provider store={req.store}>
 
-            <StaticRouter location={req.url} context={{}}>
+            <StaticRouter location={req.url} context={staticContext}>
                 <IntlProvider>
 
                     <App />
@@ -22,6 +23,10 @@ const serverRenderer = () => (req, res) => {
     )
 
     const state = JSON.stringify(req.store.getState())
+
+    if (staticContext.status) {
+        res.status(staticContext.status)
+    }
 
     return res.send(
         '<!doctype html>' +

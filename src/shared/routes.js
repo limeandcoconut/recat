@@ -1,9 +1,8 @@
-// import AppRoot  from './containers/AppRoot'
-// import App from './app'
 import Register from './pages/register'
 import Login from './pages/login'
 import Home from './pages/home'
-// import { NotFound } from './components/NotFound'
+import NotFound from './components/not-found'
+import Status from './components/status'
 
 export default [
     {
@@ -21,30 +20,13 @@ export default [
         exact: true,
         component: Login,
     },
-    // { path: '*',
-    //   component: NotFound
-    // },
+    {
+        path: '/418',
+        exact: true,
+        component: Status,
+    },
+    {
+        path: '/*',
+        component: NotFound,
+    },
 ]
-
-// export default [
-//     {
-//         path: "/",
-//         component: Home,
-//         exact: true,
-//     },
-//     {
-//         path: "/about",
-//         component: About,
-//         exact: true,
-//     },
-//     {
-//         path: "/contact",
-//         component: Contact,
-//         exact: true,
-//     },
-//     {
-//         path: "/secret",
-//         component: Secret,
-//         exact: true,
-//     },
-// ];
