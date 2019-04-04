@@ -7,12 +7,18 @@ import IntlProvider from '../shared/i18n/IntlProvider'
 import Html from './components/HTML'
 import App from '../shared/app'
 
-const serverRenderer = () => (req, res) => {
+/**
+ * @function serverRenderer
+ * @param {object} request Express like request object.
+ * @param {object} response Express like response object.
+ * @return {object} The passed response.
+ */
+const serverRenderer = () => (request, response) => {
     const staticContext = {}
     const content = renderToString(
-        <Provider store={req.store}>
+        <Provider store={request.store}>
 
-            <StaticRouter location={req.url} context={staticContext}>
+            <StaticRouter location={request.url} context={staticContext}>
                 <IntlProvider>
 
                     <App />
@@ -22,18 +28,18 @@ const serverRenderer = () => (req, res) => {
         </Provider>
     )
 
-    const state = JSON.stringify(req.store.getState())
+    const state = JSON.stringify(request.store.getState())
 
     if (staticContext.status) {
-        res.status(staticContext.status)
+        response.status(staticContext.status)
     }
 
-    return res.send(
+    return response.send(
         '<!doctype html>' +
             renderToString(
                 <Html
-                    css={[res.locals.assetPath('bundle.css'), res.locals.assetPath('vendor.css')]}
-                    scripts={[res.locals.assetPath('bundle.js'), res.locals.assetPath('vendor.js')]}
+                    css={[response.locals.assetPath('bundle.css'), response.locals.assetPath('vendor.css')]}
+                    scripts={[response.locals.assetPath('bundle.js'), response.locals.assetPath('vendor.js')]}
                     state={state}
                 >
                     {content}

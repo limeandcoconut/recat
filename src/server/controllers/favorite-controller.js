@@ -80,14 +80,14 @@ export async function getFavorite(userId) {
     })
 
     if (!user) {
-        return {response: {success: false, error: 'No favorite set'}}
+        return {response: {success: false, error: 'no favorite set'}}
     }
 
     const {favorite} = user
     if (!favorite) {
-        return {response: {success: false, error: 'No favorite set'}}
+        return {response: {success: false, error: 'no favorite set'}}
     }
 
-    return {response: {success: true, favorite}}
+    return {response: {success: true}, favorite}
 }
 

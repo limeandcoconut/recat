@@ -44,6 +44,7 @@ if (process.env.NODE_ENV === 'development') {
     })
 }
 
+// Don't bother with security on dev
 if (process.env.NODE_ENV === 'production') {
 // Setup feature policy
     const contentNone = ['\'none\'']
@@ -121,14 +122,15 @@ app.use(async (req, res, next) => {
     return next()
 })
 
-const manifestPath = path.join(paths.clientBuild, paths.publicPath)
 // Send asset manifest
+const manifestPath = path.join(paths.clientBuild, paths.publicPath)
 app.use(
     manifestHelpers({
         manifestPath: path.join(manifestPath, '/asset-manifest.json'),
     })
 )
 
+// 404 and other status codes are really handled here
 app.use(serverRender())
 
 app.use((err, req, res, /* next */) => {
