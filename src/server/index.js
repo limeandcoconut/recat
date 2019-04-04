@@ -47,41 +47,8 @@ if (process.env.NODE_ENV === 'development') {
     })
 }
 
-app.use(cors())
-
-// const contentSelf = ['\'self\'', '*recat.jacobsmith.tech*', '*localhost*', '*']
-
-// //  helmet-csp
-// app.use(csp({
-//     directives: {
-//         defaultSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // scriptSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // fontSrc: contentSelf.concat(['*.fonts.gstatic0.com', 'fonts.gstatic.com']),
-//         // prefetchSrc: contentSelf.concat(['*.fonts.gstatic0.com', 'fonts.gstatic.com']),
-//         connectSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         imgSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // styleSrc: contentSelf.concat('*.fonts.gstatic.com'),
-//         // TODO: Add a report uri.
-//         // reportUri
-
-//         scriptSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         styleSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // imgSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // connectSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         fontSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         objectSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         mediaSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         frameSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // reportUri: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         childSrc: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         formAction: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // frameAncestors: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//         // pluginTypes: contentSelf.concat(['*.google-analytics.com', 'google-analytics.com']),
-//     },
-// }))
-
 const contentNone = ['\'none\'']
-// feature-policy
+
 app.use(featurePolicy({
     features: {
         vibrate: [...contentNone],
@@ -92,26 +59,18 @@ app.use(featurePolicy({
     },
 }))
 
-// frameguard
 app.use(frameguard({action: 'deny'}))
-
 app.disable('x-powered-by')
 
-// hsts
 // Sets "Strict-Transport-Security: max-age=5184000; includeSubDomains".
 // const sixtyDaysInSeconds = 5184000
 // app.use(hsts({
 //   maxAge: sixtyDaysInSeconds
 // }))
 
-// ienoopen
-// Sets "X-Download-Options: noopen".
 app.use(ieNoOpen())
-
-// dont-sniff-mimetype
 app.use(noSniff())
 
-// x-xss-protection
 // Sets "X-XSS-Protection: 1; mode=block".
 app.use(xssFilter())
 // TODO: Add reporting
