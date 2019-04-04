@@ -34,7 +34,7 @@ function * workerSaga() {
 }
 
 function fetchCat(supported) {
-    return () => new Promise(async (resolve) => {
+    return async () => {
         const response = await fetch(`/auth/images/next`, {
             method: 'GET',
             headers: {
@@ -44,11 +44,10 @@ function fetchCat(supported) {
         const contentType = response.headers.get('content-type')
         if (contentType && contentType.includes('application/json')) {
             const json = await response.json()
-            resolve(json)
-            return
+            return json
         }
         const id = response.headers.get('file-name')
         const blob = await response.blob()
-        resolve({image: URL.createObjectURL(blob), id})
-    })
+        return {image: URL.createObjectURL(blob), id}
+    }
 }

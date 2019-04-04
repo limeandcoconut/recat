@@ -30,13 +30,11 @@ function * workerSaga() {
     }
 }
 
-// TODO: Switch all sagas to async await
-function makeAuthRequest() {
-    return fetch(`/auth/check`, {
+async function makeAuthRequest() {
+    const response = await fetch(`/auth/check`, {
         method: 'POST',
     })
-    .then((response) => {
-        return response.json()
-    })
+
+    return await response.json()
 }
 

@@ -11,15 +11,6 @@ export default function * watcherSaga() {
 function * workerSaga() {
     try {
         const {success, error} = yield call(makeLogoutRequest)
-        // let promise
-        // if (!success) {
-        //     promise = put(failLogout(error))
-        //     // yield all([
-        //     //     put(failLogout(error)),
-        //     //     put(failAuth(error)),
-        //     // ])
-        //     // return
-        // }
         if (!success) {
             yield all([
                 put(failLogout(error)),
@@ -33,13 +24,6 @@ function * workerSaga() {
             put(failAuth('intentional logout')),
             put(hideToast()),
         ])
-        // TODO: Probs show toast that logout failed here. "Wait for expiry"
-        // let promise = success ? succeedLogout() : failLogout(error)
-        // promise = put(promise)
-        // yield all([
-        //     promise,
-        //     put(failAuth()),
-        // ])
     } catch (error) {
         yield all([
             put(showToast({message: error, style: 'error'})),
@@ -49,12 +33,10 @@ function * workerSaga() {
     }
 }
 
-function makeLogoutRequest() {
-    return fetch(`/auth/logout`, {
+async function makeLogoutRequest() {
+    const response = await fetch(`/auth/logout`, {
         method: 'POST',
     })
-    .then((response) => {
-        return response.json()
-    })
+    return await response.json()
 }
 

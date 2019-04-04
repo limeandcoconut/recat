@@ -33,7 +33,7 @@ function * workerGetSaga() {
 }
 
 function makeFavoriteGet(supported) {
-    return () => new Promise(async (resolve) => {
+    return async () => {
         const response = await fetch(`/auth/images/favorite`, {
             method: 'GET',
             headers: {
@@ -43,12 +43,11 @@ function makeFavoriteGet(supported) {
         const contentType = response.headers.get('content-type')
         if (contentType && contentType.includes('application/json')) {
             const json = await response.json()
-            resolve(json)
-            return
+            return json
         }
         const blob = await response.blob()
-        resolve({favorite: URL.createObjectURL(blob)})
-    })
+        return {favorite: URL.createObjectURL(blob)}
+    }
 }
 
 export function * watcherPutSaga() {
@@ -85,7 +84,7 @@ function * workerPutSaga() {
 }
 
 function makeFavoritePut(id, supported) {
-    return () => new Promise(async (resolve) => {
+    return async () => {
         const response = await fetch(`/auth/images/favorite`, {
             method: 'PUT',
             headers: {
@@ -97,12 +96,11 @@ function makeFavoritePut(id, supported) {
         const contentType = response.headers.get('content-type')
         if (contentType && contentType.includes('application/json')) {
             const json = await response.json()
-            resolve(json)
-            return
+            return json
         }
         const blob = await response.blob()
-        resolve({favorite: URL.createObjectURL(blob)})
-    })
+        return {favorite: URL.createObjectURL(blob)}
+    }
 }
 
 export default {

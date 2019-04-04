@@ -36,15 +36,16 @@ function * workerSaga() {
 }
 
 function makeRegisterRequest(form) {
-    return () => (fetch(`/auth/register`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-    })
-    .then((response) => {
-        return response.json()
-    }))
+    return async () => {
+        const response = await fetch(`/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+        })
+
+        return await response.json()
+    }
 }
 
