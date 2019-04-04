@@ -46,7 +46,7 @@ const config = {
         // It'd be best to read options for this and cater to specific project needs
         // https://www.npmjs.com/package/sw-precache-webpack-plugin
         new SWPrecacheWebpackPlugin({
-            filename: 'service-worker.js',
+            filename: path.join(paths.proxyToSiteRoot, 'service-worker.js'),
             minify: true,
             runtimeCaching: [{
                 urlPattern: '/*',
@@ -84,7 +84,7 @@ const config = {
             lastMod: true,
             skipGzip: true,
             // This is a total rubbish hack but it's uh workun guud for now.
-            fileName: '../sitemap.xml',
+            fileName: path.join(paths.proxyToSiteRoot, 'sitemap.xml'),
         }),
         new RobotstxtPlugin({
             policy: [
@@ -96,7 +96,7 @@ const config = {
             sitemap: path.join(productionHost, 'sitemap.xml'),
             host: productionHost,
             // This is a total rubbish hack but it's uh workun guud for now.
-            filePath: '../robots.txt',
+            filePath: path.join(paths.proxyToSiteRoot, 'robots.txt'),
         }),
         /* eslint-disable camelcase */
         // These paths are joined here so that

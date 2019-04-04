@@ -17,6 +17,8 @@ const paths = {
     srcShared: resolveApp('src/shared'),
     sharedMeta: resolveApp('src/shared/assets/meta'),
     publicPath: '/static/',
+    // This path is used by haproxy and nginx. See readme.
+    proxyToSiteRoot: '/serve_from_root/',
     publicAssetPath: '/static/assets',
     webpImages: resolveApp('images/webp'),
     rawImages: resolveApp('images/raw'),

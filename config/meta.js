@@ -61,7 +61,7 @@ const siteMeta = {
     copyMeta: [
         {
             from: '/favicon.ico',
-            to: '../',
+            to: 'served_from_root/',
         },
         {
             from: '/favicon-32x32.png',
@@ -93,7 +93,7 @@ const siteMeta = {
         },
         {
             from: '/browserconfig.xml',
-            to: '../',
+            to: 'served_from_root/',
         },
     ],
     manifestIcons: [

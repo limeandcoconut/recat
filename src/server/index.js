@@ -16,6 +16,7 @@ import {register, login, authenticate, logout} from './controllers/auth-controll
 import {getOne, swapForWebpPath, swapForRawPath, getFullBrotliPath} from './controllers/img-controller'
 import expressStaticGzip from 'express-static-gzip'
 import {getFavorite, setFavorite} from './controllers/favorite-controller'
+import {sleep} from '../../scripts/utils'
 
 require('dotenv').config()
 
@@ -28,9 +29,9 @@ const auth = express.Router()
 const BROTLI = 'br'
 
 // The caching service worker must be loaded from / to be allowed to cache everything necessary
-app.use('/service-worker.js', express.static(path.join(paths.clientBuild, paths.publicPath, '/service-worker.js')))
+// app.use('/service-worker.js', express.static(path.join(paths.clientBuild, paths.publicPath, '/service-worker.js')))
 
-// Use Nginx or Apache to serve static assets in production
+// Use Nginx to serve static assets in production
 if (process.env.NODE_ENV === 'development') {
 // app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)))
     app.use(paths.publicPath, expressStaticGzip(path.join(paths.clientBuild, paths.publicPath), {
@@ -176,14 +177,15 @@ auth.put('/images/favorite', async (request, response) => {
         response.send({success: false, error: 'not authorized'})
         return
     }
-    // const jsonResponse = await etFavorite(request.body.id, userId)
+    console.log('yo')
+    await sleep(3000)
+    console.log('yo2')
+
     let {response: jsonResponse} = await setFavorite(request.body.id, userId)
     if (!jsonResponse.success) {
         response.send(jsonResponse)
     }
     let favorite = getFullBrotliPath(jsonResponse.favorite)
-
-    // response.setHeader('file-name', path.basename(favorite))
 
     // TODO: Refine
     // If the client has detected that the browser wont accept webp return a raw image. You don't get brotli.
@@ -220,7 +222,7 @@ auth.get('/images/favorite', async (request, response) => {
         return
     }
     // TODO: ensure anything returned like this can be sent to client
-    let {response: {favorite}, response: jsonResponse} = await getFavorite(userId)
+    let {response: {favorite}} = await getFavorite(userId)
     // If the client has detected that the browser wont accept webp return a raw image. You don't get brotli.
     if (request.headers.accept !== 'image/webp') {
         favorite = swapForRawPath(favorite)
