@@ -23,6 +23,7 @@ const Status = ({code = 418, children}) => (
                         style={{backgroundImage: `url(https://http.cat/${code})`}}
                     >
                     </div>
+                    { code === 418 && 'Yeah you are little guy. Yeah you are. 😊'}
                     {children}
                 </div>
             )
