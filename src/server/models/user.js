@@ -20,6 +20,10 @@ const Model = sequelize.define('user', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    favorite: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
 })
 
 module.exports = Model

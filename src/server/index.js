@@ -13,8 +13,9 @@ import createHistory from '../shared/store/history'
 import {succeedAuth} from '../shared/store/auth/actions'
 
 import {register, login, authenticate, logout} from './controllers/auth-controller'
-import {getOne, swapForWebp, swapForRaw} from './controllers/img-controller'
+import {getOne, swapForWebpPath, swapForRawPath, getFullBrotliPath} from './controllers/img-controller'
 import expressStaticGzip from 'express-static-gzip'
+import {getFavorite, setFavorite} from './controllers/favorite-controller'
 
 require('dotenv').config()
 
@@ -142,51 +143,129 @@ auth.get('/images/next', async (req, res) => {
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
     res.setHeader('file-name', path.basename(image))
 
+    // TODO: Refine
     // If the client has detected that the browser wont accept webp return a raw image. You don't get brotli.
     if (req.headers.accept !== 'image/webp') {
-        image = swapForRaw(image)
-        res.sendfile(image)
+        image = swapForRawPath(image)
+        res.sendFile(image)
         return
     }
 
     // If they don't accept brotli switch for an uncompressed webp and send
     const acceptEncoding = req.headers['accept-encoding']
     if (!acceptEncoding.includes(BROTLI)) {
-        image = swapForWebp(image)
+        image = swapForWebpPath(image)
         res.sendFile(image)
         return
     }
-
     // Set proper headers
     res.setHeader('Vary', 'Accept-Encoding')
     res.setHeader('Content-Encoding', BROTLI)
     res.sendFile(image)
 })
 
-// TODO: Refine
-auth.post('/check', async (req, res) => {
-    const encryptedSession = extractSession(req)
+auth.put('/images/favorite', async (request, response) => {
+    const encryptedSession = extractSession(request)
     if (!encryptedSession) {
-        res.send({success: false, error: 'not authorized'})
+        response.send({success: false, error: 'not authorized'})
         return
     }
-    const {response} = await authenticate(encryptedSession)
+    const {response: {success}, userId} = await authenticate(encryptedSession)
 
-    res.send(response)
+    if (!success) {
+        response.send({success: false, error: 'not authorized'})
+        return
+    }
+    // const jsonResponse = await etFavorite(request.body.id, userId)
+    let {response: jsonResponse} = await setFavorite(request.body.id, userId)
+    if (!jsonResponse.success) {
+        response.send(jsonResponse)
+    }
+    let favorite = getFullBrotliPath(jsonResponse.favorite)
+
+    // response.setHeader('file-name', path.basename(favorite))
+
+    // TODO: Refine
+    // If the client has detected that the browser wont accept webp return a raw image. You don't get brotli.
+    if (request.headers.accept !== 'image/webp') {
+        favorite = swapForRawPath(favorite)
+        response.sendFile(favorite)
+        return
+    }
+
+    // If they don't accept brotli switch for an uncompressed webp and send
+    const acceptEncoding = request.headers['accept-encoding']
+    if (!acceptEncoding.includes(BROTLI)) {
+        favorite = swapForWebpPath(favorite)
+        response.sendFile(favorite)
+        return
+    }
+
+    // Set proper headers
+    response.setHeader('Vary', 'Accept-Encoding')
+    response.setHeader('Content-Encoding', BROTLI)
+    response.sendFile(favorite)
 })
 
-auth.post('/logout', async (req, res) => {
-    const encryptedSession = extractSession(req)
+auth.get('/images/favorite', async (request, response) => {
+    const encryptedSession = extractSession(request)
     if (!encryptedSession) {
-        res.send({success: true})
+        response.send({success: false, error: 'not authorized'})
         return
     }
-    const {response, cookie: newCookie} = await logout(encryptedSession)
+    const {response: {success}, userId} = await authenticate(encryptedSession)
+
+    if (!success) {
+        response.send({success: false, error: 'not authorized'})
+        return
+    }
+    // TODO: ensure anything returned like this can be sent to client
+    let {response: {favorite}, response: jsonResponse} = await getFavorite(userId)
+    // If the client has detected that the browser wont accept webp return a raw image. You don't get brotli.
+    if (request.headers.accept !== 'image/webp') {
+        favorite = swapForRawPath(favorite)
+        response.sendFile(favorite)
+        return
+    }
+
+    // If they don't accept brotli switch for an uncompressed webp and send
+    const acceptEncoding = request.headers['accept-encoding']
+    if (!acceptEncoding.includes(BROTLI)) {
+        favorite = swapForWebpPath(favorite)
+        response.sendFile(favorite)
+        return
+    }
+
+    // Set proper headers
+    response.setHeader('Vary', 'Accept-Encoding')
+    response.setHeader('Content-Encoding', BROTLI)
+    response.sendFile(favorite)
+})
+
+// TODO: Refine
+auth.post('/check', async (request, response) => {
+    const encryptedSession = extractSession(request)
+    if (!encryptedSession) {
+        response.send({success: false, error: 'not authorized'})
+        return
+    }
+    const {response: jsonResponse} = await authenticate(encryptedSession)
+
+    response.send(jsonResponse)
+})
+
+auth.post('/logout', async (request, response) => {
+    const encryptedSession = extractSession(request)
+    if (!encryptedSession) {
+        response.send({success: true})
+        return
+    }
+    const {response: jsonResponse, cookie: newCookie} = await logout(encryptedSession)
 
     if (newCookie) {
-        res.set('Set-Cookie', newCookie)
+        response.set('Set-Cookie', newCookie)
     }
-    res.send(response)
+    response.send(jsonResponse)
 })
 
 app.listen(process.env.PORT, () => {

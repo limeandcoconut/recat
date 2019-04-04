@@ -24,10 +24,29 @@ const apiProtocol = chooseProtocol(apiUrl)
 
 const WEBP_EXTENSION = '.webp'
 const BROTLI_EXTENSION = '.br'
+// const WEBP_LEN = WEBP_EXTENSION.length
+// const BR_LEN = BROTLI_EXTENSION.length
+// const MULTI_LEN = WEBP_LEN + BR_LEN
 
-const brotliDirLength = paths.brotliImages.length
-export const swapForWebp = (brotliPath) => paths.webpImages + brotliPath.slice(brotliDirLength, -3)
-export const swapForRaw = (brotliPath) => paths.rawImages + brotliPath.slice(brotliDirLength, -8)
+// const brotliDirLength = paths.brotliImages.length
+// TODO: These are fragile as they only work with paths. Should change.
+export const swapForBrotliPath = (imagePath) => path.join(paths.brotliImages, imagePath.match(/([^\.\/]+\.\w+)/)[1] + WEBP_EXTENSION + BROTLI_EXTENSION)
+export const swapForWebpPath = (brotliPath) => path.join(paths.webpImages, brotliPath.match(/([^\.\/]+\.\w+)/)[1] + WEBP_EXTENSION)
+export const swapForRawPath = (brotliPath) => path.join(paths.rawImages, brotliPath.match(/([^\.\/]+\.\w+)/)[1])
+// export const isBrotli = (file) => file.slice(-BR_LEN) === BROTLI_EXTENSION
+
+export const getFullBrotliPath = (filename) => {
+    // This is marginally faster than const {name, ...extensions} = filename.split('.')
+    // for our optomistic case of .br matching
+    // const extension = filename.slice(-MULTI_LEN)
+    // if (extension === WEBP_EXTENSION + BROTLI_EXTENSION) {
+    return path.join(paths.brotliImages, filename)
+    // }
+    // if (extension.slice(-WEBP_LEN) === WEBP_EXTENSION) {
+    //     return path.join(paths.webpImages, filename)
+    // }
+    // return path.join(paths.rawImages, filename)
+}
 
 function getImagesQueueFromDisk() {
     const images = fs.readdirSync(paths.brotliImages, {encoding: 'utf8'})
