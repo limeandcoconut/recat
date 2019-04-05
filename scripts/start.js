@@ -20,12 +20,14 @@ const WEBPACK_PORT =
 const DEVSERVER_HOST = process.env.DEVSERVER_HOST || 'http://localhost'
 
 const start = async () => {
+    // Clean
     // Akin to Promise.all()
     const rimrafClientPromse = rimrafAsync(paths.clientBuild)
     const rimrafServerPromse = rimrafAsync(paths.serverBuild)
     await rimrafClientPromse
     await rimrafServerPromse
 
+    // Add hot middleware
     const [clientConfig, serverConfig] = webpackConfig
     clientConfig.entry.bundle = [
         `webpack-hot-middleware/client?path=${DEVSERVER_HOST}:${WEBPACK_PORT}/__webpack_hmr`,
@@ -48,7 +50,7 @@ const start = async () => {
 
     const multiCompiler = webpack([clientConfig, serverConfig])
 
-    // TODO: This seems suspect
+    // Could be faster with an if else
     const clientCompiler = multiCompiler.compilers.find((compiler) => compiler.name === 'client')
     const serverCompiler = multiCompiler.compilers.find((compiler) => compiler.name === 'server')
 
@@ -61,6 +63,7 @@ const start = async () => {
         stats: clientConfig.stats,
     }
 
+    // Serve hot middleware
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*')
         return next()
@@ -77,11 +80,10 @@ const start = async () => {
     app.use(webpackHotMiddleware(clientCompiler))
 
     app.use('/static', express.static(paths.clientBuild))
-    // TODO: optional client side only version
-    // app.use('/', express.static(path.join(paths.clientBuild, paths.publicPath)));
 
     app.listen(WEBPACK_PORT)
 
+    // Have the server watch too
     serverCompiler.watch(watchOptions, (error, stats) => {
         if (!error && !stats.hasErrors()) {
             console.log(stats.toString(serverConfig.stats))
@@ -101,7 +103,7 @@ const start = async () => {
         }
     })
 
-    // Wait until client and server is compiled
+    // Wait until client and server are compiled
     try {
         await serverPromise
         await clientPromise
@@ -109,6 +111,7 @@ const start = async () => {
         console.log(chalk.red(error))
     }
 
+    // Start server and watch
     const script = nodemon({
         script: `${paths.serverBuild}/server.js`,
         ignore: ['src', 'scripts', 'config', './*.*', 'build/client'],
@@ -129,4 +132,5 @@ const start = async () => {
     })
 }
 
+// Go go gadget everything!
 start()

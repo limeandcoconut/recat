@@ -12,8 +12,8 @@ const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_EN
 const paths = require('../config/paths')
 const {compilerPromise, sleep} = require('./utils')
 
+// Use puppeteer to generate static html if you want
 let generateStaticHTML
-
 if (process.env.GEN_HTML) {
     generateStaticHTML = async () => {
         const {choosePort} = require('react-dev-utils/WebpackDevServerUtils')
@@ -68,6 +68,7 @@ const build = async () => {
     const [clientConfig, serverConfig] = webpackConfig
     const multiCompiler = webpack([clientConfig, serverConfig])
 
+    // This is slick but could be faster with an if else
     const clientCompiler = multiCompiler.compilers.find((compiler) => compiler.name === 'client')
     const serverCompiler = multiCompiler.compilers.find((compiler) => compiler.name === 'server')
 
