@@ -1,14 +1,15 @@
-/* eslint-disable max-len */
-const description = 'A site for fawning over random pics kitty cats! 📷 😸 Come check it out, or add it to your home screen, it\'s progressive and reactive!'
-/* eslint-disable camelcase */
+const description = 'A site for fawning over random pics kitty cats! 📷 😸 Come check it out, or add it to your home screen, it\'s progressive and reactive!' // eslint-diable-line max-len
+
+// NOTE: This file is included in client. Don't put secrets in here. They go in keys.js
+
 const siteMeta = {
     name: 'Recat',
-    short_name: 'Recat',
+    short_name: 'Recat', // eslint-disable-line camelcase
     title: {
         default: 'Recat by Jacob Smith',
     },
     display: 'standalone',
-    start_url: '/',
+    start_url: '/', // eslint-disable-line camelcase
     description,
     color: '#3ed3cf',
     og: {
@@ -28,7 +29,7 @@ const siteMeta = {
         },
         card: 'summary_large_image',
     },
-    // Must be served with application/manifest+json
+    // Must be served with mimetype application/manifest+json
     manifest: '/static/manifest.json',
     favicons: [
         {
@@ -57,7 +58,8 @@ const siteMeta = {
         },
     ],
     // These are joined with paths.sharedMeta in webpack so that
-    // path, paths, and subsequently fs are not included on client where this is use
+    // path, paths, and subsequently fs are not included on client where this is used
+    // This is used by webpack to copy assets which aren't required in
     copyMeta: [
         {
             from: '/favicon.ico',
@@ -96,6 +98,7 @@ const siteMeta = {
             to: 'served_from_root/',
         },
     ],
+    // Used in asset generation
     manifestIcons: [
         {
             src: '/android-chrome-512x512.png',
@@ -106,6 +109,8 @@ const siteMeta = {
     cacheBust: '?v=0',
 }
 
+// Cache cacheBust
+// C-C-C-COMBO BREAKER!
 siteMeta.favicons = siteMeta.favicons.reduce((favicons, {key, src}) => {
     favicons[key] = src + siteMeta.cacheBust
     return favicons
