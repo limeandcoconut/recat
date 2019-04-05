@@ -4,8 +4,17 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import createRootReducer from './rootReducer'
 import {routerMiddleware} from 'connected-react-router'
 import rootSaga from './rootSaga'
-// import createHistory from '../../shared/store/history'
 
+// history MUST be passed in. It's crucial that the same history is passed to rootReducer and routerMiddleware as is
+// used elsewhere in the app
+/**
+ * Setup the store, import reducers, sagas, inline initialState, manage devtool integration.
+ * @function configureStore
+ * @param  {object} initialState The state of the app on store creation. Default: empty object.
+ * @param  {array} middleware    An array of midlewares to add to composeEnhancers. Default: empty array.
+ * @param  {object} history      A history to be passed to routerMiddleware and createRootReducer. Required.
+ * @return {object} The completed store.
+ */
 export const configureStore = ({initialState = {}, middleware = [], history} = {}) => {
     const devtools =
         typeof window !== 'undefined' &&

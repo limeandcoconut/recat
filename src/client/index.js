@@ -11,14 +11,27 @@ import {gaDevID, gaProductionID} from '../../config/config.js'
 import {supportsWebp} from '../shared/utils'
 import {setSupport} from '../shared/store/webp/actions'
 
+// Create a history
 const history = createHistory()
 
+// Create/use the store
+// history MUST be passed here if you want syncing between server on initial route
 const store =
     window.store ||
     configureStore({
         initialState: window.__PRELOADED_STATE__,
         history,
     })
+
+// Check for webp support.
+// This is necessary because the browser won't send its default accepts header when the client fetches.
+// On the server we want to know if we can serve a webp.
+// TODO: Make this faster... And unnecessary. Initial load usually doesn't have this info.
+const checkWebp = async () => {
+    const isSupported = await supportsWebp()
+    store.dispatch(setSupport(isSupported))
+}
+checkWebp()
 
 hydrate(
     <Provider store={store}>
@@ -32,16 +45,11 @@ hydrate(
     document.getElementById('app')
 )
 
+// Ad google analytics
 const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
 ReactGA.initialize(gaId)
+// Pageview on route change
 history.listen((location) => ReactGA.pageview(location.pathname))
-
-const checkWebp = async () => {
-    const isSupported = await supportsWebp()
-    store.dispatch(setSupport(isSupported))
-}
-
-checkWebp()
 
 if (process.env.NODE_ENV === 'development') {
     if (module.hot) {
@@ -56,8 +64,8 @@ if (process.env.NODE_ENV === 'development') {
         navigator.serviceWorker.register('/service-worker.js')
         .then(function(registration) {
             console.log('ServiceWorker registration successful with scope: ', registration.scope)
-        }, function(err) {
-            console.log('ServiceWorker registration failed: ', err)
+        }, function(error) {
+            console.log('ServiceWorker registration failed: ', error)
         })
     })
 }

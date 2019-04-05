@@ -53,6 +53,10 @@ export function randomId() {
     return `${locality}${rand}`
 }
 
+/**
+ * @function supportsWebp
+ * @return {boolean} Returns whether or not the browser supports webp images.
+ */
 export async function supportsWebp() {
     if (!self.createImageBitmap) {
         return false
