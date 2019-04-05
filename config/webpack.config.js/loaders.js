@@ -12,7 +12,6 @@ const babelLoader = {
     options: {
         plugins: [
             [
-                // TODO: This. Both parts.
                 require.resolve('babel-plugin-named-asset-import'),
                 {
                     loaderMap: {
@@ -32,7 +31,6 @@ const babelLoader = {
 const lessModuleLoaderClient = {
     test: lessModuleRegex,
     use: [
-        // TODO: This.
         require.resolve('css-hot-loader'),
         MiniCssExtractPlugin.loader,
         {
@@ -41,19 +39,22 @@ const lessModuleLoaderClient = {
                 camelCase: true,
                 modules: true,
                 importLoaders: 2,
-                // Why generate sourcemap here and not on server???
                 sourceMap: generateSourceMap,
-                // localIdentName: '[name]__[local]--[hash:base64:5]',
                 getLocalIdent: getCSSModuleLocalIdent,
             },
         },
         {
             loader: require.resolve('less-loader'),
         },
+        // Didn't know you could run less through postcss did ya?
+        // This'll run the less through postcss via a syntax (see the postcss file for that and the plugins)
+        // Then it'll convert it to css. Can't do that first because this uses custom postcss syntaxes that less
+        // wont parse.
+        // Then css loader and hot loader it.
         {
             loader: require.resolve('postcss-loader'),
             options: {
-                // TODO: Get this working. (create an issue?)
+                // TODO: Get this working perfectly. (create an issue?)
                 // sourceMap: generateSourceMap,
             },
         },
@@ -73,7 +74,6 @@ const lessLoaderClient = {
         {
             loader: require.resolve('postcss-loader'),
             options: {
-                // sourceMap: generateSourceMap,
             },
         },
     ],
@@ -119,7 +119,6 @@ const lessLoaderServer = {
     ],
 }
 
-// TODO: Look into asset loading
 const urlLoaderClient = {
     test: /\.(png|jpe?g|gif|svg)$/,
     loader: require.resolve('url-loader'),

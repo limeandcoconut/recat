@@ -26,7 +26,7 @@ module.exports = {
         fs: 'empty',
         net: 'empty',
         tls: 'empty',
-        child_process: 'empty',
+        child_process: 'empty', // eslint-disable-line camelcase
     },
     optimization: {
         namedModules: true,

@@ -10,14 +10,13 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 const {productionHost} = require('../config.js')
 const siteMeta = require('../meta')
 const CopyPlugin = require('copy-webpack-plugin')
-// const FileManagerPlugin = require('filemanager-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 
 const config = {
     ...baseConfig,
     mode: 'production',
-    // TODO: learn more about sourcemaps
+    // TODO: learn more about sourcemaps and quality
     devtool: generateSourceMap ? 'source-map' : false,
     plugins: [
         new DuplicatePackageCheckerPlugin({
@@ -26,6 +25,7 @@ const config = {
             // Emit errors instead of warnings (default: false)
             // emitError: true,
         }),
+        // Convert asset images
         new ImageminWebpWebpackPlugin({
             config: [{
                 test: /\.(jpe?g|png)/,
@@ -43,7 +43,7 @@ const config = {
             test: /\.js$|\.css$/,
             threshold: 0,
         }),
-        // It'd be best to read options for this and cater to specific project needs
+        // Always best to read options for this and cater to specific project needs
         // https://www.npmjs.com/package/sw-precache-webpack-plugin
         new SWPrecacheWebpackPlugin({
             filename: path.join(paths.proxyToSiteRoot, 'service-worker.js'),
@@ -65,8 +65,9 @@ const config = {
             ],
             // Don't allow the service worker to try to cache google analytics or your tracking will stop working
             // Disable any other scripts you don't want cached here as well
-            staticFileGlobsIgnorePatterns: [/google-analytics.com/],
+            staticFileGlobsIgnorePatterns: [/google-analytics\.com/],
         }),
+        // Write sitemap
         new SitemapPlugin(productionHost, [
             {
                 path: '/',
@@ -81,11 +82,12 @@ const config = {
                 priority: 0.8,
             },
         ], {
+            // Last update is now
             lastMod: true,
             skipGzip: true,
-            // This is a total rubbish hack but it's uh workun guud for now.
             fileName: path.join(paths.proxyToSiteRoot, 'sitemap.xml'),
         }),
+        // Write robots
         new RobotstxtPlugin({
             policy: [
                 {
@@ -95,18 +97,16 @@ const config = {
             ],
             sitemap: path.join(productionHost, 'sitemap.xml'),
             host: productionHost,
-            // This is a total rubbish hack but it's uh workun guud for now.
             filePath: path.join(paths.proxyToSiteRoot, 'robots.txt'),
         }),
-        /* eslint-disable camelcase */
         // These paths are joined here so that
         // path, paths, and subsequently fs are not included on client where this is use
         new WebpackPwaManifest({
             name: siteMeta.name,
-            short_name: siteMeta.short_name,
+            short_name: siteMeta.short_name, // eslint-disable-line camelcase
             description: siteMeta.description,
-            background_color: siteMeta.color,
-            theme_color: siteMeta.color,
+            background_color: siteMeta.color, // eslint-disable-line camelcase
+            theme_color: siteMeta.color, // eslint-disable-line camelcase
             // crossorigin: 'use-credentials', // can be null, use-credentials or anonymous
             icons: siteMeta.manifestIcons.map(({src, ...rest}) => {
                 return {
@@ -116,69 +116,19 @@ const config = {
             }),
             filename: 'manifest.json',
             display: siteMeta.display,
-            start_url: siteMeta.start_url,
+            start_url: siteMeta.start_url, // eslint-disable-line camelcase
             inject: false,
             fingerprints: false,
             ios: false,
             includeDirectory: false,
         }),
+        // Copy icons and other assets
         new CopyPlugin(siteMeta.copyMeta.map(({from, to}) => {
             return {
                 from: path.join(paths.sharedMeta, from),
                 to,
             }
         })),
-        // new FileManagerPlugin({
-        //     onEnd: {
-        //       copy: [
-        //         ...siteMeta.copyMeta.map(({from, to}) => {
-        //             return {
-        //                 source: path.join(paths.sharedMeta, from),
-        //                 destination: to,
-        //             }
-        //         }),
-        //         // { source: '/path/from', destination: '/path/to' },
-        //         // { source: '/path/**/*.js', destination: '/path' },
-        //         // { source: '/path/fromfile.txt', destination: '/path/tofile.txt' },
-        //         // { source: '/path/**/*.{html,js}', destination: '/path/to' },
-        //         // { source: '/path/{file1,file2}.js', destination: '/path/to' },
-        //         // { source: '/path/file-[hash].js', destination: '/path/to' }
-        //       ],
-        //       move: [
-        //         { source: '/path/from', destination: '/path/to' },
-        //         { source: '/path/fromfile.txt', destination: '/path/tofile.txt' }
-        //       ],
-        //       delete: [
-        //        '/path/to/file.txt',
-        //        '/path/to/directory/'
-        //       ],
-        //       mkdir: [
-        //        '/path/to/directory/',
-        //        '/another/directory/'
-        //       ],
-        //       archive: [
-        //         { source: '/path/from', destination: '/path/to.zip' },
-        //         { source: '/path/**/*.js', destination: '/path/to.zip' },
-        //         { source: '/path/fromfile.txt', destination: '/path/to.zip' },
-        //         { source: '/path/fromfile.txt', destination: '/path/to.zip', format: 'tar' },
-        //         {
-        //            source: '/path/fromfile.txt',
-        //            destination: '/path/to.tar.gz',
-        //            format: 'tar',
-        //            options: {
-        //              gzip: true,
-        //              gzipOptions: {
-        //               level: 1
-        //              },
-        //              globOptions: {
-        //               nomount: true
-        //              }
-        //            }
-        //          }
-
-        //       ]
-        //     }
-        //   })
         ...baseConfig.plugins,
     ],
 }

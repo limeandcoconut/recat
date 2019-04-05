@@ -2,7 +2,6 @@ const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
@@ -13,15 +12,11 @@ const shared = [
         title: 'Webpack Build',
         suppressSuccess: true,
     }),
+    // Adds some highlighting as sugar
     new FriendlyErrorsWebpackPlugin(),
 ]
 
 const client = [
-    // TODO: add client side only mode
-    // new HtmlWebpackPlugin({
-    //     inject: true,
-    //     template: paths.appHtml,
-    // }),
     new CaseSensitivePathsPlugin(),
     new webpack.DefinePlugin(env.stringified),
     new webpack.DefinePlugin({
