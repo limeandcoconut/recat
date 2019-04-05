@@ -1,16 +1,5 @@
-// @redline: #e66465;
-// @blueline: #9198e5;
-// @greenline: #659865;
-// @red: #D01420;
-// @dimred: #610101;
-// @dimgred: #300;
-// @lessdimgred: #300;
-
-
-/* RGB */
-@lavender: #ffa9e7;
 @powder: #fffdf8;
-// used in home/index.js and heart-button/index.js
+// this color used by hex used in home/index.js and heart-button/index.js
 // @magenta: #ec0b43;
 @magenta: #da1b60;
 @cerulean: #06aed5;
@@ -21,65 +10,23 @@
 @seafoam: #1fe9ae;
 @goldenrod: #ff8a00;
  
-@blue: #4960e2;
 @royal: #7a59e2;
-// @a: #79f9e2
 @peach: #ea5c58;
 
-// @darcoal: #2e2f3e;
-// @coal: #212527;
 @darcoal: #212527;
-@honeydew: #EDFFEC;
 @ash: #ccc;
 @dimcoal: fadeout(@charcoal, 70%);
 @dimdarcoal: fadeout(darken(@darcoal, 5%), 50%);
 @dimpeach: fadeout(@peach, 50%);
 
 
-// @f: #a864fd;
-// @f: #7a59e2;
-
-// @f: #29cdff;
-// @f: #06aed5;
-
-// @f: #78ff44;
-// @f: #1fe9ae;
-
-// @f: #ff718d;
-// @f: #da1b60;
-
-// @f: #fdff6a;
-// @f: #ff8a00;
-
-// rubik
-// Standard usage:
-// .rubik(500)[];
-// Gives an element the font face rubik.
-// .rubik(@weight: 400) {
-//     // font-family: 'Courier New', sans-serif;
-//     font-family: 'Rubik', 'Courier New', sans-serif;
-//     font-weight: @weight;
-// }
-// .nunit() {
-//     // font-family: 'Courier New', sans-serif;
-//     font-family: 'Concert One', 'Roboto', 'system', sans-serif;
-//     // font-weight: @weight;
-// }
 .nunito() {
-    // font-family: 'Courier New', sans-serif;
     font-family: 'Nunito', 'Roboto', 'system', sans-serif;
-    // font-weight: @weight;
 }
 
 .system() {
     font-family: system ,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 }
-
-// .rmn(@weight: 400) {
-//     // font-family: 'Courier New', sans-serif;
-//     font-family: 'Rubik Mono One', 'Courier New', sans-serif;
-//     font-weight: @weight;
-// }
 
 .grid-breakpoints() {
     @xs: 0;
@@ -167,9 +114,6 @@
         background: repeating-linear-gradient(transparent, transparent calc(@baseline - 1px), @color calc(@baseline - 1px), @color @baseline);
         z-index: 1000;
         pointer-events: none;
-        // font-size: .basis(5)[];
-        // font-size: @baseline;
-        // padding-top: @padding;
     }
 }
 
@@ -289,51 +233,3 @@
     @padding: unit((@y / @x) * 100, %);
     padding-top: @padding;
 }
-
-// @base-font-size: 	12px;
-// @base-line-height: 	1.2;
-
-// // this value may vary for each font
-// // unitless value relative to 1em
-// @cap-height: 		0.64;
-
-
-// .baseline(@font-size; @scale: 2) {
-
-// 	// rhythm unit
-// 	@rhythm: @base-line-height * @font-size / @scale;
-
-// 	// number of rhythm units that can fit the font-size
-// 	@lines: ceil((@font-size + 0.001px) / @rhythm);
-
-// 	// calculate the new line-height
-// 	@line-height: unit(@rhythm * @lines / @font-size);
-
-// 	// use the results
-// 	font-size: @font-size;
-// 	line-height: @line-height;
-
-// 	@baseline-distance: (@line-height - @cap-height) / 2;
-
-
-
-// 	// METHOD 1
-// 	/////////////////
-
-// 	// this method can relatively move down elements you may not want to
-// 	// position: relative;
-// 	// top: @baseline-distance + em;
-
-
-
-// 	// METHOD 2
-// 	/////////////////
-
-// 	// if you use this mixin only on elements that have one direction margins
-// 	// http://csswizardry.com/2012/06/single-direction-margin-declarations/
-// 	// you can use this method with no worries.
-// 	// this method assumes the direction is down and the margin is @base-line-height
-// 	padding-top: unit(@baseline-distance, em);
-// 	margin-bottom: unit(@base-line-height - @baseline-distance, em);
-// }
-

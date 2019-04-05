@@ -38,6 +38,7 @@ const config = {
             // strict: true
         }),
         // TODO: Get images doing .jpg -> .webp.br
+        // TODO: Wonder if you can compress woff2s?
         new BrotliPlugin({
             asset: '[path].br[query]',
             test: /\.js$|\.css$/,
