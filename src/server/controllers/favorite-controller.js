@@ -23,12 +23,11 @@ export async function setFavorite(favorite, userId) {
     }
 
     if (favorite !== sanitizedFavorite) {
-        // Something suspect has happened here. The user might have tried to send something malicious.
+        // Something suspect might have happened here.
         return {response: {success: false, error: 'invalid file id'}}
     }
 
     if (favorite !== path.basename(sanitizedFavorite)) {
-        // Something suspect has happened here. The user might have tried to send something malicious.
         return {response: {success: false, error: 'invalid file id'}}
     }
 
@@ -37,10 +36,10 @@ export async function setFavorite(favorite, userId) {
     sanitizedFavorite = swapForBrotliPath(sanitizedFavorite)
 
     if (!fs.existsSync(sanitizedFavorite)) {
-        // Something suspect has happened here. The user might have tried to send something malicious.
         return {response: {success: false, error: 'invalid file id'}}
     }
 
+    // Save to postgres
     try {
         await User.update({
             favorite: sanitizedFavorite,
@@ -51,18 +50,13 @@ export async function setFavorite(favorite, userId) {
         })
     } catch (error) {
         logger.error(error)
-        if (error instanceof Sequelize.ValidationError) {
-            if (error.errors[0].type === 'unique violation') {
-                return {response: {success: false, error: 'wat'}}
-            }
-
-            return {response: {success: false, error: 'wat'}}
-        } else if (error instanceof Sequelize.ForeignKeyConstraintError) {
+        if (error instanceof Sequelize.ForeignKeyConstraintError) {
             return {response: {success: false, error: 'internal error'}}
         }
 
         return {response: {success: false, error: 'internal error'}}
     }
+    // Respond with the provided id (which hasn't been altered)
     return {response: {success: true, favorite: favorite}}
 }
 
@@ -88,6 +82,9 @@ export async function getFavorite(userId) {
         return {response: {success: false, error: 'no favorite set'}}
     }
 
+    // Important difference between this response and the one from setFavorite:
+    // Anything returned in the response object should be safe to send to the client.
+    // This is but the intent is no to send it.
     return {response: {success: true}, favorite}
 }
 

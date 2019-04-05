@@ -50,7 +50,6 @@ if (process.env.NODE_ENV === 'production') {
     const contentNone = ['\'none\'']
     app.use(featurePolicy({
         features: {
-            vibrate: [...contentNone],
             camera: [...contentNone],
             geolocation: [...contentNone],
             microphone: [...contentNone],
@@ -59,7 +58,7 @@ if (process.env.NODE_ENV === 'production') {
     }))
 
     // Set up content-security-policy
-    const contentSelf = ['\'self\'', 'recat.jacobsmith.tech', 'blob:']
+    const contentSelf = ['\'self\'', 'recat.jacobsmith.tech', 'blob:', 'data:']
     const contentAnalytics = ['*.google-analytics.com', 'google-analytics.com']
     const contentFonts = ['*.fonts.gstatic.com', 'fonts.gstatic.com']
     app.use(csp({
@@ -67,9 +66,10 @@ if (process.env.NODE_ENV === 'production') {
             defaultSrc: contentSelf.concat(contentAnalytics),
             fontSrc: contentSelf.concat(contentFonts),
             prefetchSrc: contentSelf.concat(contentFonts),
+            connectSrc: contentSelf.concat(contentAnalytics),
             // TODO: Add a report uri.
             // reportUri
-            scriptSrc: contentSelf.concat(contentAnalytics),
+            scriptSrc: contentSelf.concat(contentAnalytics, '\'unsafe-inline\''),
         },
     }))
 

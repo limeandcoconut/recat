@@ -1,27 +1,21 @@
 import argon2 from 'argon2'
 import {setAsync, getAsync, delAsync} from '../models/redis'
-// import crypto from 'crypto'
-// import jwt from 'jsonwebtoken'
-// import db from '../models/db.js'
 import Sequelize from 'sequelize'
-// import {setAsync, getAsync} from '../models/redis.js'
 import User from '../models/user.js'
 import {encrypt, decrypt, randomId} from '../../shared/utils.js'
-// import Player from '../models/player.js'
 import {encryptionKey} from '../../../config/keys.js'
-/* eslint-disable require-jsdoc */
+import {productionHost} from '../../../config/config'
+import {loggers} from 'winston'
+
+const cookieDomain = productionHost.match(/\/\/(.*)$/)[1]
 
 /**
  * @function register
  * @param  {Object} user Keys: email and password.
  * @return {Object} An object containing a response: success flag, and an error if unsuccessful.
  */
-export async function register(user) {
-    // TODO not a terribly good password strength test
-    // TODO Typrography enforcement
-    // TODO: remove this
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    const {email, password} = user
+export async function register({email, password}) {
+    // TODO Topology enforcement
     const passwordRequirements = new RegExp('(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])')
     if (!password) {
         return {response: {success: false, error: 'empty password'}}
@@ -54,10 +48,7 @@ export async function register(user) {
     }
 
     return {response: {success: true}}
-
 }
-
-// TODO: check anything brian worked on for let/const
 
 /**
  * @function login
@@ -67,6 +58,7 @@ export async function register(user) {
 export async function login(user) {
     const {email, password} = user
 
+    // Get a user
     const existingUser = await User.findOne({
         where: {
             email,
@@ -77,14 +69,15 @@ export async function login(user) {
         return {response: {success: false, error: 'invalid username or password'}}
     }
 
+    // Validate password
     const {passwordHash, id: userId} = existingUser
-
     const isValidPassword = await argon2.verify(passwordHash, password)
 
     if (!isValidPassword) {
         return {response: {success: false, error: 'invalid username or password'}}
     }
 
+    // Set an hour session
     const sessionId = randomId()
     const maxAge = 60 * 60
 
@@ -94,17 +87,19 @@ export async function login(user) {
         return {response: {success: false, error: 'internal error'}}
     }
 
+    // Encrypt the session
     const encryptedSession = encrypt(sessionId, encryptionKey)
 
-    // TODO: add prod stuff
+    // Create the cookie
     let domain = ''
     let secure = ''
-    if (false) {
-        domain = 'Domain=localhost;'
+    if (process.env.NODE_ENV === 'production') {
+        domain = `Domain=${cookieDomain};`
         secure = 'Secure;'
     }
 
-    const cookie = `session=${encryptedSession}; Max-Age=${maxAge};${domain} ${secure} HttpOnly; SameSite=strict; Path=/`
+    const cookie = `session=${encryptedSession}; Max-Age=${maxAge}; ${domain} ${secure} HttpOnly; SameSite=strict; Path=/`
+    console.log(cookie)
 
     return {response: {success: true}, cookie, userId}
 }
@@ -153,18 +148,17 @@ export async function logout(encryptedSession) {
     try {
         await delAsync(sessionId)
     } catch (error) {
-        // TODO: Logging here?
+        loggers.warn('Error while deleting session.', {error})
     }
 
-    // TODO: add prod stuff
     let domain = ''
     let secure = ''
-    if (false) {
-        domain = 'Domain=localhost;'
+    if (process.env.NODE_ENV === 'production') {
+        domain = `Domain=${cookieDomain};`
         secure = 'Secure;'
     }
 
-    const cookie = `session=; Max-Age=0;${domain} ${secure} HttpOnly; SameSite=strict; Path=/`
+    const cookie = `session=; Max-Age=0; ${domain} ${secure} HttpOnly; SameSite=strict; Path=/`
 
     return {response: {success: true}, cookie}
 }
