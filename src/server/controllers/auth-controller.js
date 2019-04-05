@@ -99,7 +99,6 @@ export async function login(user) {
     }
 
     const cookie = `session=${encryptedSession}; Max-Age=${maxAge}; ${domain} ${secure} HttpOnly; SameSite=strict; Path=/`
-    console.log(cookie)
 
     return {response: {success: true}, cookie, userId}
 }

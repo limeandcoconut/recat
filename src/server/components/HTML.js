@@ -3,16 +3,9 @@ import React from 'react'
 import Helmet from 'react-helmet'
 
 export default class HTML extends React.Component {
-    // TODO: remove
-    static defaultProps = {
-        css: [],
-        scripts: [],
-        state: '{}',
-    };
-
     render() {
         const head = Helmet.renderStatic()
-        const {children, scripts, css, state} = this.props
+        const {children, scripts = [], css = [], state = {}} = this.props
         return (
             <html lang="">
                 <head>
@@ -22,8 +15,6 @@ export default class HTML extends React.Component {
                     {head.title.toComponent()}
                     {head.meta.toComponent()}
                     {head.link.toComponent()}
-                    {/* {head.script.toComponent()} */}
-                    {/* {head.style.toComponent()} */}
                     {css.map((href) => {
                         return <link key={href} rel="stylesheet" href={href} />
                     })}

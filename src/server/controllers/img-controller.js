@@ -166,7 +166,6 @@ async function requestNewImageFromAPI(userId) {
     // Generate webp filename.
     const parsedRawName = path.parse(rawName)
     const webpName = parsedRawName.base + WEBP_EXTENSION
-    console.log(webpName)
     const webpPath = path.join(paths.webpImages, webpName)
     const brolitName = webpName + BROTLI_EXTENSION
     const brotliPath = path.join(paths.brotliImages, brolitName)
