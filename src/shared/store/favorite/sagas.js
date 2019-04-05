@@ -2,8 +2,13 @@ import {takeLatest, call, put, select, all} from 'redux-saga/effects'
 import {succeedFavoritePut, succeedFavoriteRequest, failFavoritePut, failFavoriteRequest} from './actions'
 import {showToast, hideToast} from '../toast/actions'
 import {webpSupport} from '../webp/selectors'
+/* eslint-disable valid-jsdoc */
 
-/* eslint-disable require-jsdoc */
+/**
+ * A generator to pass along control when an action is fired.
+ * @function * watcherSaga
+ * @return {undefined}
+ */
 export function * watcherGetSaga() {
     yield takeLatest('FAVORITE/REQUEST_FAVORITE', workerGetSaga)
 }

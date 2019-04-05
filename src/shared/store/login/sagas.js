@@ -5,7 +5,6 @@ import {showToast, hideToast} from '../toast/actions'
 import {requestFavorite} from '../favorite/actions'
 import {requestCat} from '../cats/actions'
 
-/* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
     yield takeLatest('LOGIN/REQUEST_LOGIN', workerSaga)
 }

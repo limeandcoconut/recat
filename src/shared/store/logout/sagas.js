@@ -3,7 +3,6 @@ import {succeedLogout, failLogout} from './actions.js'
 import {failAuth} from '../auth/actions.js'
 import {showToast, hideToast} from '../toast/actions'
 
-/* eslint-disable require-jsdoc */
 export default function * watcherSaga() {
     yield takeLatest('LOGOUT/REQUEST_LOGOUT', workerSaga)
 }

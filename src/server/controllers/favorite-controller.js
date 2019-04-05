@@ -5,7 +5,6 @@ import logger from '../../shared/logging/logger'
 import path from 'path'
 import fs from 'fs'
 import {swapForBrotliPath} from './img-controller'
-/* eslint-disable require-jsdoc */
 
 /**
  * @function setFavorite

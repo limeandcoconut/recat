@@ -6,8 +6,13 @@ import authWatcherSaga from './auth/sagas.js'
 import logoutWatcherSaga from './logout/sagas.js'
 import favoriteSagas from './favorite/sagas.js'
 const {watcherPutSaga: favoriteWatcherPutSaga, watcherGetSaga: favoriteWatcherGetSaga} = favoriteSagas
+/* eslint-disable valid-jsdoc */
 
-/* eslint-disable require-jsdoc */
+/**
+ * A generator combinding all the project sagas.
+ * @function * rootSaga
+ * @return {undefined}
+ */
 export default function * rootSaga() {
     yield all([
         catWatcherSaga(),
