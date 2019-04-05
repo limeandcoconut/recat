@@ -2,17 +2,23 @@ import {takeLatest, call, put, select, all} from 'redux-saga/effects'
 import {succeedFavoritePut, succeedFavoriteRequest, failFavoritePut, failFavoriteRequest} from './actions'
 import {showToast, hideToast} from '../toast/actions'
 import {webpSupport} from '../webp/selectors'
-/* eslint-disable valid-jsdoc */
 
 /**
  * A generator to pass along control when an action is fired.
- * @function * watcherSaga
+ * @generator
+ * @function watcherGetSaga
  * @return {undefined}
  */
 export function * watcherGetSaga() {
     yield takeLatest('FAVORITE/REQUEST_FAVORITE', workerGetSaga)
 }
 
+/**
+ * The generator that handles api calls and dispatching responses to the store.
+ * @generator
+ * @function workerGetSaga
+ * @return {undefined}
+ */
 function * workerGetSaga() {
     const supported = yield select(webpSupport)
     try {
@@ -37,6 +43,12 @@ function * workerGetSaga() {
     }
 }
 
+/**
+ * Make a request to the api.
+ * @function makeFavoriteGet
+ * @param  {boolean} supported A flag indicating webp support on this client.
+ * @return {async-function} An async function which resolves when it has parsed the server's response.
+ */
 function makeFavoriteGet(supported) {
     return async () => {
         const response = await fetch(`/auth/images/favorite`, {
@@ -55,14 +67,31 @@ function makeFavoriteGet(supported) {
     }
 }
 
+/**
+ * A generator to pass along control when an action is fired.
+ * @generator
+ * @function watcherPutSaga
+ * @return {undefined}
+ */
 export function * watcherPutSaga() {
     yield takeLatest('FAVORITE/PUT_FAVORITE', workerPutSaga)
 }
 
+/**
+ * @function imageId
+ * @param  {object} state The application store.
+ * @return {string} A unique identifier for an image.
+ */
 const imageId = (state) => {
     return state.cats.id
 }
 
+/**
+ * The generator that handles api calls and dispatching responses to the store.
+ * @generator
+ * @function workerPutSaga
+ * @return {undefined}
+ */
 function * workerPutSaga() {
     const id = yield select(imageId)
     const supported = yield select(webpSupport)
@@ -88,6 +117,13 @@ function * workerPutSaga() {
     }
 }
 
+/**
+ * Make a request to the api.
+ * @function makeFavoritePut
+ * @param  {object} id A unique identifier (filename) to indicate the favorite image to the server.
+ * @param  {boolean} supported A flag indicating webp support on this client.
+ * @return {async-function} An async function which resolves when it has parsed the server's json response.
+ */
 function makeFavoritePut(id, supported) {
     return async () => {
         const response = await fetch(`/auth/images/favorite`, {

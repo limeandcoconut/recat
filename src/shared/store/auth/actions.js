@@ -1,3 +1,8 @@
+/**
+ * Action creator
+ * @function requestAuth
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const requestAuth = () => ({
     type: 'AUTH/REQUEST_AUTH',
     payload: {
@@ -5,6 +10,11 @@ export const requestAuth = () => ({
     },
 })
 
+/**
+ * Action creator
+ * @function succeedAuth
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const succeedAuth = () => ({
     type: 'AUTH/AUTH_SUCCESS',
     payload: {
@@ -13,6 +23,12 @@ export const succeedAuth = () => ({
     },
 })
 
+/**
+ * Action creator
+ * @function failAuth
+ * @param {string} error An error message to provide the user.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const failAuth = (error) => ({
     type: 'AUTH/AUTH_FAILURE',
     payload: {

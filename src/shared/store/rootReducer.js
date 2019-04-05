@@ -10,6 +10,12 @@ import login from './login/reducer'
 import logout from './logout/reducer'
 import registration from './registration/reducer'
 
+/**
+ * Runs connectRouter and combineReducers.
+ * @function createRootReducer
+ * @param  {object} history A history to provide the router.
+ * @return {object} The root reducer for the store.
+ */
 const createRootReducer = (history) => combineReducers({
     toast,
     app,

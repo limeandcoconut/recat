@@ -1,5 +1,10 @@
 import ReactGA from 'react-ga'
 
+/**
+ * Action creator
+ * @function requestLogout
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const requestLogout = () => ({
     type: 'LOGOUT/REQUEST_LOGOUT',
     payload: {
@@ -7,6 +12,11 @@ export const requestLogout = () => ({
     },
 })
 
+/**
+ * Action creator
+ * @function succeedLogout
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const succeedLogout = () => {
     ReactGA.event({
         category: 'User',
@@ -21,6 +31,12 @@ export const succeedLogout = () => {
     }
 }
 
+/**
+ * Action creator
+ * @function failLogout
+ * @param {string} error An error message to display.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const failLogout = (error) => ({
     type: 'LOGOUT/LOGOUT_FAILURE',
     payload: {

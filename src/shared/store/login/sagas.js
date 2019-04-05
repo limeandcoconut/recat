@@ -5,14 +5,31 @@ import {showToast, hideToast} from '../toast/actions'
 import {requestFavorite} from '../favorite/actions'
 import {requestCat} from '../cats/actions'
 
+/**
+  * A generator to pass along control when an action is fired.
+  * @generator
+  * @function watcherSaga
+  * @return {undefined}
+  */
 export default function * watcherSaga() {
     yield takeLatest('LOGIN/REQUEST_LOGIN', workerSaga)
 }
 
+/**
+ * @function loginForm
+ * @param  {object} state The application store.
+ * @return {object} A form object.
+ */
 const loginForm = (state) => {
     return state.login.form
 }
 
+/**
+ * The generator that handles api calls and dispatching responses to the store.
+ * @generator
+ * @function workerSaga
+ * @return {undefined}
+ */
 function * workerSaga() {
     const form = yield select(loginForm)
     try {
@@ -42,6 +59,12 @@ function * workerSaga() {
     }
 }
 
+/**
+ * Make a request to the api.
+ * @function makeLoginRequest
+ * @param  {object} form A for object to validate.
+ * @return {async-function} An async function which resolves when it has parsed the server's json response.
+ */
 function makeLoginRequest(form) {
     return async () => {
         const response = await fetch(`/auth/login`, {

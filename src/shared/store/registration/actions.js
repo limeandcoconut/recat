@@ -1,5 +1,12 @@
 import ReactGA from 'react-ga'
 
+/**
+ * Action creator
+ * @function updateRegistration
+ * @param {object} formUpdate An object with two properties, name being an input name, and value being the value of that
+ *                            input.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const updateRegistration = ({name, value}) => ({
     type: 'REGISTRATION/UPDATE_FORM',
     payload: {
@@ -8,6 +15,11 @@ export const updateRegistration = ({name, value}) => ({
     },
 })
 
+/**
+ * Action creator
+ * @function resetRegistration
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const requestRegistration = () => ({
     type: 'REGISTRATION/REQUEST_REGISTRATION',
     payload: {
@@ -15,6 +27,12 @@ export const requestRegistration = () => ({
     },
 })
 
+/**
+ * Action creator
+ * Creates a google analytics event.
+ * @function succeedRegistration
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const succeedRegistration = () => {
     ReactGA.event({
         category: 'User',
@@ -29,6 +47,12 @@ export const succeedRegistration = () => {
     }
 }
 
+/**
+ * Action creator
+ * @function failRegistration
+ * @param {string} error An error message to display.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const failRegistration = (error) => ({
     type: 'REGISTRATION/REGISTRATION_FAILURE',
     payload: {
@@ -38,6 +62,11 @@ export const failRegistration = (error) => ({
     },
 })
 
+/**
+ * Action creator
+ * @function resetRegistration
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const resetRegistration = () => ({
     type: 'REGISTRATION/REGISTRATION_RESET',
     payload: {

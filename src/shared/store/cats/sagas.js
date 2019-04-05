@@ -2,11 +2,11 @@ import {takeLatest, call, put, all, select} from 'redux-saga/effects'
 import {succeedCat, failCat} from './actions.js'
 import {showToast, hideToast} from '../toast/actions'
 import {webpSupport} from '../webp/selectors'
-/* eslint-disable valid-jsdoc */
 
 /**
  * A generator to pass along control when an action is fired.
- * @function * watcherSaga
+ * @generator
+ * @function watcherSaga
  * @return {undefined}
  */
 export default function * watcherSaga() {
@@ -15,7 +15,8 @@ export default function * watcherSaga() {
 
 /**
  * The generator that handles api calls and dispatching responses to the store.
- * @function * workerSaga
+ * @generator
+ * @function workerSaga
  * @return {undefined}
  */
 function * workerSaga() {
@@ -47,7 +48,7 @@ function * workerSaga() {
  * Make a request to the api.
  * @function fetchCat
  * @param  {boolean} supported A flag for webp support.
- * @return {async function} An async function which resolves when it has parsed the server's.
+ * @return {async-function} An async function which resolves when it has parsed the server's.
  *                          Response will either be a blob as an image url or json with an error.
  */
 function fetchCat(supported) {

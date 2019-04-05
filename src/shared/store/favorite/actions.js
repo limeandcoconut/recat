@@ -1,5 +1,10 @@
 import ReactGA from 'react-ga'
 
+/**
+ * Action creator
+ * @function requestFavorite
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const requestFavorite = () => ({
     type: 'FAVORITE/REQUEST_FAVORITE',
     payload: {
@@ -7,6 +12,12 @@ export const requestFavorite = () => ({
     },
 })
 
+/**
+ * Action creator
+ * @function succeedFavoriteRequest
+  * @param {object} favorite A blob to use as the image source.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const succeedFavoriteRequest = (favorite) => ({
     type: 'FAVORITE/REQUEST_SUCCESS',
     payload: {
@@ -15,6 +26,12 @@ export const succeedFavoriteRequest = (favorite) => ({
     },
 })
 
+/**
+ * Action creator
+ * @function succeedFavoriteRequest
+ * @param {string} error An error message to provide the user.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const failFavoriteRequest = (error) => ({
     type: 'FAVORITE/REQUEST_FAILURE',
     payload: {
@@ -24,6 +41,12 @@ export const failFavoriteRequest = (error) => ({
     },
 })
 
+/**
+ * Action creator
+ * @function putFavorite
+ * @param {object} favorite A unique identifier (filename) to indicate the favorite image to the server.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const putFavorite = (favorite) => ({
     type: 'FAVORITE/PUT_FAVORITE',
     payload: {
@@ -32,6 +55,13 @@ export const putFavorite = (favorite) => ({
     },
 })
 
+/**
+ * Action creator
+ * Creates a google analytics event.
+ * @function succeedFavoritePut
+ * @param {object} favorite A blob to use as the image source.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const succeedFavoritePut = (favorite) => {
     ReactGA.event({
         category: 'Images',
@@ -46,6 +76,12 @@ export const succeedFavoritePut = (favorite) => {
     }
 }
 
+/**
+ * Action creator
+ * @function failFavoritePut
+ * @param {string} error An error message to provide the user.
+ * @return {object} An object with type and a payload of state to alter.
+ */
 export const failFavoritePut = (error) => ({
     type: 'FAVORITE/PUT_FAILURE',
     payload: {

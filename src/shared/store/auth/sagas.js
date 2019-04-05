@@ -1,11 +1,11 @@
 import {takeLatest, call, put, all} from 'redux-saga/effects'
 import {succeedAuth, failAuth} from './actions.js'
 import {showToast, hideToast} from '../toast/actions'
-/* eslint-disable valid-jsdoc */
 
 /**
  * A generator to pass along control when an action is fired.
- * @function * watcherSaga
+ * @generator
+ * @function watcherSaga
  * @return {undefined}
  */
 export default function * watcherSaga() {
@@ -14,7 +14,8 @@ export default function * watcherSaga() {
 
 /**
  * The generator that handles api calls and dispatching responses to the store.
- * @function * workerSaga
+ * @generator
+ * @function workerSaga
  * @return {undefined}
  */
 function * workerSaga() {
@@ -43,7 +44,7 @@ function * workerSaga() {
 /**
  * Make a request to the api.
  * @function makeAuthRequest
- * @return {async function} An async function which resolves when it has parsed the server's json response.
+ * @return {object} An object with success and errors from the server.
  */
 async function makeAuthRequest() {
     const response = await fetch(`/auth/check`, {

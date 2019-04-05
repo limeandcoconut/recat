@@ -1,11 +1,11 @@
 import {takeLatest, call, put, select, all} from 'redux-saga/effects'
 import {succeedRegistration, failRegistration} from './actions.js'
 import {showToast, hideToast} from '../toast/actions'
-/* eslint-disable valid-jsdoc */
 
 /**
  * A generator to pass along control when an action is fired.
- * @function * watcherSaga
+ * @generator
+ * @function watcherSaga
  * @return {undefined}
  */
 export default function * watcherSaga() {
@@ -23,7 +23,8 @@ const registerForm = (state) => {
 
 /**
  * The generator that handles api calls and dispatching responses to the store.
- * @function * workerSaga
+ * @generator
+ * @function workerSaga
  * @return {undefined}
  */
 function * workerSaga() {
@@ -53,8 +54,8 @@ function * workerSaga() {
 /**
  * Make a request to the api.
  * @function makeRegisterRequest
- * @param  {object} form A for object to validate.
- * @return {async function} An async function which resolves when it has parsed the server's json response.
+ * @param  {object} form A form object to validate.
+ * @return {async-function} An async function which resolves when it has parsed the server's json response.
  */
 function makeRegisterRequest(form) {
     return async () => {
