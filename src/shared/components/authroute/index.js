@@ -39,7 +39,6 @@ const mapDispatchToProps = {
     requestAuth,
 }
 
-// TODO: Decide if defaults are needed
 const mapStateToProps = ({auth: {success}}) => ({
     isAuthed: success,
 })

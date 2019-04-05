@@ -1,8 +1,5 @@
 import * as React from 'react'
-// import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
-// import { withNamespaces } from 'react-i18next';
-// import { setLocale } from './store/app/actions';
 import {updateLogin, requestLogin} from '../../store/login/actions'
 import {requestAuth} from '../../store/auth/actions'
 import Input from '../../components/input'
@@ -12,10 +9,6 @@ import {Redirect} from 'react-router-dom'
 import Helmet from 'react-helmet'
 
 class Register extends React.Component {
-    // setLanguage = (e) => {
-    //     //this.store.dispatch(setLocale(e.target.value))
-    //     this.props.setLocale(e.target.value);
-    // };
 
     handleChange = (e) => {
         const {name, value} = e.target
@@ -141,6 +134,4 @@ const mapStateToProps = ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-    // null,
-    // {pure: false}
 )(Register)

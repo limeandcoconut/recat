@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {withNamespaces} from 'react-i18next'
 import styles from './input.module.less'
 
 class Input extends React.Component {
@@ -8,7 +7,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const {t, name, value, type = 'text', className = '', disabled = false, required = true} = this.props
+        const {name, value, type = 'text', className = '', disabled = false, required = true} = this.props
         let defaultValue = this.defaultValue[type]
         defaultValue = typeof defaultValue !== 'undefined' ? defaultValue : ''
         const filled = value === defaultValue ? defaultValue : styles.inputFilled
@@ -31,4 +30,4 @@ class Input extends React.Component {
         )
     }
 }
-export default withNamespaces()(Input)
+export default Input

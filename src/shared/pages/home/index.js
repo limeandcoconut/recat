@@ -1,8 +1,6 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
-// import { withNamespaces } from 'react-i18next';
-// import { setLocale } from './store/app/actions';
 import {requestCat} from '../../store/cats/actions'
 import {putFavorite, requestFavorite} from '../../store/favorite/actions'
 import styles from './home.module.less'
@@ -34,10 +32,6 @@ class Home extends React.Component {
             useFavorite: false,
         }
     }
-    // setLanguage = (e) => {
-    //     //this.store.dispatch(setLocale(e.target.value))
-    //     this.props.setLocale(e.target.value);
-    // };
 
     componentDidMount() {
         this.checkIfAuthed()
@@ -133,8 +127,18 @@ class Home extends React.Component {
                         <Beater className={styles.beater}/>
                     )}
                 </div>
-                <Confetti active={image && image.length && requested} config={confettiConfig} className={styles.confetti} />
-                <button className={styles.button} onClick={this.getNewCat} disabled={requested}>Request a Cat</button>
+                <Confetti
+                    active={image && image.length && requested}
+                    config={confettiConfig}
+                    className={styles.confetti}
+                />
+                <button
+                    className={styles.button}
+                    onClick={this.getNewCat}
+                    disabled={requested}
+                >
+                    YAY KITTY!
+                </button>
             </div>
         )
     }

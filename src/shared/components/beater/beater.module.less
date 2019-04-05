@@ -1,25 +1,25 @@
 @import '../../assets/less/mixins.less';
 
 .wrapper {
-
+    color: inherit;
 }
 
 .beater {
     background-color: @magenta;
+    width: .basis(4)[];
     height: .basis(4)[];
     transform: rotate(-45deg);
-    width: .basis(4)[];
     animation: beat 650ms infinite ease-out alternate;
 
     &:before,
     &:after {
         content: '';
-        display: block;
         background-color: @magenta;
-        border-radius: 50%;
-        height: .basis(4)[];
+        display: block;
         position: absolute;
         width: .basis(4)[];
+        height: .basis(4)[];
+        border-radius: 50%;
     }
     
     &:after {

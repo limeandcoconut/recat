@@ -90,10 +90,6 @@ auth.put('/images/favorite', async (request, response) => {
         response.send({success, error})
         return
     }
-    // TODO: remove all console logs
-    console.log('yo')
-    await sleep(3000)
-    console.log('yo2')
 
     // Attempt to set the save the favorite
     // The controller does validation and sanitization
