@@ -15,7 +15,6 @@ keys
 hap
 
 ## Components
-replace divs with fragments
 
 ## Server
 
@@ -35,26 +34,41 @@ microdata
 ## Images
 
 ## Cleanup
-add raw files to init.sh
+replace divs with fragments
+check looger and console logs
 remove extra files
 normalize file names
-changelog
-readme
 package.json
 every file
 jsdoc
 normalize error and err
 normalize req/res
+
+test sitemap
+copy
+add raw files to init.sh
+changelog
+readme
+
 check licenses!
 deps
+
 safari test
 molile test 
 brian review
 user testing
+
 Change ga id in keys
 turn on hsts
 
+NotFound in react-srr-setup
+express-manifest-helpoers
+merge
+
 ## Later
+Fix the unsafe-inline in the csp with hashes.
+Figure out the production logs for winston
+add @throws to jodocs
 look at using the writeFilesToDisk flag instead of write-files-plugin
 config production url and port
 fastify?
