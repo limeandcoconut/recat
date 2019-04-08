@@ -1,8 +1,6 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
-import {withNamespaces} from 'react-i18next'
-import {setLocale} from './store/app/actions'
 import styles from './app.module.less'
 import {Switch, Route, withRouter} from 'react-router-dom'
 import AuthRoute from './components/authroute'
@@ -14,9 +12,6 @@ import siteMeta from '../../config/meta'
 import path from 'path'
 
 class App extends React.Component {
-    setLanguage = (e) => {
-        this.props.setLocale(e.target.value)
-    };
 
     render() {
         const {location} = this.props
@@ -64,11 +59,13 @@ class App extends React.Component {
                         <meta name="msapplication-TileColor" content={siteMeta.color} />
                         <meta name="msapplication-TileImage" content={siteMeta.favicons.ms} />
                         {process.env.NODE_ENV === 'production' &&
-                            <link rel="manifest" href={siteMeta.manifest} />
+                            <>
+                                <link rel="manifest" href={siteMeta.manifest} />
+                                <link rel="shortcut icon" href={siteMeta.favicons.default} />
+                                <link rel="icon" type="image/png" sizes="32x32" href={siteMeta.favicons.x32} />
+                                <link rel="icon" type="image/png" sizes="16x16" href={siteMeta.favicons.x16} />
+                            </>
                         }
-                        <link rel="shortcut icon" href={siteMeta.favicons.default} />
-                        <link rel="icon" type="image/png" sizes="32x32" href={siteMeta.favicons.x32} />
-                        <link rel="icon" type="image/png" sizes="16x16" href={siteMeta.favicons.x16} />
                         <link rel="apple-touch-icon" sizes="180x180" href={siteMeta.favicons.apple} />
                         <link rel="mask-icon" href={siteMeta.favicons.safariMask} color={siteMeta.color} />
 
@@ -77,35 +74,16 @@ class App extends React.Component {
                         <link rel="preload" href="https://fonts.gstatic.com/s/nunito/v10/XRXV3I6Li01BKofINeaBTMnFcQ.woff2" as="font" type="font/woff2" crossOrigin="crossOrigin" />
 
                     </Helmet>
-
-                    {/* <div className={styles.i18n} >
-                        <h2>{t('i18n-example')}</h2>
-                        <button value="de_DE" onClick={this.setLanguage}>
-                            Deutsch
-                        </button>
-                        <button value="en_US" onClick={this.setLanguage}>
-                            English
-                        </button>
-                    </div> */}
                 </main>
-                {// TODO: referer and stuff
-                }
-                <div className={styles.footer}>
+                <footer className={styles.footer}>
                     <div>
                         <div className="hidden-md" >A thing by </div><a className={styles.footerLink} href="https://jacobsmith.tech" target="_blank"><span className="visible-md" >By </span>Jacob Smith</a>
                     </div>
-                </div>
+                </footer>
                 <Toast/>
             </div>
         )
     }
 }
 
-const mapDispatchToProps = {
-    setLocale,
-}
-
-export default withRouter(connect(
-    null,
-    mapDispatchToProps
-)(withNamespaces()(App)))
+export default withRouter(connect()(App))
