@@ -47,9 +47,10 @@ cleancommand='rm '
 # Write files and concat command
 for i in 1 2 3 4 5
 do
+    base64 -D -o ./images/raw/$i.png <<< iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=
     base64 -D -o ./images/webp/$i.webp <<< UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vv9UAA= 
     base64 -D -o ./images/brotli/$i.webp.br <<< cixWAUklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vv9UAAD 
-    cleancommand="$cleancommand $PWD/images/webp/$i.webp $PWD/images/brotli/$i.webp.br"
+    cleancommand="$cleancommand $PWD/images/raw/$i.png $PWD/images/webp/$i.webp $PWD/images/brotli/$i.webp.br"
 done
 
 # Cross env copy to clipboard
