@@ -1,7 +1,5 @@
 import * as React from 'react'
-// import Helmet from 'react-helmet'
 import {connect} from 'react-redux'
-// import { withNamespaces } from 'react-i18next';
 import {updateRegistration, requestRegistration, resetRegistration} from '../../store/registration/actions'
 import Input from '../../components/input'
 import sharedStyles from '../login/login.module.less'
@@ -12,13 +10,9 @@ import {Redirect} from 'react-router-dom'
 import Helmet from 'react-helmet'
 
 class Register extends React.Component {
-    // setLanguage = (e) => {
-    //     //this.store.dispatch(setLocale(e.target.value))
-    //     this.props.setLocale(e.target.value);
-    // };
 
-    handleChange = (e) => {
-        const {name, value} = e.target
+    handleChange = (event) => {
+        const {name, value} = event.target
         this.props.updateRegistration({name, value})
     }
 
@@ -117,6 +111,4 @@ const mapStateToProps = ({registration: {success, requested, form}, auth: {succe
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-    // null,
-    // {pure: false}
 )(Register)

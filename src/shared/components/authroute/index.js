@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {withNamespaces} from 'react-i18next'
 import {Redirect, Route, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {requestAuth} from '../../store/auth/actions'
@@ -43,4 +42,4 @@ const mapStateToProps = ({auth: {success}}) => ({
     isAuthed: success,
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(AuthRoute)))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthRoute))

@@ -4,7 +4,6 @@ import {Provider} from 'react-redux'
 import {ConnectedRouter} from 'connected-react-router'
 import {configureStore} from '../shared/store'
 import App from '../shared/app'
-import IntlProvider from '../shared/i18n/IntlProvider'
 import createHistory from '../shared/store/history'
 import ReactGA from 'react-ga'
 import {gaDevID, gaProductionID} from '../../config/config.js'
@@ -36,10 +35,7 @@ checkWebp()
 hydrate(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-
-            <IntlProvider>
-                <App />
-            </IntlProvider>
+            <App />
         </ConnectedRouter>
     </Provider>,
     document.getElementById('app')

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {withNamespaces} from 'react-i18next'
 import {NavLink, withRouter} from 'react-router-dom'
 import Authed from '../authed'
 import Anon from '../anon'
@@ -52,4 +51,4 @@ export default withRouter(connect(
     mapDispatchToProps,
     null,
     {pure: false},
-)(withNamespaces()(Header)))
+)(Header))
