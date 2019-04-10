@@ -6,8 +6,8 @@ import {ConnectedRouter} from 'connected-react-router'
 import {configureStore} from '../shared/store'
 import App from '../shared/app'
 import createHistory from '../shared/store/history'
-// import ReactGA from 'react-ga'
-// import {gaDevID, gaProductionID} from '../../config/config.js'
+import ReactGA from 'react-ga'
+import {gaDevID, gaProductionID} from '../../config/config.js'
 import {supportsWebp} from './utils'
 import {setSupport} from '../shared/store/webp/actions'
 
@@ -47,8 +47,8 @@ hydrate(
 )
 
 const addAnalytics = async () => {
-    const ReactGA = await import(/* webpackPrefetch: true */ 'react-ga')
-    const {gaDevID, gaProductionID} = await import(/* webpackPrefetch: true */ '../../config/config.js')
+    // const ReactGA = await import(/* webpackPrefetch: true */ 'react-ga')
+    // const {gaDevID, gaProductionID} = await import(/* webpackPrefetch: true */ '../../config/config.js')
     // Ad google analytics
     const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
     ReactGA.initialize(gaId)
