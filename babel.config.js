@@ -6,13 +6,17 @@ module.exports = {
             {
                 modules: false,
                 // targets: {
-                //     browsers: ['> 1%', 'last 2 versions'],
+                // browsers: ['> 1%', 'last 2 versions'],
+                // node: 'current',
                 // },
-                useBuiltIns: 'entry',
+                useBuiltIns: 'usage',
             },
         ],
         '@babel/preset-react',
     ],
+    // ignore: [/@babel\/runtime/],
+    sourceType: 'unambiguous',
+    ignore: [/[\/\\]core-js/, /@babel[\/\\]runtime/],
     plugins: [
         '@babel/plugin-proposal-object-rest-spread',
         '@babel/plugin-proposal-class-properties',
