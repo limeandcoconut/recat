@@ -13,6 +13,7 @@
   "scripts": {
     "analyze": "npm run build:with-stats && npm run start:analyzer",
     "build": "cross-env NODE_ENV=production node scripts/build.js",
+    "build:nomap": "cross-env NODE_ENV=production OMIT_SOURCEMAP=true node scripts/build.js",
     "build:with-html": "cross-env NODE_ENV=production GEN_HTML=yas node scripts/build.js",
     "build:with-stats": "cross-env NODE_ENV=production webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
     "start": "cross-env NODE_ENV=development node scripts/start.js",
@@ -59,6 +60,8 @@
     "postcss-colorblind": "^1.0.0",
     "postcss-less": "^3.1.4",
     "react": "^16.8.0",
+    "react-async-component": "^2.0.0",
+    "react-code-splitting": "^1.2.1",
     "react-dom": "^16.8.0",
     "react-dom-confetti": "^0.1.0",
     "react-ga": "^2.5.7",

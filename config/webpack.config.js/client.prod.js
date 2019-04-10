@@ -1,5 +1,4 @@
 const baseConfig = require('./client.base')
-const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true'
 const BrotliPlugin = require('brotli-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const path = require('path')
@@ -12,6 +11,8 @@ const siteMeta = require('../meta')
 const CopyPlugin = require('copy-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
+
+const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true'
 
 const config = {
     ...baseConfig,
@@ -132,6 +133,8 @@ const config = {
         })),
         ...baseConfig.plugins,
     ],
+    performance: {
+    },
 }
 
 config.output.filename = 'bundle.[hash:8].js'

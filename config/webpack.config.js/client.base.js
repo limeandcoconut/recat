@@ -8,13 +8,19 @@ module.exports = {
     name: 'client',
     target: 'web',
     entry: {
-        bundle: [require.resolve('@babel/polyfill'), `${paths.srcClient}/index.js`],
+        bundle: [
+            // require.resolve('@babel/polyfill'),
+            `${paths.srcClient}/index.js`,
+        ],
     },
     output: {
         path: path.join(paths.clientBuild, paths.publicPath),
-        filename: 'bundle.js',
+        filename: '[name]bundle.js',
         publicPath: paths.publicPath,
-        chunkFilename: '[name].[chunkhash:8].chunk.js',
+        // TODO: Add to readme
+        // https://github.com/webpack/webpack/issues/4719
+        // chunkFilename: '[name].[chunkhash:8].chunk.js',
+        chunkFilename: '[id].chunk.js',
     },
     module: {
         rules: clientLoaders,

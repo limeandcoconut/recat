@@ -5,9 +5,10 @@ module.exports = {
             '@babel/preset-env',
             {
                 modules: false,
-                targets: {
-                    browsers: ['last 2 versions', 'ie >= 9'],
-                },
+                // targets: {
+                //     browsers: ['> 1%', 'last 2 versions'],
+                // },
+                useBuiltIns: 'entry',
             },
         ],
         '@babel/preset-react',
@@ -32,3 +33,6 @@ module.exports = {
         },
     },
 }
+
+// https://babeljs.io/docs/en/babel-polyfill#usage-in-node-browserify-webpack
+// https://babeljs.io/docs/en/usage

@@ -19,10 +19,10 @@ module.exports = {
         // This project tries to fix all of flexbug's issues.
         // https://github.com/philipwalton/flexbugs
         require('postcss-flexbugs-fixes')(),
-        require('autoprefixer')(browsers),
+        require('autoprefixer')(),
         // Customizes normalize.css to your browserslist.
         // https://github.com/csstools/postcss-normalize
-        require('postcss-normalize')(browsers),
+        require('postcss-normalize')(),
         // Report breaking browser compatibility from caniuse
         // https://github.com/anandthakker/doiuse
         // require('doiuse')({

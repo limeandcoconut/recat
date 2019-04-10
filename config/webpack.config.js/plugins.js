@@ -8,6 +8,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const env = require('../env')()
 
 const shared = [
+    // new webpack.ProvidePlugin({React: 'react'}),
     new WebpackBuildNotifierPlugin({
         title: 'Webpack Build',
         suppressSuccess: true,
