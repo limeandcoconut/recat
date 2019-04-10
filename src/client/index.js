@@ -8,7 +8,7 @@ import App from '../shared/app'
 import createHistory from '../shared/store/history'
 // import ReactGA from 'react-ga'
 // import {gaDevID, gaProductionID} from '../../config/config.js'
-import {supportsWebp} from '../shared/utils'
+import {supportsWebp} from './utils'
 import {setSupport} from '../shared/store/webp/actions'
 
 // const {setSupport} = () => import(/* webpackChunkName: "home" */ './modules/home/index');
