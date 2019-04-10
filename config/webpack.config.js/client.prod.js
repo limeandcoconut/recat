@@ -14,18 +14,8 @@ const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 
 const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true'
 
-const config = {
-    ...baseConfig,
-    mode: 'production',
-    // TODO: learn more about sourcemaps and quality
-    devtool: generateSourceMap ? 'source-map' : false,
-    plugins: [
-        new DuplicatePackageCheckerPlugin({
-            // Also show module that is requiring each duplicate package (default: false)
-            verbose: true,
-            // Emit errors instead of warnings (default: false)
-            // emitError: true,
-        }),
+const intensePlugins = process.env.LITE_BUILD === 'true' ? [] :
+    [
         // Convert asset images
         new ImageminWebpWebpackPlugin({
             config: [{
@@ -35,8 +25,8 @@ const config = {
                 },
             }],
             overrideExtension: false,
-            detailedLogs: true,
-            // strict: true
+            detailedLogs: false,
+        // strict: true
         }),
         // TODO: Get images doing .jpg -> .webp.br
         // TODO: Wonder if you can compress woff2s?
@@ -53,12 +43,12 @@ const config = {
             runtimeCaching: [{
                 urlPattern: '/*',
                 handler: 'networkFirst',
-                // Options:
-                // cacheFirst
-                // fastest
-                // networkOnly
-                // cacheOnly
-                // WHY U NO slowest()?
+            // Options:
+            // cacheFirst
+            // fastest
+            // networkOnly
+            // cacheOnly
+            // WHY U NO slowest()?
             }],
             staticFileGlobs: [
                 path.join(paths.publicPath, '/**.css'),
@@ -68,38 +58,6 @@ const config = {
             // Don't allow the service worker to try to cache google analytics or your tracking will stop working
             // Disable any other scripts you don't want cached here as well
             staticFileGlobsIgnorePatterns: [/google-analytics\.com/],
-        }),
-        // Write sitemap
-        new SitemapPlugin(productionHost, [
-            {
-                path: '/',
-                priority: 1,
-            },
-            {
-                path: '/login',
-                priority: 0.8,
-            },
-            {
-                path: '/register',
-                priority: 0.8,
-            },
-        ], {
-            // Last update is now
-            lastMod: true,
-            skipGzip: true,
-            fileName: path.join(paths.proxyToSiteRoot, 'sitemap.xml'),
-        }),
-        // Write robots
-        new RobotstxtPlugin({
-            policy: [
-                {
-                    userAgent: '*',
-                    allow: '/',
-                },
-            ],
-            sitemap: path.join(productionHost, 'sitemap.xml'),
-            host: productionHost,
-            filePath: path.join(paths.proxyToSiteRoot, 'robots.txt'),
         }),
         // These paths are joined here so that
         // path, paths, and subsequently fs are not included on client where this is use
@@ -131,10 +89,55 @@ const config = {
                 to,
             }
         })),
+    ]
+
+const config = {
+    ...baseConfig,
+    mode: 'production',
+    // TODO: learn more about sourcemaps and quality
+    devtool: generateSourceMap ? 'source-map' : false,
+    plugins: [
+        ...intensePlugins,
+        new DuplicatePackageCheckerPlugin({
+            // Also show module that is requiring each duplicate package (default: false)
+            verbose: true,
+            // Emit errors instead of warnings (default: false)
+            // emitError: true,
+        }),
+        // Write sitemap
+        new SitemapPlugin(productionHost, [
+            {
+                path: '/',
+                priority: 1,
+            },
+            {
+                path: '/login',
+                priority: 0.8,
+            },
+            {
+                path: '/register',
+                priority: 0.8,
+            },
+        ], {
+        // Last update is now
+            lastMod: true,
+            skipGzip: true,
+            fileName: path.join(paths.proxyToSiteRoot, 'sitemap.xml'),
+        }),
+        // Write robots
+        new RobotstxtPlugin({
+            policy: [
+                {
+                    userAgent: '*',
+                    allow: '/',
+                },
+            ],
+            sitemap: path.join(productionHost, 'sitemap.xml'),
+            host: productionHost,
+            filePath: path.join(paths.proxyToSiteRoot, 'robots.txt'),
+        }),
         ...baseConfig.plugins,
     ],
-    performance: {
-    },
 }
 
 config.output.filename = 'bundle.[hash:8].js'

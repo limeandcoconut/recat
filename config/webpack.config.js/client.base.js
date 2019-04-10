@@ -58,5 +58,7 @@ module.exports = {
         reasons: false,
         timings: true,
         version: false,
+        warnings: !process.env.MUTE_PACK,
+        children: !process.env.MUTE_PACK,
     },
 }

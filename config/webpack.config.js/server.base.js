@@ -35,5 +35,7 @@ module.exports = {
     plugins: [...plugins.shared, ...plugins.server],
     stats: {
         colors: true,
+        warnings: !process.env.MUTE_PACK,
+        children: !process.env.MUTE_PACK,
     },
 }

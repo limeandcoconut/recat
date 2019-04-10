@@ -8,14 +8,18 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const env = require('../env')()
 
 const shared = [
-    // new webpack.ProvidePlugin({React: 'react'}),
     new WebpackBuildNotifierPlugin({
         title: 'Webpack Build',
         suppressSuccess: true,
     }),
-    // Adds some highlighting as sugar
-    new FriendlyErrorsWebpackPlugin(),
 ]
+
+if (!process.env.MUTE_PACK) {
+    shared.push(
+        // Adds some highlighting as sugar
+        new FriendlyErrorsWebpackPlugin(),
+    )
+}
 
 const client = [
     new CaseSensitivePathsPlugin(),
