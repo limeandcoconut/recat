@@ -1,29 +1,25 @@
 {
-  "name": "react-silver-bullet",
-  "version": "2.5.2",
-  "author": "Jacob Smith <js@jacobsmith.tech> (https://github.com/limeandcoconut)",
-  "contributors": [
-    "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">=8.11.3",
-    "yarn": "^1.12.3"
-  },
-  "scripts": {
-    "analyze": "npm run build:with-stats && npm run start:analyzer",
-    "build": "cross-env NODE_ENV=production node scripts/build.js",
-    "build:lite": "cross-env NODE_ENV=production LITE_BUILD=true node scripts/build.js",
-    "build:nomap": "cross-env NODE_ENV=production OMIT_SOURCEMAP=true node scripts/build.js",
-    "build:with-html": "cross-env NODE_ENV=production GEN_HTML=yas node scripts/build.js",
-    "build:with-stats": "cross-env NODE_ENV=production LITE_BUILD=true MUTE_PACK=true webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
-    "start": "cross-env NODE_ENV=development node scripts/start.js",
-    "start:analyzer": "webpack-bundle-analyzer build/client/static/bundle-stats.json",
-    "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js",
-    "logs:all": "node src/shared/logging/query.js",
-    "init:db": "node config/initdb.js",
-    "init:clean": "rm ./images/raw/1.png ./images/webp/1.webp ./images/brotli/1.webp.br ./images/raw/2.png ./images/webp/2.webp ./images/brotli/2.webp.br ./images/raw/3.png ./images/webp/3.webp ./images/brotli/3.webp.br ./images/raw/4.png ./images/webp/4.webp ./images/brotli/4.webp.br ./images/raw/5.png ./images/webp/5.webp ./images/brotli/5.webp.br"
-  },
+    "name": "recat",
+    "version": "0.1.0",
+    "author": "Jacob Smith <js@jacobsmith.tech> (https://github.com/limeandcoconut)",
+    "license": "ISC",
+    "engines": {
+      "node": ">=11.13.0"
+    },
+    "scripts": {
+      "analyze": "npm run build:with-stats && npm run start:analyzer",
+      "build": "cross-env NODE_ENV=production node scripts/build.js",
+      "build:lite": "cross-env NODE_ENV=production LITE_BUILD=true node scripts/build.js",
+      "build:nomap": "cross-env NODE_ENV=production OMIT_SOURCEMAP=true node scripts/build.js",
+      "build:with-html": "cross-env NODE_ENV=production GEN_HTML=yas node scripts/build.js",
+      "build:with-stats": "cross-env NODE_ENV=production LITE_BUILD=true MUTE_PACK=true webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
+      "start": "cross-env NODE_ENV=development node scripts/start.js",
+      "start:analyzer": "webpack-bundle-analyzer build/client/static/bundle-stats.json",
+      "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js",
+      "logs:all": "node src/shared/logging/query.js",
+      "init:db": "node config/initdb.js",
+      "init:clean": "rm ./images/raw/1.png ./images/webp/1.webp ./images/brotli/1.webp.br ./images/raw/2.png ./images/webp/2.webp ./images/brotli/2.webp.br ./images/raw/3.png ./images/webp/3.webp ./images/brotli/3.webp.br ./images/raw/4.png ./images/webp/4.webp ./images/brotli/4.webp.br ./images/raw/5.png ./images/webp/5.webp ./images/brotli/5.webp.br"
+    },
   "moduleRoots": [
     "src/client",
     "src/server",
