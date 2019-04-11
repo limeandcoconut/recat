@@ -24,7 +24,7 @@ class Register extends React.Component {
                     <title>Log in</title>
                 </Helmet>
 
-                { ['username', 'password', 'email'].map((name) => (
+                { ['password', 'email'].map((name) => (
                     <Input
                         name={name}
                         key={name}
@@ -65,10 +65,6 @@ class Register extends React.Component {
                     <button
                         onClick={() => {
 
-                            this.props.updateLogin({
-                                name: 'username',
-                                value: 'lime',
-                            })
                             this.props.updateLogin({
                                 name: 'password',
                                 value: 'limeLIME1!',

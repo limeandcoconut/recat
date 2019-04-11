@@ -34,7 +34,7 @@ class Register extends React.Component {
                     <title>Register</title>
                 </Helmet>
 
-                { ['username', 'password', 'email'].map((name) => (
+                { ['password', 'email'].map((name) => (
                     <Input
                         name={name}
                         key={name}
@@ -72,10 +72,7 @@ class Register extends React.Component {
 
                 <div className={sharedStyles.tempContainer} >
                     <button onClick={() => {
-                        this.props.updateRegistration({
-                            name: 'username',
-                            value: 'lime',
-                        })
+
                         this.props.updateRegistration({
                             name: 'password',
                             value: 'limeLIME1!',
