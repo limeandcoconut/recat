@@ -5,18 +5,15 @@ module.exports = {
             '@babel/preset-env',
             {
                 modules: false,
-                // targets: {
-                // browsers: ['> 1%', 'last 2 versions'],
-                // node: 'current',
-                // },
                 useBuiltIns: 'usage',
             },
         ],
         '@babel/preset-react',
     ],
-    // ignore: [/@babel\/runtime/],
+    // These seeem to be necessary for useBuiltIns: 'usgae' to work properly
     sourceType: 'unambiguous',
     ignore: [/[\/\\]core-js/, /@babel[\/\\]runtime/],
+    //
     plugins: [
         '@babel/plugin-proposal-object-rest-spread',
         '@babel/plugin-proposal-class-properties',

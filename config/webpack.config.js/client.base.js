@@ -9,7 +9,6 @@ module.exports = {
     target: 'web',
     entry: {
         bundle: [
-            // require.resolve('@babel/polyfill'),
             `${paths.srcClient}/index.js`,
         ],
     },
@@ -17,10 +16,7 @@ module.exports = {
         path: path.join(paths.clientBuild, paths.publicPath),
         filename: '[name]bundle.js',
         publicPath: paths.publicPath,
-        // TODO: Add to readme
-        // https://github.com/webpack/webpack/issues/4719
-        // chunkFilename: '[name].[chunkhash:8].chunk.js',
-        chunkFilename: '[id].chunk.js',
+        chunkFilename: '[name].[chunkhash:8].chunk.js',
     },
     module: {
         rules: clientLoaders,

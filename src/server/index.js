@@ -1,8 +1,7 @@
-// import '@babel/polyfill'
 import express from 'express'
 import path from 'path'
 import chalk from 'chalk'
-// import manifestHelpers from 'express-manifest-helpers';
+// import manifestHelpers from 'express-manifest-helpers';1
 import manifestHelpers from './middleware/manifest-helpers'
 import {configureStore} from '../shared/store'
 import serverRender from './render'

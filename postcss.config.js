@@ -1,9 +1,4 @@
 const paths = require('./config/paths')
-const browsers = {
-    // browsers: ['last 2 versions', 'ie >= 9', 'Edge <= 15'],
-    browsers: ['> 1%', 'last 2 versions'],
-}
-// TODO: colorblind config
 
 module.exports = {
     ident: 'postcss',

@@ -14,6 +14,7 @@ const shared = [
     }),
 ]
 
+// Don't add this if a quiet build is required. This overrides the stats: {warnings: false} option
 if (!process.env.MUTE_PACK) {
     shared.push(
         // Adds some highlighting as sugar

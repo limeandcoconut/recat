@@ -11,8 +11,6 @@ import {gaDevID, gaProductionID} from '../../config/config.js'
 import {supportsWebp} from './utils'
 import {setSupport} from '../shared/store/webp/actions'
 
-// const {setSupport} = () => import(/* webpackChunkName: "home" */ './modules/home/index');
-
 // Create a history
 const history = createHistory()
 
@@ -30,9 +28,7 @@ const store =
 // On the server we want to know if we can serve a webp.
 // TODO: Make this faster... And unnecessary. Initial load usually doesn't have this info.
 const checkWebp = async () => {
-    // const {supportsWebp} = await import(/* webpackChunkName: "chunk1", webpackPrefetch: true */ '../shared/utils')
     const isSupported = await supportsWebp()
-    // const {setSupport} = await import(/* webpackChunkName: "chunk1", webpackPrefetch: true */ '../shared/store/webp/actions')
     store.dispatch(setSupport(isSupported))
 }
 checkWebp()
@@ -46,16 +42,11 @@ hydrate(
     document.getElementById('app')
 )
 
-const addAnalytics = async () => {
-    // const ReactGA = await import(/* webpackPrefetch: true */ 'react-ga')
-    // const {gaDevID, gaProductionID} = await import(/* webpackPrefetch: true */ '../../config/config.js')
-    // Ad google analytics
-    const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
-    ReactGA.initialize(gaId)
-    // Pageview on route change
-    history.listen((location) => ReactGA.pageview(location.pathname))
-}
-addAnalytics()
+// Ad google analytics
+const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
+ReactGA.initialize(gaId)
+// Pageview on route change
+history.listen((location) => ReactGA.pageview(location.pathname))
 
 if (process.env.NODE_ENV === 'development') {
     if (module.hot) {

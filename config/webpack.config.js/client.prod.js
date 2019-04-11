@@ -14,6 +14,7 @@ const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
 
 const generateSourceMap = process.env.OMIT_SOURCEMAP !== 'true'
 
+// Don't add these plugins in if a short buildtime is required
 const intensePlugins = process.env.LITE_BUILD === 'true' ? [] :
     [
         // Convert asset images
