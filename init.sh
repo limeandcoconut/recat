@@ -57,7 +57,7 @@ done
 if hash pbcopy 2>/dev/null; then
     echo -n $cleancommand | pbcopy
 else
-    echo -n $cleancommand xclip -selection c
+    echo -n $cleancommand | xclip -selection c
 fi
 
 echo "Images have been seeded. To clean up, run:
