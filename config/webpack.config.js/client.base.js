@@ -16,7 +16,11 @@ module.exports = {
         path: path.join(paths.clientBuild, paths.publicPath),
         filename: '[name]bundle.js',
         publicPath: paths.publicPath,
-        chunkFilename: '[name].[chunkhash:8].chunk.js',
+        // TODO: Add to readme
+        // https://github.com/webpack/webpack/issues/4719
+        // chunkFilename: '[name].[chunkhash:8].chunk.js',
+        chunkFilename: '[id].chunk.js',
+
     },
     module: {
         rules: clientLoaders,
