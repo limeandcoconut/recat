@@ -50,7 +50,7 @@ do
     touch ./images/raw/$i.png
     touch ./images/webp/$i.png.webp
     touch ./images/brotli/$i.png.webp.br
-    cleancommand="$cleancommand $PWD/images/raw/$i.png $PWD/images/webp/$i.webp $PWD/images/brotli/$i.webp.br"
+    cleancommand="$cleancommand $PWD/images/raw/$i.png $PWD/images/webp/$i.png.webp $PWD/images/brotli/$i.png.webp.br"
 done
 
 # Cross env copy to clipboard

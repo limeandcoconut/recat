@@ -18,7 +18,7 @@
       "start:prod-test": "cross-env NODE_ENV=production node build/server/server.js",
       "logs:all": "node src/shared/logging/query.js",
       "init:db": "node config/initdb.js",
-      "init:clean": "rm ./images/raw/1.png ./images/webp/1.webp ./images/brotli/1.webp.br ./images/raw/2.png ./images/webp/2.webp ./images/brotli/2.webp.br ./images/raw/3.png ./images/webp/3.webp ./images/brotli/3.webp.br ./images/raw/4.png ./images/webp/4.webp ./images/brotli/4.webp.br ./images/raw/5.png ./images/webp/5.webp ./images/brotli/5.webp.br"
+      "init:clean": "rm  /Users/jacob/Sites/re/images/raw/1.png /Users/jacob/Sites/re/images/webp/1.png.webp /Users/jacob/Sites/re/images/brotli/1.png.webp.br /Users/jacob/Sites/re/images/raw/2.png /Users/jacob/Sites/re/images/webp/2.png.webp /Users/jacob/Sites/re/images/brotli/2.png.webp.br /Users/jacob/Sites/re/images/raw/3.png /Users/jacob/Sites/re/images/webp/3.png.webp /Users/jacob/Sites/re/images/brotli/3.png.webp.br /Users/jacob/Sites/re/images/raw/4.png /Users/jacob/Sites/re/images/webp/4.png.webp /Users/jacob/Sites/re/images/brotli/4.png.webp.br /Users/jacob/Sites/re/images/raw/5.png /Users/jacob/Sites/re/images/webp/5.png.webp /Users/jacob/Sites/re/images/brotli/5.png.webp.br"
     },
     "moduleRoots": [
       "src/client",
