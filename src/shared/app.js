@@ -73,7 +73,7 @@ class App extends React.Component {
                 </main>
                 <footer className={styles.footer}>
                     <div>
-                        <div className="hidden-md" >A thing by </div><a className={styles.footerLink} href="https://jacobsmith.tech" target="_blank"><span className="visible-md" >By </span>Jacob Smith</a>
+                        <div className="hidden-md" >A thing by </div><a className={styles.footerLink} href="https://jacobsmith.tech"><span className="visible-md" >By </span>Jacob Smith</a>
                     </div>
                 </footer>
                 <Toast/>

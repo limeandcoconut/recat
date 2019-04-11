@@ -8,9 +8,6 @@ const browsers = {
 module.exports = {
     ident: 'postcss',
     plugins: [
-        // Rework css to simulate colorblindness.
-        // https://github.com/btholt/postcss-colorblind
-        // require('postcss-colorblind')(),
         // Import from local files, node modules or web_modules.
         // https://github.com/postcss/postcss-import
         require('postcss-import')({
@@ -29,6 +26,10 @@ module.exports = {
         //     ...browsers,
         //     onFeatureUsage: ({message}) => console.error(message),
         // }),
+        // Rework css to simulate colorblindness.
+        // https://github.com/btholt/postcss-colorblind
+        // require('postcss-colorblind')(),
+        // Looks like this doesn't work with less syntax ☹️ Bummer yo
     ],
     // TODO: This doesn't appear to be respected. Check that.
     sourceMap: true,
