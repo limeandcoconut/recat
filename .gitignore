@@ -109,4 +109,5 @@ bower_components
 db.env
 db_data
 pg_data
+redis_data
 dump.rdb
