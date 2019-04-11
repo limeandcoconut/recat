@@ -50,6 +50,9 @@ add raw files to init.sh
 changelog
 readme
 
+TODOS
+env vars
+
 check licenses!
 deps
 
