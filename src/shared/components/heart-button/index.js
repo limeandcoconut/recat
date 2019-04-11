@@ -30,7 +30,6 @@ class HeartButton extends React.Component {
                         </clipPath>
                     </defs>
                 </svg>
-                {/* <div className={styles.outline} ></div> */}
                 <div
                     className={styles.favorite}
                     style={{backgroundImage: `url(${favorite})`}}

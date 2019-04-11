@@ -34,7 +34,6 @@ microdata
 ## Images
 
 ## Cleanup
-replace divs with fragments
 check looger and console logs
 remove extra files
 normalize file names
