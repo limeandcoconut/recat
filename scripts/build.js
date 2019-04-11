@@ -42,9 +42,9 @@ if (process.env.GEN_HTML) {
                 fs.writeFileSync(`${paths.clientBuild}/index.html`, pageContent)
                 await browser.close()
                 script.emit('quit')
-            } catch (err) {
+            } catch (error) {
                 script.emit('quit')
-                console.log(err)
+                console.log(error)
             }
         })
 

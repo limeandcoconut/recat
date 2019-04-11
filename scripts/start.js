@@ -64,8 +64,8 @@ const start = async () => {
     }
 
     // Serve hot middleware
-    app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*')
+    app.use((request, response, next) => {
+        response.header('Access-Control-Allow-Origin', '*')
         return next()
     })
 

@@ -10,8 +10,8 @@ import Helmet from 'react-helmet'
 
 class Register extends React.Component {
 
-    handleChange = (e) => {
-        const {name, value} = e.target
+    handleChange = (event) => {
+        const {name, value} = event.target
         this.props.updateLogin({name, value})
     }
 

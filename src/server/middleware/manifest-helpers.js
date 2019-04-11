@@ -19,7 +19,7 @@ const loadManifest = () => {
 
     try {
         return JSON.parse(fs.readFileSync(options.manifestPath, 'utf8'))
-    } catch (err) {
+    } catch (error) {
         throw new Error('Asset Manifest could not be loaded.')
     }
 }
@@ -109,19 +109,19 @@ export default (opts) => {
     manifest = null
     Object.assign(options, defaults, opts)
 
-    return (req, res, next) => {
-        res.locals.getSources = getSources
-        res.locals.getStylesheetSources = getStylesheetSources
-        res.locals.getStylesheets = getStylesheets
-        res.locals.getJavascriptSources = getJavascriptSources
-        res.locals.getJavascripts = getJavascripts
-        res.locals.getImageSources = getImageSources
-        res.locals.getImages = getImages
-        res.locals.getManifest = getManifest
-        res.locals.assetPath = assetPath
-        res.locals.imageTag = imageTag
-        res.locals.javascriptTag = javascriptTag
-        res.locals.stylesheetTag = stylesheetTag
+    return (request, response, next) => {
+        response.locals.getSources = getSources
+        response.locals.getStylesheetSources = getStylesheetSources
+        response.locals.getStylesheets = getStylesheets
+        response.locals.getJavascriptSources = getJavascriptSources
+        response.locals.getJavascripts = getJavascripts
+        response.locals.getImageSources = getImageSources
+        response.locals.getImages = getImages
+        response.locals.getManifest = getManifest
+        response.locals.assetPath = assetPath
+        response.locals.imageTag = imageTag
+        response.locals.javascriptTag = javascriptTag
+        response.locals.stylesheetTag = stylesheetTag
         next()
     }
 }

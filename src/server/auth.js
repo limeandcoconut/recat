@@ -121,17 +121,17 @@ auth.get('/images/favorite', async (request, response) => {
     serveAcceptableImage(request, response, favorite)
 })
 
-auth.post('/register', async (req, res) => {
-    const {response} = await register(req.body)
-    res.send(response)
+auth.post('/register', async (request, response) => {
+    const {response: jsonResponse} = await register(request.body)
+    response.send(jsonResponse)
 })
 
-auth.post('/login', async (req, res) => {
-    const {response, cookie} = await login(req.body)
+auth.post('/login', async (request, response) => {
+    const {response: jsonResponse, cookie} = await login(request.body)
     if (cookie) {
-        res.set('Set-Cookie', cookie)
+        response.set('Set-Cookie', cookie)
     }
-    res.send(response)
+    response.send(jsonResponse)
 })
 
 auth.post('/check', async (request, response) => {

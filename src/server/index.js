@@ -38,9 +38,6 @@ if (process.env.NODE_ENV === 'development') {
         index: false,
         orderPreference: ['br'],
     }))
-    app.use('/favicon.ico', (req, res) => {
-        res.send('')
-    })
 }
 
 // Don't bother with security on dev
@@ -103,18 +100,18 @@ app.use(bodyParser.urlencoded())
 app.use('/auth', auth)
 
 // Create store and atempt authentication
-app.use(async (req, res, next) => {
+app.use(async (request, response, next) => {
     // Create history and store
-    const history = createHistory({initialEntries: [req.url]})
-    req.store = configureStore({history})
+    const history = createHistory({initialEntries: [request.url]})
+    request.store = configureStore({history})
 
     // Check for a sesion
-    const encryptedSession = extractSession(req)
+    const encryptedSession = extractSession(request)
     if (encryptedSession) {
         // Auth for inital load
         const {response: {success}} = await authenticate(encryptedSession)
         if (success) {
-            req.store.dispatch(succeedAuth())
+            request.store.dispatch(succeedAuth())
         }
     }
 
@@ -132,14 +129,14 @@ app.use(
 // 404 and other status codes are really handled here
 app.use(serverRender())
 
-app.use((err, req, res, /* next */) => {
-    return res.status(404).json({
+app.use((error, request, response, /* next */) => {
+    return response.status(404).json({
         status: 'error',
-        message: err.message,
+        message: error.message,
         stack:
             // print a nicer stack trace by splitting line breaks and making them array items
             process.env.NODE_ENV === 'development' &&
-            (err.stack || '')
+            (error.stack || '')
             .split('\n')
             .map((line) => line.trim())
             .map((line) => line.split(path.sep).join('/'))

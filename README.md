@@ -34,26 +34,22 @@ microdata
 ## Images
 
 ## Cleanup
-check looger and console logs
-remove extra files
-normalize file names
-package.json
-every file
-jsdoc
-normalize error and err
-normalize req/res
 
-test sitemap
+
+
+
+
+
 copy
-add raw files to init.sh
+
+
+
 changelog
 readme
 
 TODOS
 env vars
 
-check licenses!
-deps
 
 safari test
 molile test 
@@ -63,11 +59,11 @@ user testing
 Change ga id in keys
 turn on hsts
 
-NotFound in react-srr-setup
-express-manifest-helpoers
-merge
 
 ## Later
+merge
+express-manifest-helpers
+NotFound in react-srr-setup
 Fix the unsafe-inline in the csp with hashes.
 Figure out the production logs for winston
 add @throws to jodocs

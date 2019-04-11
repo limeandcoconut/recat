@@ -55,11 +55,11 @@ export function randomId() {
 
 /**
  * @function extractSession
- * @param  {object} req An express-like request object.
+ * @param  {object} request An express-like request object.
  * @return {string|boolean} An encypted session as a string or false on failure.
  */
-export const extractSession = (req) => {
-    const cookie = req.header('cookie')
+export const extractSession = (request) => {
+    const cookie = request.header('cookie')
     if (!cookie) {
         return false
     }
