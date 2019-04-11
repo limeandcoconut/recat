@@ -112,9 +112,7 @@ auth.get('/images/favorite', async (request, response) => {
         return
     }
     // Pull from db
-    // TODO: ensure anything returned like this can be sent to client and document in readme
     const {response: jsonResponse, favorite} = await getFavorite(userId)
-    console.log(jsonResponse, favorite)
     if (!jsonResponse.success) {
         response.send(jsonResponse)
         return
