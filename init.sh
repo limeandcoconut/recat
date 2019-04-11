@@ -47,9 +47,9 @@ cleancommand='rm '
 # Write files and concat command
 for i in 1 2 3 4 5
 do
-    echo iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII= |  base64 --decode > ./images/raw/$i.png
-    echo UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vv9UAA= |  base64 --decode > ./images/webp/$i.png.webp
-    echo cixWAUklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vv9UAAD |  base64 --decode > ./images/brotli/$i.png.webp.br
+    touch ./images/raw/$i.png
+    touch ./images/webp/$i.png.webp
+    touch ./images/brotli/$i.png.webp.br
     cleancommand="$cleancommand $PWD/images/raw/$i.png $PWD/images/webp/$i.webp $PWD/images/brotli/$i.webp.br"
 done
 
