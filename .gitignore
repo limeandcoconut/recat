@@ -2,6 +2,7 @@
 images/raw*
 images/webp*
 images/brotli*
+nginx-logs/*
 nginx/*
 
 # Dependency directories
