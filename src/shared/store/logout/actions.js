@@ -45,4 +45,3 @@ export const failLogout = (error) => ({
         error: error || 'UNKNOWN ERROR DURING LOGOUT',
     },
 })
-// TODO: FIX AUTH STATE TO MATCH DIAGRAM
