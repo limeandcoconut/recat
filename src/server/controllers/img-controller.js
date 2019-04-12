@@ -154,7 +154,7 @@ async function requestNewImageFromAPI(userId) {
     try {
         imageUrl = await getUrlFromAPI()
     } catch (error) {
-        logger.warn('Url fetch failed.', error)
+        logger.warn('Url fetch failed.', {error})
         return false
     }
 
@@ -193,7 +193,7 @@ async function requestNewImageFromAPI(userId) {
             // This is a little side-effecty but it uses the savePath provided so there's nothing to return
             await downloadImage(imageUrl, savePath)
         } catch (error) {
-            logger.warn('Download failed.', {savePath}, error)
+            logger.warn('Download failed.', {savePath, error})
             return false
         }
     }
@@ -204,7 +204,7 @@ async function requestNewImageFromAPI(userId) {
         try {
             await convertImage(rawPath, webpPath, parsedRawName.ext)
         } catch (error) {
-            logger.warn('Convert failed.', {rawPath}, error)
+            logger.warn('Convert failed.', {rawPath, error})
             return false
         }
     }
@@ -248,7 +248,7 @@ async function compressAndStore(webpPath, brotliPath, userId) {
         rpushAsync(userId, brotliPath)
         return brotliPath
     } catch (error) {
-        logger.warn('Brotli compress failed.', error)
+        logger.warn('Brotli compress failed.', {error})
         return false
     }
 }

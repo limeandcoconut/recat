@@ -17,7 +17,7 @@ export async function setFavorite(favorite, userId) {
     try {
         sanitizedFavorite = filenamify(favorite)
     } catch (error) {
-        logger.warn(error, userId, favorite)
+        logger.warn({error, userId, favorite})
         return {response: {success: false, error: 'invalid file id'}}
     }
 
@@ -48,7 +48,7 @@ export async function setFavorite(favorite, userId) {
             },
         })
     } catch (error) {
-        logger.error(error)
+        logger.error({error})
         if (error instanceof Sequelize.ForeignKeyConstraintError) {
             return {response: {success: false, error: 'internal error'}}
         }
