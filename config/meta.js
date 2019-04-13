@@ -27,7 +27,7 @@ const siteMeta = {
             src: 'https://recat.jacobsmith.tech/static/meta/og-image.jpg',
             alt: 'Smiling Cat Face With Heart-eyes Emoji',
         },
-        card: 'summary_large_image',
+        card: 'summary',
     },
     // Must be served with mimetype application/manifest+json
     manifest: '/static/manifest.json',
