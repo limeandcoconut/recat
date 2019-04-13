@@ -25,21 +25,12 @@ function * workerGetSaga() {
         const {error, favorite} = yield call(makeFavoriteGet(supported))
 
         if (!favorite) {
-            yield all([
-                put(failFavoriteRequest(error)),
-                put(showToast({message: error, style: 'error'})),
-            ])
+            yield put(failFavoriteRequest(error))
             return
         }
-        yield all([
-            put(succeedFavoriteRequest(favorite)),
-            put(hideToast()),
-        ])
+        yield put(succeedFavoriteRequest(favorite))
     } catch (error) {
-        yield all([
-            put(failFavoriteRequest(error)),
-            put(showToast({message: error, style: 'error'})),
-        ])
+        yield put(failFavoriteRequest(error))
     }
 }
 
