@@ -118,7 +118,7 @@ siteMeta.favicons = siteMeta.favicons.reduce((favicons, {key, src}) => {
     return favicons
 }, {})
 siteMeta.manifest += siteMeta.cacheBust
-siteMeta.twitter.image.src += siteMeta.cacheBust
+// siteMeta.twitter.image.src += siteMeta.cacheBust
 siteMeta.og.image.src += siteMeta.cacheBust
 
 module.exports = siteMeta
