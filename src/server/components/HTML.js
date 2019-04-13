@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react'
 import Helmet from 'react-helmet'
-import siteMeta from '../../config/meta'
+import siteMeta from '../../../config/meta'
 
 export default class HTML extends React.Component {
     render() {
