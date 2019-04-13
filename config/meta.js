@@ -15,7 +15,7 @@ const siteMeta = {
     og: {
         description,
         image: {
-            src: '/og-image.jpg',
+            src: '/static/meta/og-image.jpg',
             width: '279',
             height: '279',
         },
@@ -24,7 +24,7 @@ const siteMeta = {
     twitter: {
         creator: '@limeandcoconut',
         image: {
-            src: '/meta/og-image.jpg',
+            src: '/static/meta/og-image.jpg',
             alt: 'Smiling Cat Face With Heart-eyes Emoji',
         },
         card: 'summary_large_image',
@@ -37,23 +37,23 @@ const siteMeta = {
             key: 'default',
         },
         {
-            src: '/meta/favicon-32x32.png',
+            src: '/static/meta/favicon-32x32.png',
             key: 'x32',
         },
         {
-            src: '/meta/favicon-16x16.png',
+            src: '/static/meta/favicon-16x16.png',
             key: 'x16',
         },
         {
-            src: '/meta/mstile-144x144.png',
+            src: '/static/meta/mstile-144x144.png',
             key: 'ms',
         },
         {
-            src: '/meta/apple-touch-icon.png',
+            src: '/static/meta/apple-touch-icon.png',
             key: 'apple',
         },
         {
-            src: '/meta/safari-pinned-tab.svg',
+            src: '/static/meta/safari-pinned-tab.svg',
             key: 'safariMask',
         },
     ],

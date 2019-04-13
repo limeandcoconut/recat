@@ -45,8 +45,8 @@ class App extends React.Component {
                         <meta property="og:title" content={siteMeta.title.default} />
                         <meta property="og:description" content={siteMeta.og.description} />
                         <meta property="og:image" content={siteMeta.og.image.src} />
-                        <meta property="og:image:width" content={siteMeta.og.imageWidth} />
-                        <meta property="og:image:height" content={siteMeta.og.imageHeight} />
+                        <meta property="og:image:width" content={siteMeta.og.image.width} />
+                        <meta property="og:image:height" content={siteMeta.og.image.height} />
                         <meta property="og:url" content={baseUrl} />
                         <meta property="og:type" content={siteMeta.og.type} />
 
