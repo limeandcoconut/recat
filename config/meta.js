@@ -1,6 +1,6 @@
 const {productionHost} = require('../config/config.js')
 const url = require('url')
-const description = 'A site for fawning over random pics kitty cats! 📷 😸' // eslint-diable-line max-len
+const description = 'A site for fawning over random pics kitty cats! 📷 😸 Come check it out, or add it to your home screen, it\'s progressive and reactive!' // eslint-diable-line max-len
 
 // NOTE: This file is included in client. Don't put secrets in here. They go in keys.js
 
@@ -112,7 +112,7 @@ const siteMeta = {
             destination: '/meta',
         },
     ],
-    cacheBust: '?v=0',
+    cacheBust: '?v=1',
 }
 
 // Cache cacheBust
