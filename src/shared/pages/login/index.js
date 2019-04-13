@@ -60,50 +60,6 @@ class Register extends React.Component {
                     </div>
                 }
 
-                <div className={styles.tempContainer} >
-
-                    <button
-                        onClick={() => {
-
-                            this.props.updateLogin({
-                                name: 'password',
-                                value: 'limeLIME1!',
-                            })
-                            this.props.updateLogin({
-                                name: 'email',
-                                value: 'messagethesmith@gmail.com',
-                            })
-
-                        }}
-                        className={styles.tempButton}
-                    >
-                        fill
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={this.props.requestAuth}
-                        className={styles.tempButton2}
-                    >
-                        check auth
-                    </button>
-
-                    {authRequested && authed === null &&
-                        <div>
-                            Auth: requested...
-                        </div>
-                    }
-                    {authError &&
-                        <div>
-                            {JSON.stringify(authError, null, 4)}
-                        </div>
-                    }
-                    {authed &&
-                        <div>
-                            Authed: {String(authed).toUpperCase()}
-                        </div>
-                    }
-                </div>
             </div>
         )
     }
