@@ -16,11 +16,7 @@ module.exports = {
         path: path.join(paths.clientBuild, paths.publicPath),
         filename: '[name]bundle.js',
         publicPath: paths.publicPath,
-        // TODO: Add to readme
-        // https://github.com/webpack/webpack/issues/4719
-        // chunkFilename: '[name].[chunkhash:8].chunk.js',
         chunkFilename: '[id].chunk.js',
-
     },
     module: {
         rules: clientLoaders,
@@ -58,7 +54,7 @@ module.exports = {
         reasons: false,
         timings: true,
         version: false,
-        warnings: !process.env.MUTE_PACK,
-        children: !process.env.MUTE_PACK,
+        warnings: process.env.MUTE_PACK === 'false',
+        children: process.env.MUTE_PACK === 'false',
     },
 }

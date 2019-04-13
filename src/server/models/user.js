@@ -5,7 +5,7 @@ const Model = sequelize.define('user', {
     id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        // TODO: consider making email primary key
+        // TODO: Consider making email primary key
         primaryKey: true,
     },
     email: {

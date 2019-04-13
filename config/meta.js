@@ -94,10 +94,6 @@ const siteMeta = {
             to: 'meta',
         },
         {
-            from: '/twitter-image.png',
-            to: 'meta',
-        },
-        {
             from: '/browserconfig.xml',
             to: 'served_from_root/',
         },

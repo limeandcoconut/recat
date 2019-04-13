@@ -1,314 +1,309 @@
-# README IS NOT UP TO DATE
-- THIS IS BASED OFF [react-ssr-setup](https://github.com/manuelbieh/react-ssr-setup) by [Manuel Bieh](https://github.com/manuelbieh)
-- COMMITS ARE DIRTY
+# [![100 on all Google Lighthouse tests](/src/shared/assets/meta/og-image.jpg)](https://recat.jacobsmith.tech)
 
-# TODOS
+## Overview
+This is a progressive web app that pulls pictures of cats from a public endpoint and serves them randomly to the user. It was created as an example for a job application so there are some rather ham handed caveats where I did things the "less easy" way for fun and to serve as an example of a more complex flow.
 
-## Write
-## Pages
+Users are required to register and login. They'll be served random cat images and can chosse a favorite.
 
-## readme
-add twitter and favicon check to readme
-lighthouse
-config
-keys
-hap
+Postgres handles users and their favorite images. Sessions are encrypted and saved in redis.
 
-## Components
+Images are pulled from https://aws.random.cat/meow - a super secret endpoint. I'm pretending that the endpoint is private to justify adding auth to this project. Also pretending that the endpoint is using some super secret special sauce to choose which images it returns. This is to justify not pulling its entire db, converting them to webp, brotli compressing them, and serving them myself. So, on request, the app pulls images from a prepared random list for the user and requests a new image from the api. Images will be downloaded, converted to webp, brotli compressed, and saved. If any part of this has already been done the app will pick the appropriate image path from disk and refresh the list with that.
 
-## Server
+Images are served as data not static urls so that they're not exposed to the client.
 
-## SEO
-noref link to js
-i18n
-structured data
-semantic tags
-microdata
+Static files are served with Nginx. 
 
-## Perf
+HAProxy is the tls terminator and reverse proxy.
 
-## Understand
+[Live demo](https://recat.jacobsmith.tech)
 
 ## Features
+-   Chops
+    -   💯 100 on all Google Lighthouse tests
+        <details>
+        <summary>Awwwww yeeeeah!
+        </summary>  
+        <br>  
 
-## Images
+        ![100 on all Google Lighthouse tests]
+        </details>  
+    -   🔥 Lots of sweet sweet Webpack 4 sauce
+    -   📱 PWA
+    -   🦄 SSR + CSR
+    -   😎 Brotli compression
+    -   👌 Font preload and preconnecting with local fallbacks
+    -   🐦 Sweeet OG and Twitter meta
 
-## Cleanup
-
-
-
-
-
-
-copy
-
-
-
-changelog
-readme
-
-TODOS
-env vars
-
-
-safari test
-molile test 
-brian review
-user testing
-
-Change ga id in keys
-turn on hsts
-
-
-## Later
-merge
-express-manifest-helpers
-NotFound in react-srr-setup
-Fix the unsafe-inline in the csp with hashes.
-Figure out the production logs for winston
-add @throws to jodocs
-look at using the writeFilesToDisk flag instead of write-files-plugin
-config production url and port
-fastify?
-fix sourcemaps in less
-exclude dev deps in webpack??? https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies
-Consider changing process.env definition on client...
-Consider adding a define for process.env.PRODUCTION_FLAG so we're not doing string testing all the time DEVELOPMENT_FLAG too
-
-## V2
-add webpack sitemap
-deploy sh
-testing 🤷‍♀️
-password reset
-rate limit routes
-consider switch to standard redis continer
-
-
-## Fonts
-rubik *
-concert one *
-lato
-ubuntu
-nunito *
-roboto
-futura
-alegreya
-
-```less
-
-
-/* Define the "system" font family */
-@font-face {
-  font-family: system;
-  font-style: normal;
-  font-weight: 300;
-  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
-}
-
-/* Now, let's apply it on an element */
-body {
-  font-family: "system";
-}
-
-/* fallback? */
-body {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-}
-```
-
-# ⚛ React + Express – SSR Setup
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/085d871cd62fe4435865/maintainability)](https://codeclimate.com/github/manuelbieh/react-ssr-setup/maintainability)
-[![dependencies Status](https://david-dm.org/manuelbieh/react-ssr-setup/status.svg)](https://david-dm.org/manuelbieh/react-ssr-setup)
-[![Known Vulnerabilities](https://snyk.io/test/github/manuelbieh/react-ssr-setup/badge.svg)](https://snyk.io/test/github/manuelbieh/react-ssr-setup)
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-
-## TOC
-
--   [Motivation](#motivation)
--   [Goals](#goals)
--   [Features](#features)
--   [Installation](#installation)
--   [Usage](#usage)
--   [Tricks](#tricks)
-    -   [Client side version (opt-in)](#client-side-version-opt-in)
-    -   [Component scaffolding using plop](#client-side-version-opt-in)
-    -   [📕 Storybook support](#-storybook-support)
-    -   [Keep your project up to date](#keep-your-project-up-to-date)
-    -   [Avoid source map generation for faster builds](#avoid-source-map-generation-for-faster-builds)
-    -   [Change the port of the dev environment](#change-the-port-of-the-dev-environment)
-    -   [Import SVGs as ReactComponent](#import-svgs-as-reactcomponent)
--   [Caveats](#caveats)
--   [Todo](#todo)
--   [Changelog](#changelog)
-
-## Motivation
-
-This is just another React Starter Project as there are literally [hundreds of others out there](https://www.javascriptstuff.com/react-starter-projects/). The reason I created this one was to have one central repo I can base my own future projects on, which contains most of the packages I usually use, is easily extendable, easy to understand, supports server side rendering, and uses all the configs and settings I made good experiences with in the past.
-
-Another reason I created my own starter project was because I was setting up two new long term projects and I wanted to be able to use **Webpack 4** and **Babel 7** long before it was stable. None of the bigger and well known starter projects were supporting both by the time I created this starter project. So the idea was born to create my very own. And here we are 🎉
-
-A few things might be familiar when you've worked with other starter projects before. I borrowed many ideas (and will continue to do so) from [Create React App](https://github.com/facebook/create-react-app), [React Starter Kit](https://github.com/kriasoft/react-starter-kit) and other great starter projects because my intention was to create an **up-to-date starter project** for myself **based on best practices** and not to completely reinvent the wheel in every possible way just for the sake of it.
-
-## Goals
-
-My goal is to provide a **well-tested, regularly maintained, easily configurable and adjustable React Starter Project** with support for server side rendering that gives you a good basis to start your own project on. As minimal as possible with as much functionality as necessary.
-
-I use this Starter Project in several real-word projects so it is battle-tested and everytime I fix a bug or add a feature I find useful I will also update this Starter Project. I will also keep the dependencies up-to-date on a regular basis and will also stay updated with all the latest and greatest best practices in the React world and integrate them if possible and useful!
-
-If you have any questions you can always [open an issue on Github](https://github.com/manuelbieh/react-ssr-setup/issues) or reach out to me on [Twitter](https://www.twitter.com/manuelbieh)!
-
-## Features
-
-This project has out-of-the-box support for the following things:
-
--   General Setup
+-   Setup
     -   🔥 Babel 7
-    -   🔥 Webpack 4
-    -   🔥 ESLint 5 (with a set of custom rules which may be mostly identical to AirBnB with some personal flavor added)
+    <br>
 
-    -   🔥 Prettier
-    -   🔥 Jest 24
-    -   ✅ Server side prerendering with Express
+    -   ⚛ React 16
     -   ✅ Hot Module Reloading (HMR)
-    -   ✅ CSS Modules
+    -   ✅ Less modules
     -   ✅ PostCSS
-    -   ✅ Precommit hooks via lint-staged + Husky
-    -   ✅ Optional static deployment without the need for Node.js on the server
-    -   📕 Support for [Storybook](https://storybook.js.org/) (>= 4.0.0)
-
-*   Libs and Dependencies
-    -   ⚛ React 16.x (latest), with Hooks!
-    -   ✅ Redux + Thunk middleware
+    -   ✅ Redux + Redux Saga
     -   ✅ Immer
-    -   ✅ Reselect
     -   ✅ React Router 4
-    -   ✅ React i18next for multi language support
     -   ✅ React Helmet
+    -   ✅ Webp converion
+    -   ✅ Checkout `doiuse` in [postcss.config.js](/postcss.config.js) 👀
 
-Since it's only using standard APIs so far it is ready to be used with the new React Suspense feature coming in React 17!
+## Getting started
+1. Clone the project and npm install. 
+1. Then run `config/init.sh`
+    > The project pulls images from an api and saves them to disk. It needs to be seeded with 5 or you will get an error. If you don't want the images seeded by `init.sh` for some reason simply restart the app on error until 5 have suceessfully been pulled.
+1. Change `config/db.env` and `config/keys.js` to have your own values.
+1. `$ docker-compose up -d` to start haproxy, nginx, postgres, and redis.
+1. `$ node config/initdb.js` to init postgres.
+1. `$ npm run start` for development, `$ npm run build && npm run start:prod-test` for production [[1]](#1)
+    > In production I'm using [pm2] 
 
-## Installation
+    <a class="" id="1">[[1]](#1): Issues with cwebp or related modules? See [Troubleshooting](#troubleshooting).</a>
 
-As a general recommendation you should create a **fork** of this project first so you can adjust it to your own needs, add all the dependencies you need and commit everything back into your repository.
+## Configuration
+There are several critical configuration files: 
 
-Once you've forked the repository here on Github, clone it, `cd` into the directory and run `yarn` (or `npm install`) on your command line to install all the dependencies. You're ready to go now!
+config  <br>
+├ ... <br>
+├ config.js <br>
+├ env.js <br>
+├ meta.js <br>
+├ paths.js <br>
+├ keys.js <br>
+└ db.env <br>
 
-## Usage
+`config.js`: Google Analytics tracking id's and similar non-sensitive configuration values. This file is exposed to the client  
+`env.js`: `process.env` variables and the like. [There's a section on them.](#env-variables)  
+`meta.js`: Site meta information. From here values are injected into the head and pwa manifest, and icons are generated. This file is exposed to the client.  
+`paths.js`: Paths useful for the project. This file is not exposed to the client in part to keep `fs` from being required there.  
+`keys.js`: Database passwords and other critical info. **This file is not exposed to the client**  
+`db.env`: Database passwords. **This file is not exposed to the client**
 
-There are npm scripts for all the relevant things. The server will always be started on port 8500 unless otherwise specified in `process.env.PORT`. You can use a `.env` file to specify env vars. If you want to use them in your client side code, don't forget to add them in [config/env.js](config/env.js#L37).
+### env variables
 
-Noteworthy npm scripts:
+There are a few `process.env' variables in use.
 
-#### `yarn start`
+`NODE_ENV`: Set `NODE_ENV=development` for development or `NODE_ENV=production` for production.
 
-Starts the app in development mode: creates a new client and server dev build using webpack, starts the Express server build (for both file serving and server side pre-rendering) and keeps webpack open in watchmode. Updates the app (if possible) on change using HMR.
+`OMIT_SOURCEMAP`: Omits sourcemaps when `true`
 
-#### `yarn build`
+`GEN_HTML`: Uses puppeteer to generate static html when set to `true`
 
-Creates a new build, optimized for production. Does **not** start a dev server or anything else.
+`LITE_BUILD`: Prevents webpack compression, file copy, and image conversion plugins for a quick production build test when `true`.
 
-#### `yarn test`
+`MUTE_PACK`: Turns off warnings and console highlighting sugar if `true`
 
-Run all tests using jest.
+`PORT`: Specifies a port other than the default of `:8500`
 
-#### `yarn test:update`
+`HOST`: Almost unnecessary. Specifies a different host for logging and static html.
 
-Update all Jest snapshots (if there are any)
+## Scripts
 
-#### `yarn plop`
+`start`: Start the app in development mode. With HMR for client and webpack watching the server.
 
-Run plop to create new React components or Redux reducers via CLI
+`build`: Do a production build of the site.
 
-## Environment Variables
+`build:nomap`: Build without sourcemaps.
 
-There are a few environment variables you can set to adjust the setup to your needs
+`build:with-html`: Build generate static html.
 
-| Variable         | Default            | Description                                                                                                                                                                                                                                                                                      |
-| ---------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `PORT`           | `8500`             | Port number your application will be served on.                                                                                                                                                                                                                                                  |
-| `HOST`           | `http://localhost` | Host (including protocol!) your application will be served on. This is usually neglectable as most of the time your application will be served via remote proxy (e.g. Nginx) on localhost. **Note:** this is only for convenience. The server itself will not be bound exclusively to that host. |
-| `DEVSERVER_HOST` | `http://localhost` | Optional. Different host for the Webpack Dev Server to be served on.                                                                                                                                                                                                                             |
+`build:lite`: Build without heavier production plugins for a quick test. 💯Calories only!
 
-## Tricks
+`build:with-stats`: Output build to `bundle-stats.json` for bundle analysis.
 
-### Client side version (opt-in)
+`start:prod-test`: Start the production server. (I suggest [pm2] for production)
 
-Beginning with v1.3.0, a **static** `index.html` is also generated and written to your `clientBuild` directory. You are now able to deploy the `build/client` directory to a static webhost (such as Netlify or AWS S3) and serve your application from there!
+`start:analyzer`: Start the bundle analyzer.
 
-For the generation of the `index.html` the server side build gets started right after building, a headless Chrome then visits the site and writes the content of the server side response to your client directory. So you still need the `src/server` directory and the server side build but you're now flexible and can decide on your own whether you want to have the full server side experience or only deploy your completely static app somewhere.
+`analyze`: `"npm run build:with-stats && npm run start:analyzer"`
 
-### Component scaffolding using plop
+`logs:all`: Query winston logs.
 
-Along with this starter kit comes `plop` - a great command line tool to keep the structure of your Redux components and Redux reducers consistent. Run `yarn plop` (or `npm run plop`) to have components and Redux reducers created for you automatically! Just enter a name, answer a few questions and you're ready to go! You can of course adjust everything to your needs. All Plop templates can be found in the `config/plop` directory.
+`init:db`: Init the db. Do this after creating the postgres docker container.
 
-### 📕 Storybook support
+`init:clean`: Remove seeded images generated by `init.sh`
 
-I've successfully tested Storybook and it integrates seamlessly and without any issues into this setup. If you want to add Storybook to your project, install Storybook `^4.0.0` and run `getstorybook` to have the basic setup created for you. You must then replace all the content in `.storybook/webpack.config.js` with the following line:
 
-```js
-module.exports = require('../config/webpack.config.js/storybook');
-```
+## Certs
+Certs are kept in the `certs` directory. I generate them with (and maintain) [auto-dns-certs].
 
-Afterwards you should be able to run `yarn storybook` to start the Storybook Dev Server.
+## Serving
+HAProxy is the tls terminator and reverse proxy. Some files are proxied to a different directory so that they can be served from the site root. The config is well documented and covers it pretty nicely.
 
-### Keep your project up to date
+Nginx serves static files for production.
 
-If you want _your_ project to stay up to date with recent changes to _this_ project, you can add **React SSR Starter** as remote to your local git repo. Use the following line:
+## Troubleshooting 
 
-```
-git remote add upstream git@github.com:manuelbieh/react-ssr-setup.git
-```
+### cwebp, imagemin, webp-converter
 
-More on that can be found on Github: [Syncing a fork](https://help.github.com/articles/syncing-a-fork/).
+If you have issues building the project on linux.
+(This is tested on Ubuntu 18.4 YMMV 🤷‍♀️)
+<details>
+<summary>Something like this:</summary>
+<code>
 
-### Avoid source map generation for faster builds
+       [ { Error: spawn /<project_dir>/node_modules/cwebp-bin/vendor/cwebp ENOENT
+          at Process.ChildProcess._handle.onexit (internal/child_process.js:246:19)
+          at onErrorNT (internal/child_process.js:427:16)
+          at processTicksAndRejections (internal/process/next_tick.js:76:17)
+        errno: 'ENOENT',
+        code: 'ENOENT',
+        syscall: 'spawn /<project_dir>/node_modules/cwebp-bin/vendor/cwebp',
+        path: '/<project_dir>/node_modules/cwebp-bin/vendor/cwebp',
+        spawnargs:
+         [ '-quiet',
+           '-mt',
+           '-q',
+           90,
+           '-o',
+           '/tmp/ce444de0-1090-44b7-ad1a-dbfb4dea601a',
+           '/tmp/8f80d4e2-a1bf-460b-9793-2af2a1a85788' ],
+        killed: false,
+        stdout: '',
+        stderr: '',
+        failed: true,
+        signal: null,
+        cmd:
+         '/<project_dir>/node_modules/cwebp-bin/vendor/cwebp -quiet -mt -q 90 -o /tmp/ce444de0-1090-44b7-ad1a-dbfb4dea601a /tmp/8f80d4e2-a1bf-460b-9793-2af2a1a85788',
+        timedOut: false },
+      Error: ImageminWebpWebpackPlugin: "assets/cat-bg.c7a95638.jpg" wasn't converted!
+          at imagemin.buffer.then.catch.err (/<project_dir>/node_modules/imagemin-webp-webpack-plugin/plugin.js:56:45) ]
 
-In some cases you might not want to generate source maps for the generated files. In this case you can set the `OMIT_SOURCEMAP` environment variable to `true`. No source map files will be generated then. This works no matter if you're in devmode or building for production.
+</code>
 
-### Change the port of the dev environment
+**Note the line** `Error: spawn /<project_dir>/node_modules/cwebp-bin/vendor/cwebp ENOENT`
 
-By default if you run `yarn start` the development server will use port 8500. You can change this by specifying a `PORT` environment variable.
+</details>
+<br>
 
-### Import SVGs as ReactComponent
+Then you'll need to install system sub-dependencies 🎉
 
-You can import SVG files as React components exactly the way you can do it in Create React App 2.0:
+1. See the **"Note (for Linux and Mac OS X)"** section of the [Google docs](https://developers.google.com/speed/webp/docs/precompiled#getting_cwebp_dwebp_and_the_webp_libraries). Step 1 will have you install these deps:
 
-```
-import { ReactComponent as Logo } from './Logo.svg';
-```
+    ```sh
+    $ sudo apt-get update
+    $ sudo apt-get install libjpeg-dev libpng-dev libtiff-dev libgif-dev
+    ```
 
-Then you can use it in JSX like `<div><Logo /></div>`.
+    You don't need to complete Google's Step 2 because node-gyp is making cwebp for you.
 
-[Here is a video](https://egghead.io/lessons/react-add-svgs-as-react-components-with-create-react-app-2-0) that explains that a bit more.
+1. `$ rm -rf node_modules` and `npm i`
+1. `$ npm run build`
+1. `$ npm run start:prod-test`
+
+1. On Ubuntu (18.4) you may still run into trouble. Try and flip through some images in the app then check logs with `npm run logs:all`. **If that worked smoothly you are done 🎉**. If `webp-converter` is still not working or if you see an error like below you'll need more deps. Continue to the next step.
+
+    <details>
+    <summary>e.g.</summary>
+    <code>
+
+        -q 90 -v <input_file>.jpg -o <output_file>.jpg.webp
+        101 { Error: Command failed: /<project_dir>/node_modules/webp-converter/lib/libwebp_linux/bin/cwebp -q 90 -v <input_file>.jpg -o <output_file>.jpg.webp
+        /<project_dir>/node_modules/webp-converter/lib/libwebp_linux/bin/cwebp: error while loading shared libraries: libXi.so.6: cannot open shared object file: No such file or directory
+
+            at ChildProcess.exithandler (child_process.js:297:12)
+            at ChildProcess.emit (events.js:193:13)
+            at maybeClose (internal/child_process.js:1001:16)
+            at Process.ChildProcess._handle.onexit (internal/child_process.js:266:5)
+        killed: false,
+        code: 127,
+        signal: null,
+        cmd:
+        '/<project_dir>/node_modules/webp-converter/lib/libwebp_linux/bin/cwebp -q 90 -v <input_file>.jpg -o <output_file>.jpg.webp' }
+
+    </code>
+
+    **Note the line:** `cwebp: error while loading shared libraries: libXi.so.6: cannot open shared object file: No such file or directory`
+
+    </details>
+    <br>
+
+1. If you have issues with `libGL.so.1` install this[[2]](https://github.com/conda-forge/pygridgen-feedstock/issues/10):
+
+    ```sh
+    $ sudo apt-get install libgl1-mesa-glx
+    ```
+
+    Then reinstall your node_modules like above and test again.
+1. If you're having issues with `libXi.so.6` install[[3]](https://packages.ubuntu.com/cosmic/libxi6):
+
+    ```sh
+    $ sudo apt-get install libxi6
+    ```
+
+    Then reinstall your node_modules like above and test again.
+
+
+**misc:**
+
+https://www.centos.org/forums/viewtopic.php?t=49932
+
+[auto-dns-certs]: https://github.com/briancw/auto-dns-certs
+[pm2]: https://www.npmjs.com/package/pm2
+[100 on all Google Lighthouse tests]: /resources/lighthouse.gif
 
 ## Caveats
 
--   ~~[1] MiniCSSExtractPlugin doesn't play nicely with consecutive builds in Webpack's watchmode yet ([Github issue here](https://github.com/webpack-contrib/mini-css-extract-plugin/issues/23)). So I'm using ExtractTextWebpackPlugin until this is fixed~~ Fixed! [490e6e9](https://github.com/manuelbieh/react-ssr-setup/commit/490e6e95fc811b0ce42d1bbc1252d3f26c4bd1ab)
--   ~~[2] Hot Module Replacement is still a bit buggy. Not all components have been configured and updated to play nicely with HMR (namely Redux and React-Router)~~ Seems to be fixed (still validating) [66875a1](https://github.com/manuelbieh/react-ssr-setup/commit/66875a108e6a23d704a117b0ef686db644832589)
--   Running the build in production: I **strongly** recommend to serve your static assets using **Nginx** or **Apache** instead of the `Express.static` middleware. That's how I usually do it and that's why you won't see any assets when starting the production server build with Node. If you still want to use `Express.static` in production despite the warning, have a look at the first few lines of `./src/server/index.js`. There's a short comment with a description what you need to do.
+As mentioned there are "ham handed caveats where I did things the 'less easy' way for fun and to serve as an example of a more complex flow." 
 
-## Todo
+Along these lines, I started a few weeks ago, as of this writing, with functionally zero react knowledge and tackled this as a "fail-faster" scenario. Thus: no tests yet. They'll come sometime and my next react project will include them from the beginning given that it won't be 100% exploration.
 
--   [x] Replace `ExtractTextWebpackPlugin` with `MiniCSSExtractPlugin` once it's working properly
--   [x] Get HMR working (done, mostly)
--   [x] Add HMR for Redux
--   [x] Add HMR for CSS Modules (depends a bit on MiniCSSExtractPlugin) (using ExtractTextWebpackPlugin)
--   [ ] Add React Error Overlay from Create-React-App
--   [x] ~~Add `react-loadable` or `react-universal-component` (or both, still investigating what makes most sense). **Update:** `react-loadable` is out due to [questionable license change](https://github.com/jamiebuilds/react-loadable/commit/c3272b3132e4fe25937c3610b7cd0dd2da48c5e9)~~ Just use React.lazy which was introduced in React 16.6.
--   [x] Improve server side template
--   [x] Add (and use) `react-helmet`
--   [ ] Add/improve server side chunk loading
--   [x] Add test setup using Jest
--   [ ] Add `optimize-css-assets-webpack-plugin` and `postcss-safe-parser` similar to how CRA 2 is doing it
--   [x] Modify ~~`svg-loader`~~ `babel-loader` so SVGs can be imported as React component (see CRA 2)
--   [ ] Add proper [offline support using Workbox](https://webpack.js.org/guides/progressive-web-application/)
--   [ ] Fine tuning different minor things (ongoing task)
+Oh, yeah, and styles are fairly brittle. I'd avoid ipads in portrait mode for a bit. It'll take a few days of tweaking to nail things down to my ace standards and I'm too tired to do it tonight. 🤙
 
-## Changelog
+There's some [rubbish](https://github.com/webpack/webpack/issues/4719) with weback output files and `[chunkhash]` not working when prefetching with magic comments. tl;dr:
+```js
+// Gotta use
+chunkFilename: '[id].chunk.js',
+// Not
+chunkFilename: '[name].[chunkhash:8].chunk.js',
+// For now 😤
+```
 
-Moved to its own file: [CHANGELOG.md](CHANGELOG.md)
+## TODOS:
+-[ ] Fix the `'unsafe-inline'` in the csp with hashes <br>
+-[ ] Write them tests  <br>
+-[ ] Continuous integration <br>
+-[ ] Add @throws to jodocs <br>
+-[ ] Add @module to jsdocs <br>
+-[ ] Switch to fastify 🐯 <br>
+-[ ] Start a changelog <br>
+-[ ] Add aria-attributes <br>
+-[ ] Flush out desktop styles <br>
+-[ ] Safari test <br>
+-[ ] IOS test  <br>
+-[ ] Add structured data of some kind <br>
+-[ ] Figure out why webpack resolvers are broken in less <br>
+-[ ] Checkout the occasional error where winston logs without transports (I think it's related to async processes) <br>
+-[ ] Password reset <br>
+-[ ] 429 auth routes <br>
+-[ ] Think about password topologies <br>
+-[ ] Consider switch to standard redis container <br>
+-[ ] Look at using the writeFilesToDisk flag instead of write-files-plugin <br>
+-[ ] Fix sourcemaps in less (are they even broken?) <br>
+-[ ] [Exclude dev deps in webpack???](https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies) <br>
+-[ ] Consider defining process.env.PRODUCTION_FLAG so we're not doing string testing all the time - DEVELOPMENT_FLAG too. <br>
+
+-[ ] Change ga id in keys <br>
+-[ ] Turn on hsts <br>
+
+
+## Credits
+
+Based off [react-ssr-setup](https://github.com/manuelbieh/react-ssr-setup) by [Manuel Bieh](http://www.manuelbieh.de)
+
+## Feedback ✉️
+
+[Website 🌐](https://jacobsmith.tech)
+
+[js@jacobsmith.tech](js@jacobsmith.tech)
+
+[https://github.com/limeandcoconut](https://github.com/limeandcoconut)
+
+[@limeandcoconut 🐦](https://twitter.com/limeandcoconut)
+
+Cheers!
 
 ## License
 
-MIT.
+ISC, see [LICENSE](/LICENSE) for details.

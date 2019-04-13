@@ -1,6 +1,5 @@
 import {rpopAsync, lrangeAsync, rpushAsync} from '../models/redis'
 import fs from 'fs'
-import chalk from 'chalk'
 import paths from '.././../../config/paths'
 import logger from '../../shared/logging/logger'
 import webp from 'webp-converter'
@@ -133,7 +132,7 @@ export async function getOne(userId) {
     return images.pop()
 }
 
-// TODO: consider resizing images
+// TODO: Consider resizing images
 /**
  * Request an image from the public api. Download it. If it's not a webp convert it. Brotli compress. Save in different
  * directories.

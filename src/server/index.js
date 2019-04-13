@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === 'production') {
             fontSrc: contentSelf.concat(contentFonts),
             prefetchSrc: contentSelf.concat(contentFonts),
             connectSrc: contentSelf.concat(contentAnalytics),
-            // TODO: Add a report uri.
+            // TODO: Add a report URI
             // reportUri
             scriptSrc: contentSelf.concat(contentAnalytics, '\'unsafe-inline\''),
         },
