@@ -26,7 +26,7 @@ const siteMeta = {
     twitter: {
         creator: '@limeandcoconut',
         image: {
-            src: path.join(productionHost, '/static/meta/og-image.jpg'),
+            src: path.join(productionHost, '/static/meta/twitter-image.png'),
             alt: 'Smiling Cat Face With Heart-eyes Emoji',
         },
         card: 'summary_large_image',
