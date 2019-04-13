@@ -1,6 +1,5 @@
 import {rpopAsync, lrangeAsync, rpushAsync} from '../models/redis'
 import fs from 'fs'
-import chalk from 'chalk'
 import paths from '.././../../config/paths'
 import logger from '../../shared/logging/logger'
 import webp from 'webp-converter'
