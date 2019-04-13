@@ -50,7 +50,6 @@ class App extends React.Component {
                         <meta property="og:url" content={baseUrl} />
                         <meta property="og:type" content={siteMeta.og.type} />
 
-                        <meta property="twitter:image" content={siteMeta.twitter.image.src} />
                         <meta property="twitter:image:alt" content={siteMeta.twitter.image.alt} />
                         <meta name="twitter:card" content={siteMeta.twitter.card} />
                         <meta name="twitter:creator" content={siteMeta.twitter.creator} />

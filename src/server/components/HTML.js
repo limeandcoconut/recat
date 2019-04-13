@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react'
 import Helmet from 'react-helmet'
+import siteMeta from '../../config/meta'
 
 export default class HTML extends React.Component {
     render() {
@@ -11,6 +12,7 @@ export default class HTML extends React.Component {
                 <head>
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <meta property="twitter:image" content={siteMeta.twitter.image.src} />
                     {head.base.toComponent()}
                     {head.title.toComponent()}
                     {head.meta.toComponent()}
