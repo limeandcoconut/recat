@@ -26,7 +26,7 @@ const siteMeta = {
     twitter: {
         creator: '@limeandcoconut',
         image: {
-            src: url.resolve(productionHost, '/static/meta/twitter-image.png'),
+            src: url.resolve(productionHost, '/static/meta/og-image.jpg'),
             alt: 'Smiling Cat Face With Heart-eyes Emoji',
         },
         card: 'summary_large_image',
@@ -122,7 +122,7 @@ siteMeta.favicons = siteMeta.favicons.reduce((favicons, {key, src}) => {
     return favicons
 }, {})
 siteMeta.manifest += siteMeta.cacheBust
-// siteMeta.twitter.image.src += siteMeta.cacheBust
-// siteMeta.og.image.src += siteMeta.cacheBust
+siteMeta.twitter.image.src += siteMeta.cacheBust
+siteMeta.og.image.src += siteMeta.cacheBust
 
 module.exports = siteMeta
