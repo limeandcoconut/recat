@@ -324,7 +324,7 @@ function convertImage(rawPath, webpPath, extname) {
 
         const method = extname === '.gif' ? 'gwebp' : 'cwebp'
         // Quality 90%
-        webp[method](rawPath, webpPath, '-q 90', (status, error) => {
+        webp[method](rawPath, webpPath, '-q 90 -v', (status, error) => {
             if (error) {
                 reject(error)
                 return
