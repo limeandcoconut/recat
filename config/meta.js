@@ -1,6 +1,6 @@
 const {productionHost} = require('../config/config.js')
 const path = require('path')
-const description = 'A site for fawning over random pics kitty cats! 📷 😸 Come check it out, or add it to your home screen, it\'s progressive and reactive!' // eslint-diable-line max-len
+const description = 'A site for fawning over random pics kitty cats! 📷 😸' // eslint-diable-line max-len
 
 // NOTE: This file is included in client. Don't put secrets in here. They go in keys.js
 
