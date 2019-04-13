@@ -15,7 +15,7 @@ const shared = [
 ]
 
 // Don't add this if a quiet build is required. This overrides the stats: {warnings: false} option
-if (!process.env.MUTE_PACK) {
+if (process.env.MUTE_PACK === 'false') {
     shared.push(
         // Adds some highlighting as sugar
         new FriendlyErrorsWebpackPlugin(),
