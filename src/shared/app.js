@@ -52,7 +52,7 @@ class App extends React.Component {
 
                         <meta property="twitter:image" content={siteMeta.twitter.image.src} />
                         <meta property="twitter:image:alt" content={siteMeta.twitter.image.alt} />
-                        <meta name="twitter:card" content={siteMeta.twitter.card} />
+                        {/* <meta name="twitter:card" content={siteMeta.twitter.card} /> */}
                         <meta name="twitter:creator" content={siteMeta.twitter.creator} />
 
                         <meta name="theme-color" content={siteMeta.color} id="theme_color" />
