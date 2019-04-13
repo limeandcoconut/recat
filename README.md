@@ -273,6 +273,7 @@ chunkFilename: '[name].[chunkhash:8].chunk.js',
 -[ ] Safari test <br>
 -[ ] IOS test  <br>
 -[ ] Add structured data of some kind <br>
+-[ ] Dockerize cwebp??? <br>
 -[ ] Figure out why webpack resolvers are broken in less <br>
 -[ ] Checkout the occasional error where winston logs without transports (I think it's related to async processes) <br>
 -[ ] Password reset <br>
