@@ -1,5 +1,3 @@
-const {productionHost} = require('../config/config.js')
-const url = require('url')
 const description = 'A site for fawning over random pics kitty cats! 📷 😸 Come check it out, or add it to your home screen, it\'s progressive and reactive!' // eslint-diable-line max-len
 
 // NOTE: This file is included in client. Don't put secrets in here. They go in keys.js
@@ -17,7 +15,7 @@ const siteMeta = {
     og: {
         description,
         image: {
-            src: url.resolve(productionHost, '/static/meta/og-image.jpg'),
+            src: 'https://recat.jacobsmith.tech/static/meta/og-image.jpg',
             width: '279',
             height: '279',
         },
@@ -26,7 +24,7 @@ const siteMeta = {
     twitter: {
         creator: '@limeandcoconut',
         image: {
-            src: url.resolve(productionHost, '/static/meta/og-image.jpg'),
+            src: 'https://recat.jacobsmith.tech/static/meta/og-image.jpg',
             alt: 'Smiling Cat Face With Heart-eyes Emoji',
         },
         card: 'summary_large_image',
