@@ -1,5 +1,5 @@
 const {productionHost} = require('../config/config.js')
-const path = require('path')
+const url = require('url')
 const description = 'A site for fawning over random pics kitty cats! 📷 😸' // eslint-diable-line max-len
 
 // NOTE: This file is included in client. Don't put secrets in here. They go in keys.js
@@ -17,7 +17,7 @@ const siteMeta = {
     og: {
         description,
         image: {
-            src: path.join(productionHost, '/static/meta/og-image.jpg'),
+            src: url.resolve(productionHost, '/static/meta/og-image.jpg'),
             width: '279',
             height: '279',
         },
@@ -26,7 +26,7 @@ const siteMeta = {
     twitter: {
         creator: '@limeandcoconut',
         image: {
-            src: path.join(productionHost, '/static/meta/twitter-image.png'),
+            src: url.resolve(productionHost, '/static/meta/twitter-image.png'),
             alt: 'Smiling Cat Face With Heart-eyes Emoji',
         },
         card: 'summary_large_image',
