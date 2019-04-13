@@ -15,7 +15,7 @@ const cookieDomain = productionHost.match(/\/\/(.*)$/)[1]
  * @return {Object} An object containing a response: success flag, and an error if unsuccessful.
  */
 export async function register({email, password}) {
-    // TODO Topology enforcement
+    // TODO: Topology enforcement
     const passwordRequirements = new RegExp('(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])')
     if (!password) {
         return {response: {success: false, error: 'empty password'}}

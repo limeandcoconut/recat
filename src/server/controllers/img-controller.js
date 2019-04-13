@@ -132,7 +132,7 @@ export async function getOne(userId) {
     return images.pop()
 }
 
-// TODO: consider resizing images
+// TODO: Consider resizing images
 /**
  * Request an image from the public api. Download it. If it's not a webp convert it. Brotli compress. Save in different
  * directories.

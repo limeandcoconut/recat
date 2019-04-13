@@ -251,6 +251,15 @@ Along these lines, I started a few weeks ago, as of this writing, with functiona
 
 Oh, yeah, and styles are fairly brittle. I'd avoid ipads in portrait mode for a bit. It'll take a few days of tweaking to nail things down to my ace standards and I'm too tired to do it tonight. 🤙
 
+There's some [rubbish](https://github.com/webpack/webpack/issues/4719) with weback output files and `[chunkhash]` not working when prefetching with magic comments. tl;dr:
+```js
+// Gotta use
+chunkFilename: '[id].chunk.js',
+// Not
+chunkFilename: '[name].[chunkhash:8].chunk.js',
+// For now 😤
+```
+
 ## TODOS:
 -[ ] Fix the `'unsafe-inline'` in the csp with hashes <br>
 -[ ] Write them tests  <br>
@@ -264,6 +273,7 @@ Oh, yeah, and styles are fairly brittle. I'd avoid ipads in portrait mode for a 
 -[ ] Safari test <br>
 -[ ] IOS test  <br>
 -[ ] Add structured data of some kind <br>
+-[ ] Figure out why webpack resolvers are broken in less <br>
 -[ ] Checkout the occasional error where winston logs without transports (I think it's related to async processes) <br>
 -[ ] Password reset <br>
 -[ ] 429 auth routes <br>

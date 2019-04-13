@@ -47,7 +47,7 @@ export const failCat = (error) => ({
         requested: false,
         image: null,
         id: null,
-        // TODO: Grumpycat
+        // TODO: Grumpycat 🤣
         error: error || 'UNKNOWN ERROR FETCHING CAT',
     },
 })
