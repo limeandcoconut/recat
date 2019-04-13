@@ -13,6 +13,9 @@ export default class HTML extends React.Component {
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta property="twitter:image" content={siteMeta.twitter.image.src} />
+                    <meta property="twitter:image:alt" content={siteMeta.twitter.image.alt} />
+                    <meta name="twitter:card" content={siteMeta.twitter.card} />
+                    <meta name="twitter:creator" content={siteMeta.twitter.creator} />
                     {head.base.toComponent()}
                     {head.title.toComponent()}
                     {head.meta.toComponent()}

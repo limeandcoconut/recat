@@ -50,10 +50,6 @@ class App extends React.Component {
                         <meta property="og:url" content={baseUrl} />
                         <meta property="og:type" content={siteMeta.og.type} />
 
-                        <meta property="twitter:image:alt" content={siteMeta.twitter.image.alt} />
-                        <meta name="twitter:card" content={siteMeta.twitter.card} />
-                        <meta name="twitter:creator" content={siteMeta.twitter.creator} />
-
                         <meta name="theme-color" content={siteMeta.color} id="theme_color" />
                         <meta name="msapplication-TileColor" content={siteMeta.color} />
                         <meta name="msapplication-TileImage" content={siteMeta.favicons.ms} />

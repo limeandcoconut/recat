@@ -17,7 +17,7 @@ const siteMeta = {
     og: {
         description,
         image: {
-            src: '/static/meta/og-image.jpg',
+            src: path.join(productionHost, '/static/meta/og-image.jpg'),
             width: '279',
             height: '279',
         },
