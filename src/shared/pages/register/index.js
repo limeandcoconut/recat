@@ -70,22 +70,6 @@ class Register extends React.Component {
                     </div>
                 }
 
-                <div className={sharedStyles.tempContainer} >
-                    <button onClick={() => {
-
-                        this.props.updateRegistration({
-                            name: 'password',
-                            value: 'limeLIME1!',
-                        })
-                        this.props.updateRegistration({
-                            name: 'email',
-                            value: 'messagethesmith@gmail.com',
-                        })
-                    }}
-                    >
-                    fill
-                    </button>
-                </div>
             </div>
         )
     }
