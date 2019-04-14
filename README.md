@@ -297,7 +297,7 @@ Based off [react-ssr-setup](https://github.com/manuelbieh/react-ssr-setup) by [M
 
 [Website 🌐](https://jacobsmith.tech)
 
-[js@jacobsmith.tech](js@jacobsmith.tech)
+[js@jacobsmith.tech](mailto:js@jacobsmith.tech)
 
 [https://github.com/limeandcoconut](https://github.com/limeandcoconut)
 
