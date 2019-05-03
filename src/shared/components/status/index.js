@@ -18,11 +18,10 @@ const Status = ({code = 418, children}) => (
                             <meta name="robots" content="noindex, nofollow" />
                         </Helmet>
                     }
-                    <div
+                    <img
                         className={styles.meme}
-                        style={{backgroundImage: `url(https://http.cat/${code})`}}
-                    >
-                    </div>
+                        src={`https://http.cat/${code}`}
+                    />
                     { code === 418 && 'Yeah you are little guy. Yeah you are. 😊'}
                     {children}
                 </div>

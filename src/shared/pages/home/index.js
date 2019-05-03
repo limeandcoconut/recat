@@ -150,16 +150,18 @@ const mapDispatchToProps = {
     requestFavorite,
 }
 
-const mapStateToProps = ({auth: {success: authed}, cats: {requested, error, image, id}, favorite: {favorite}}) => {
-    return ({
-        authed,
-        requested,
-        error,
-        image,
-        id,
-        favorite,
-    })
-}
+const mapStateToProps = ({
+    auth: {success: authed},
+    cats: {requested, error, image, id},
+    favorite: {favorite},
+}) => ({
+    authed,
+    requested,
+    error,
+    image,
+    id,
+    favorite,
+})
 
 export default connect(
     mapStateToProps,

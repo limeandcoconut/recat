@@ -61,6 +61,7 @@ if (process.env.NODE_ENV === 'production') {
         directives: {
             defaultSrc: contentSelf.concat(contentAnalytics),
             fontSrc: contentSelf.concat(contentFonts),
+            imgSrc: contentSelf.concat(['http.cat']),
             prefetchSrc: contentSelf.concat(contentFonts),
             connectSrc: contentSelf.concat(contentAnalytics),
             // TODO: Add a report URI

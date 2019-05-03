@@ -8,7 +8,7 @@ import Beater from '../../components/beater'
 import {Redirect} from 'react-router-dom'
 import Helmet from 'react-helmet'
 
-class Register extends React.Component {
+class Login extends React.Component {
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -16,7 +16,7 @@ class Register extends React.Component {
     }
 
     render() {
-        const {requested, form, authRequested, authed, authError} = this.props
+        const {requested, form, authed} = this.props
 
         return (
             <div className={styles.wrapper}>
@@ -73,17 +73,15 @@ const mapDispatchToProps = {
 
 const mapStateToProps = ({
     login: {success, requested, form},
-    auth: {success: authed, requested: authRequested, error: authError},
+    auth: {success: authed},
 }) => ({
     success,
     requested,
     form,
     authed,
-    authRequested,
-    authError,
 })
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Register)
+)(Login)
