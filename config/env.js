@@ -37,6 +37,7 @@ module.exports = () => {
         PORT: process.env.PORT || 8500,
         NODE_ENV: process.env.NODE_ENV,
         HOST: process.env.HOST,
+        LIVE_GA: process.env.LIVE_GA || false,
     }
 
     // Stringify all values so we can feed into Webpack DefinePlugin

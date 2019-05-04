@@ -9,10 +9,11 @@
   "scripts": {
     "analyze": "npm run build:with-stats && npm run start:analyzer",
     "build": "NODE_ENV=production node scripts/build.js",
+    "build:live": "NODE_ENV=production LIVE_GA=true node scripts/build.js",
     "build:lite": "NODE_ENV=production LITE_BUILD=true node scripts/build.js",
     "build:nomap": "NODE_ENV=production OMIT_SOURCEMAP=true node scripts/build.js",
     "build:with-html": "NODE_ENV=production GEN_HTML=yas node scripts/build.js",
-    "build:with-stats": "NODE_ENV=production LITE_BUILD=true MUTE_PACK=true webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
+    "build:stats": "NODE_ENV=production LITE_BUILD=true MUTE_PACK=true webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
     "start": "NODE_ENV=development node scripts/start.js",
     "start:analyzer": "webpack-bundle-analyzer build/client/static/bundle-stats.json",
     "start:prod-test": "NODE_ENV=production node build/server/server.js",

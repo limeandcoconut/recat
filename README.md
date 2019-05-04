@@ -98,6 +98,8 @@ There are a few `process.env' variables in use.
 
 `HOST`: Almost unnecessary. Specifies a different host for logging and static html.
 
+`LIVE_GA`: Uses live analytics id if and only if `true`
+
 ## Scripts
 
 `start`: Start the app in development mode. With HMR for client and webpack watching the server.
@@ -110,13 +112,13 @@ There are a few `process.env' variables in use.
 
 `build:lite`: Build without heavier production plugins for a quick test. 💯Calories only!
 
-`build:with-stats`: Output build to `bundle-stats.json` for bundle analysis.
+`build:stats`: Output build to `bundle-stats.json` for bundle analysis.
 
 `start:prod-test`: Start the production server. (I suggest [pm2] for production)
 
 `start:analyzer`: Start the bundle analyzer.
 
-`analyze`: `"npm run build:with-stats && npm run start:analyzer"`
+`analyze`: `"npm run build:stats && npm run start:analyzer"`
 
 `logs:all`: Query winston logs.
 

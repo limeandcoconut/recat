@@ -5,13 +5,15 @@ const promisify = require('util.promisify')
 const rimrafAsync = promisify(rimraf).bind(rimraf)
 const express = require('express')
 const chalk = require('chalk')
-const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'development', process.env.MUTE_PACK || 'false')
+
+// Ensure this is set before webpack.config.js requires env.js downstream
+process.env.HOST = process.env.HOST || 'http://localhost'
+
+const webpackConfig = require('../config/webpack.config.js')()
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const paths = require('../config/paths')
 const {compilerPromise} = require('./utils')
-
-const app = express()
 
 const WEBPACK_PORT =
     process.env.WEBPACK_PORT ||
@@ -62,6 +64,8 @@ const start = async () => {
         ignored: /node_modules/,
         stats: clientConfig.stats,
     }
+
+    const app = express()
 
     // Serve hot middleware
     app.use((request, response, next) => {

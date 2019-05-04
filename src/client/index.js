@@ -7,7 +7,7 @@ import {configureStore} from '../shared/store'
 import App from '../shared/app'
 import createHistory from '../shared/store/history'
 import ReactGA from 'react-ga'
-import {gaDevID, gaProductionID} from '../../config/config.js'
+import {gaID} from '../../config/config.js'
 import {supportsWebp} from './utils'
 import {setSupport} from '../shared/store/webp/actions'
 
@@ -43,8 +43,7 @@ hydrate(
 )
 
 // Ad google analytics
-const gaId = process.env.NODE_ENV === 'production' ? gaProductionID : gaDevID
-ReactGA.initialize(gaId)
+ReactGA.initialize(gaID)
 // Pageview on route change
 history.listen((location) => ReactGA.pageview(location.pathname))
 
