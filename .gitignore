@@ -32,6 +32,7 @@ build/*
 
 # dotenv environment variables file
 .env
+.env.*
 
 # Temporary or experimental files
 tmp
