@@ -7,7 +7,7 @@
     "node": ">=11.13.0"
   },
   "scripts": {
-    "analyze": "npm run build:with-stats && npm run start:analyzer",
+    "analyze": "npm run build:stats && npm run start:analyzer",
     "build": "NODE_ENV=production node scripts/build.js",
     "build:live": "NODE_ENV=production LIVE_GA=true node scripts/build.js",
     "build:lite": "NODE_ENV=production LITE_BUILD=true node scripts/build.js",
