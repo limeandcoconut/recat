@@ -8,7 +8,7 @@ const chalk = require('chalk')
 process.env.HOST = process.env.HOST || 'http://localhost'
 const HOST = process.env.HOST
 
-const webpackConfig = require('../config/webpack.config.js')()
+const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'production')
 const paths = require('../config/paths')
 const {compilerPromise, sleep} = require('./utils')
 

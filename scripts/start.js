@@ -9,7 +9,7 @@ const chalk = require('chalk')
 // Ensure this is set before webpack.config.js requires env.js downstream
 process.env.HOST = process.env.HOST || 'http://localhost'
 
-const webpackConfig = require('../config/webpack.config.js')()
+const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'development')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const paths = require('../config/paths')
