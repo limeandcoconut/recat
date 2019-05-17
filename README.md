@@ -263,32 +263,32 @@ chunkFilename: '[name].[chunkhash:8].chunk.js',
 ```
 
 ## TODOS:
--[ ] Fix the `'unsafe-inline'` in the csp with hashes <br>
--[ ] Write them tests  <br>
--[ ] Continuous integration <br>
--[ ] Add @throws to jodocs <br>
--[ ] Add @module to jsdocs <br>
--[ ] Switch to fastify 🐯 <br>
--[ ] Start a changelog <br>
--[ ] Add aria-attributes <br>
--[ ] Flush out desktop styles <br>
--[ ] Safari test <br>
--[ ] IOS test  <br>
--[ ] Add structured data of some kind <br>
--[ ] Dockerize cwebp??? <br>
--[ ] Figure out why webpack resolvers are broken in less <br>
--[ ] Checkout the occasional error where winston logs without transports (I think it's related to async processes) <br>
--[ ] Password reset <br>
--[ ] 429 auth routes <br>
--[ ] Think about password topologies <br>
--[ ] Consider switch to standard redis container <br>
--[ ] Look at using the writeFilesToDisk flag instead of write-files-plugin <br>
--[ ] Fix sourcemaps in less (are they even broken?) <br>
--[ ] [Exclude dev deps in webpack???](https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies) <br>
--[ ] Consider defining process.env.PRODUCTION_FLAG so we're not doing string testing all the time - DEVELOPMENT_FLAG too. <br>
+- [ ] Fix the `'unsafe-inline'` in the csp with hashes <br>
+- [ ] Write them tests  <br>
+- [ ] Continuous integration <br>
+- [ ] Add @throws to jodocs <br>
+- [ ] Add @module to jsdocs <br>
+- [ ] Switch to fastify 🐯 <br>
+- [ ] Start a changelog <br>
+- [ ] Add aria-attributes <br>
+- [ ] Flush out desktop styles <br>
+- [ ] Safari test <br>
+- [ ] IOS test  <br>
+- [ ] Add structured data of some kind <br>
+- [ ] Dockerize cwebp??? <br>
+- [ ] Figure out why webpack resolvers are broken in less <br>
+- [ ] Checkout the occasional error where winston logs without transports (I think it's related to async processes) <br>
+- [ ] Password reset <br>
+- [ ] 429 auth routes <br>
+- [ ] Think about password topologies <br>
+- [ ] Consider switch to standard redis container <br>
+- [ ] Look at using the writeFilesToDisk flag instead of write-files-plugin <br>
+- [ ] Fix sourcemaps in less (are they even broken?) <br>
+- [ ] [Exclude dev deps in webpack???](https://til.hashrocket.com/posts/ivze1rk2ey-speed-up-webpacker-by-excluding-dev-dependencies) <br>
+- [ ] Consider defining process.env.PRODUCTION_FLAG so we're not doing string testing all the time - DEVELOPMENT_FLAG too. <br>
 
--[ ] Change ga id in keys <br>
--[ ] Turn on hsts <br>
+- [ ] Change ga id in keys <br>
+- [ ] Turn on hsts <br>
 
 
 ## Credits
