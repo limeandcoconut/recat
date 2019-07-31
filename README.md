@@ -263,6 +263,7 @@ chunkFilename: '[name].[chunkhash:8].chunk.js',
 ```
 
 ## TODOS:
+- [ ] **Ensure that dependabot didn't break anything** <br>
 - [ ] Fix the `'unsafe-inline'` in the csp with hashes <br>
 - [ ] Write them tests  <br>
 - [ ] Continuous integration <br>
