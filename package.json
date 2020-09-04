@@ -40,7 +40,7 @@
     "feature-policy": "^0.2.0",
     "filenamify": "^3.0.0",
     "frameguard": "^3.0.0",
-    "helmet-csp": "^2.7.1",
+    "helmet-csp": "^2.9.1",
     "history": "^4.7.2",
     "hsts": "^2.2.0",
     "ienoopen": "^1.1.0",
